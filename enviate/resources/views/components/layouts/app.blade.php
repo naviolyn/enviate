@@ -15,7 +15,7 @@
     </head>
     <body>
         <div x-data="setup()" @resize.window="watchScreen()">
-            <div class="flex h-screen antialiased text-gray-900 dark:bg-dark dark:text-light">
+            <div class="flex h-screen antialiased text-gray-900">
               <!-- Sidebar -->
               @livewire('sidebar')
               <div class="w-full h-full">
