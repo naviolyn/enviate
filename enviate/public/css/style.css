@@ -1,7 +1,7 @@
 body {
-
     --mediumGreen: #9EB07B;
     --lightGreen: #DDE8C8;
+
 }
 
 .bg-mediumGreen{
@@ -14,4 +14,36 @@ body {
 
 .bg-lightGreen {
     background-color: var(--lightGreen);
+}
+
+input[type=checkbox]:checked+label span:first-of-type {
+	background-color: var(--mediumGreen);
+	border-color: var(--mediumGreen);
+	color: #fff;
+}
+
+input[type=checkbox]:checked+label span:nth-of-type(2) {
+	text-decoration: line-through;
+	color: #9CA3AF;
+}
+
+
+body {
+    /* Scrollbar width */
+::-webkit-scrollbar {
+    width: 0.3rem; /* Equivalent to w-2 in Tailwind */
+  }
+  
+  /* Scrollbar track */
+  ::-webkit-scrollbar-track {
+    border-radius: 9999px; /* Equivalent to rounded-full */
+    background-color: #f3f4f600; /* Equivalent to bg-gray-100 */
+  }
+  
+  /* Scrollbar thumb */
+  ::-webkit-scrollbar-thumb {
+    border-radius: 9999px; /* Equivalent to rounded-full */
+    background-color: #d1d5db; /* Equivalent to bg-gray-300 */
+  }
+  
 }

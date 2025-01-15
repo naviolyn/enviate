@@ -14,6 +14,10 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'oke' : '#10B981',
+                'darkGreen' : '#1B2A0F',
+            }
         },
     },
     plugins: [],
