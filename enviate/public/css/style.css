@@ -1,0 +1,17 @@
+body {
+
+    --mediumGreen: #9EB07B;
+    --lightGreen: #DDE8C8;
+}
+
+.bg-mediumGreen{
+    background-color: var(--mediumGreen);
+}
+.bg-gradient-mediumGreen{
+    background: rgb(209,223,182);
+    background: linear-gradient(0deg, rgba(209,223,182,1) 0%, rgba(158,176,123,1) 100%);
+}
+
+.bg-lightGreen {
+    background-color: var(--lightGreen);
+}
