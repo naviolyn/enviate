@@ -32,7 +32,7 @@
           </button>
   
           <!-- Logo -->
-          <a href="#">
+          <a href="/today-task">
             <img
               class="w-10 h-auto"
               src="{{ asset('img/logo.png') }}"
@@ -49,7 +49,7 @@
               <img
                 class="w-8 h-8 rounded-lg shadow-md"
                 src="{{ asset('img/logo.png') }}"
-                alt="Ahmed Kamel"
+                alt=""
               />
               <span class="sr-only">User menu</span>
             </button>
@@ -82,7 +82,7 @@
         >
           <!-- Logo -->
           <div class="flex-shrink-0 py-4">
-            <a href="#">
+            <a href="/today-task">
               <img
                 class="w-10 h-auto"
                 src="{{ asset('img/logo.png') }}"
@@ -164,6 +164,10 @@
               aria-orientation="vertical"
               aria-label="user menu"
             >
+              <span href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                >Name</span
+              >
+              <hr>
               <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
                 >Your Profile</a
               >

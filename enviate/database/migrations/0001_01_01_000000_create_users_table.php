@@ -20,10 +20,9 @@ return new class extends Migration
             $table->integer('level')->default(1);
             $table->integer('leaflets')->default(0);
             $table->integer('crystal')->default(0);
-            $table->enum('role', ['user', 'mitra', 'admin'])->notNullable();
+            $table->enum('role', ['user', 'mitra', 'admin'])->notNullable()->default('user');
             $table->string('location', 100)->nullable();
             $table->timestamps(0);
-            $table->timestamp('updated_at')->useCurrent()->onUpdate(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 

@@ -9,6 +9,7 @@
   <script src="https://kit.fontawesome.com/9db9644a22.js" crossorigin="anonymous"></script>
   <title>Enviate</title>
   <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </head>
 <body>
   {{-- @livewire('sidebar') --}}

@@ -10,6 +10,11 @@ use App\Http\Controllers\AuthController;
 // Route::get('/', function () {
 //     return view('livewire.today-task');
 // });
+
+Route::get('/verify-email', function () {
+    return view('verification');
+ });
+
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
