@@ -9,17 +9,23 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+    public function up()
+{
+    if (!Schema::hasTable('users')) {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->id('user_id');
+            $table->string('username', 50)->unique()->notNullable();
+            $table->string('email', 100)->unique()->notNullable();
+            $table->string('password', 255)->notNullable();
+            $table->integer('level')->default(1);
+            $table->integer('leaflets')->default(0);
+            $table->integer('crystal')->default(0);
+            $table->enum('role', ['user', 'mitra', 'admin'])->notNullable();
+            $table->string('location', 100)->nullable();
+            $table->timestamps(0);
+            $table->timestamp('updated_at')->useCurrent()->onUpdate(DB::raw('CURRENT_TIMESTAMP'));
         });
+    }
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
