@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Challenge;
+use App\Livewire\Leaderboard;
 use App\Livewire\Sidebar;
 use App\Livewire\TodayTask;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,4 @@ Route::get('/register', function () {
 Route::get('/today-task', TodayTask::class);
 Route::get('/challenge', Challenge::class);
 Route::get('/', TodayTask::class);
+Route::get('/leaderboard', Leaderboard::class);
