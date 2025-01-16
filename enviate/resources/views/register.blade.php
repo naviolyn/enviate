@@ -1,24 +1,10 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Enviate{{ $title ?? 'Page Title' }}</title>
-        @vite('resources/css/app.css')
+@extends('components.layouts.mainhome')
 
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <script src="https://kit.fontawesome.com/9db9644a22.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-  <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
-    </head>
-    <body>
-        <section class="bg-gray-50">
-            <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 ">
-                    <img class="w-8 h-8 mr-2" src="{{ asset('img/logo.png') }}" alt="logo">
-                    Enviate
-                </a>
-                <div class="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
+@section('content')
+        <section class="bg-gray-50 h-full">
+            <div class=" flex flex-col items-center justify-center px-6 py-6 mx-auto md:h-full lg:py-0">
+
+                <div class="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 ">
                     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                             Create an account
@@ -48,9 +34,7 @@
             </div>
         </section>
 
-    </body>
-</html>
-
+@endsection
 
 
 
