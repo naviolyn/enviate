@@ -497,7 +497,7 @@
         currentSidebarTab: null,
         isSettingsPanelOpen: false,
         isSubHeaderOpen: false,
-        watchScreen() {
+        watchScreen() {2
             if (window.innerWidth <= 1024) {
             this.isSidebarOpen = false
             }

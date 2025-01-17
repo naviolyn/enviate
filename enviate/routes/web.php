@@ -15,6 +15,20 @@ Route::get('/verify-email', function () {
     return view('verification');
  });
 
+
+ Route::get('/verify-email', function () {
+    return view('verification');
+ });
+
+ Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+ });
+
+ Route::get('/admin/users', function () {
+    return view('admin.users');
+ });
+
+
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
