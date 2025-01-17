@@ -17,6 +17,7 @@ export default {
             colors: {
                 'oke' : '#10B981',
                 'darkGreen' : '#1B2A0F',
+                'fadeGreen' : 'rgba(27, 42, 15, 0.16)',
             }
         },
     },

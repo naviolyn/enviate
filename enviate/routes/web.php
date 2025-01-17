@@ -27,6 +27,10 @@ Route::get('/verify-email', function () {
  Route::get('/admin/users', function () {
     return view('admin.users');
  });
+ Route::get('/admin/tasks', function () {
+    return view('admin.tasks');
+ });
+
 
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');

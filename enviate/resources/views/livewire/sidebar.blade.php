@@ -94,8 +94,8 @@
             <!-- Menu button -->
             <button
               @click="(isSidebarOpen && currentSidebarTab == 'linksTab') ? isSidebarOpen = false : isSidebarOpen = true; currentSidebarTab = 'linksTab'"
-              class="p-2 transition-colors rounded-lg hover:bg-emerald-600 hover:text-white focus:outline-none"
-              :class="(isSidebarOpen && currentSidebarTab == 'linksTab') ? 'text-white bg-emerald-600' : 'text-white'"
+              class="p-2 transition-colors rounded-lg hover:text-white focus:outline-none {{ Request::is('today-task*') ? 'bg-fadeGreen' : '' }}"
+              :class="(isSidebarOpen && currentSidebarTab == 'linksTab') ? 'text-white ' : 'text-white'"
             >
               <span class="sr-only">Toggle sidebar</span>
               <i class="fa-solid fa-calendar-check w-6 text-2xl"></i>
@@ -103,8 +103,8 @@
             <!-- Challenge button -->  
             <a href="/challenge" class="p-0 m-0">
                 <button
-              class="p-2 transition-colors rounded-lg hover:bg-emerald-600 hover:text-white focus:outline-none"
-              :class="(isSidebarOpen && currentSidebarTab == 'challengeTab') ? 'text-white bg-emerald-600' : 'text-white'"
+              class="p-2 transition-colors rounded-lg  hover:text-white focus:outline-none {{ Request::is('challenge*') ? 'bg-fadeGreen' : '' }}"
+              :class="(isSidebarOpen && currentSidebarTab == 'challengeTab') ? 'text-white bg-fadeGreen' : 'text-white'"
             >
               <span class="sr-only">Toggle challenge panel</span>
               <i class="fa-solid fa-cubes-stacked w-6 text-2xl"></i>
@@ -114,8 +114,8 @@
             {{-- leaderboard button --}}
             <button
               @click="(isSidebarOpen && currentSidebarTab == 'leaderboardTab') ? isSidebarOpen = false : isSidebarOpen = true; currentSidebarTab = 'leaderboardTab'"
-              class="p-2 transition-colors rounded-lg hover:bg-emerald-600 hover:text-white focus:outline-none"
-              :class="(isSidebarOpen && currentSidebarTab == 'leaderboardTab') ? 'text-white bg-emerald-600' : 'text-white'"
+              class="p-2 transition-colors rounded-lg hover:text-white focus:outline-none {{ Request::is('leaderboard*') ? 'bg-fadeGreen' : '' }}"
+              :class="(isSidebarOpen && currentSidebarTab == 'leaderboardTab') ? 'text-white' : 'text-white'"
             >
               <span class="sr-only">Toggle challenge panel</span>
               <i class="fa-solid fa-chart-simple w-6 text-2xl"></i>
@@ -123,8 +123,8 @@
             {{-- Volunteer button --}}
             <button
               @click="(isSidebarOpen && currentSidebarTab == volunteerTab') ? isSidebarOpen = false : isSidebarOpen = true; currentSidebarTab = 'volunteerTab'"
-              class="p-2 transition-colors rounded-lg hover:bg-emerald-600 hover:text-white focus:outline-none"
-              :class="(isSidebarOpen && currentSidebarTab == 'volunteerTab') ? 'text-white bg-emerald-600' : 'text-white'"
+              class="p-2 transition-colors rounded-lg  hover:text-white focus:outline-none"
+              :class="(isSidebarOpen && currentSidebarTab == 'volunteerTab') ? 'text-white bg-fadeGreen' : 'text-white'"
             >
               <span class="sr-only">Toggle challenge panel</span>
               <i class="fa-solid fa-puzzle-piece w-6 text-2xl"></i>
@@ -132,8 +132,8 @@
             <!-- Notifications button -->
             <button
               @click="(isSidebarOpen && currentSidebarTab == 'notificationsTab') ? isSidebarOpen = false : isSidebarOpen = true; currentSidebarTab = 'notificationsTab'"
-              class="p-2 transition-colors rounded-lg hover:bg-emerald-600 hover:text-white focus:outline-none"
-              :class="(isSidebarOpen && currentSidebarTab == 'notificationsTab') ? 'text-white bg-indigo-600' : 'text-white'"
+              class="p-2 transition-colors rounded-lg  hover:text-white focus:outline-none"
+              :class="(isSidebarOpen && currentSidebarTab == 'notificationsTab') ? 'text-white bg-fadeGreen' : 'text-white'"
             >
               <span class="sr-only">Toggle notifications panel</span>
               <i class="fa-solid fa-bell w-6 text-2xl"></i>
@@ -193,19 +193,19 @@
   
             <!-- Links -->
             <div class="flex-1 px-4 space-y-2 overflow-hidden hover:overflow-auto py-10">
-              <a href="/today-task" class="flex items-center w-full space-x-2 text-white bg-darkGreen rounded-lg">
-                <span aria-hidden="true" class="p-2 bg-darkGreen rounded-lg">
+              <a href="/today-task" class="flex items-center w-full space-x-2 text-darkGreen rounded-lg {{ Request::is('today-task*') ? 'bg-fadeGreen' : '' }}">
+                <span aria-hidden="true" class="p-2 rounded-lg">
                   <i class="fa-solid fa-calendar-day"></i>
                 </span>
                 <span>Today Task</span>
               </a>
               <a
                 href="#"
-                class="flex items-center space-x-2 text-indigo-600 transition-colors rounded-lg group hover:bg-indigo-600 hover:text-white "
+                class="flex items-center space-x-2 text-darkGreen rounded-lg {{ Request::is('weekly-task*') ? 'bg-fadeGreen' : '' }}"
               >
                 <span
                   aria-hidden="true"
-                  class="p-2 transition-colors rounded-lg group-hover:bg-indigo-700 group-hover:text-white"
+                  class="p-2 transition-colors rounded-lg"
                 >
                 <i class="fa-solid fa-calendar-week"></i>
                 </span>
@@ -213,11 +213,11 @@
               </a>
               <a
                 href="#"
-                class="flex items-center space-x-2 text-indigo-600 transition-colors rounded-lg group hover:bg-indigo-600 hover:text-white"
+                class="flex items-center space-x-2 text-darkGreen rounded-lg "
               >
                 <span
                   aria-hidden="true"
-                  class="p-2 transition-colors rounded-lg group-hover:bg-indigo-700 group-hover:text-white"
+                  class="p-2 transition-colors rounded-lg"
                 >
                 <i class="fa-solid fa-calendar-days"></i>
                 </span>
