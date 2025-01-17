@@ -6,6 +6,7 @@ use App\Livewire\Sidebar;
 use App\Livewire\TodayTask;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Controller;
 
 // Route::get('/', function () {
 //     return view('livewire.today-task');
