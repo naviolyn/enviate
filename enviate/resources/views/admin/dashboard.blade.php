@@ -788,4 +788,5 @@
         </div>
       </div>
     </div>
+     <script src="{{asset('assets/js/plugins/chartjs.min.js') }}" async></script>
 @endsection

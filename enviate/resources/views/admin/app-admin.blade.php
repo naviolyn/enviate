@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/9db9644a22.js" crossorigin="anonymous"></script>
     <!-- Nucleo Icons -->
     <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
@@ -62,14 +63,20 @@
       </footer>
     </div>
     </main>
+          <!-- plugin for charts  -->
+          <script src="{{asset('assets/js/plugins/chartjs.min.js') }}" async></script>
+          <!-- plugin for scrollbar  -->
+          <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script>
+          <!-- github button -->
+          <script async defer src="https://buttons.github.io/buttons.js"></script>
+          <!-- main script file  -->
+          <script src="../assets/js/soft-ui-dashboard-tailwind.js?v=1.0.5" async></script>    <!--   Core JS Files   -->
+          <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
+          <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
+          <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+          <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+          <script src="{{ asset('assets/js/plugins/fullcalendar.min.js') }}"></script>
+          <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
   </body>
-      <!-- plugin for charts  -->
-  <script src="../assets/js/plugins/chartjs.min.js" async></script>
-  <!-- plugin for scrollbar  -->
-  <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script>
-  <!-- github button -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!-- main script file  -->
-  <script src="../assets/js/soft-ui-dashboard-tailwind.js?v=1.0.5" async></script>
 
   </html>
