@@ -1,7 +1,7 @@
 <div class="h-full overflow-hidden">
     
-  <div class="flex items-center justify-center font-medium w-full h-full bg-white flex-row">
-      <div class="flex items-center justify-center h-full text-gray-600 bg-white w-3/5">
+  <div class="flex items-center justify-center font-medium w-full h-full  flex-row">
+      <div class="flex items-center justify-center h-full text-gray-600  w-3/5">
           <!-- Component Start -->
           <div class="flex flex-col  max-w-full ps-8 w-full h-full pe-0">
               <div class="flex items-center mb-6">
@@ -108,7 +108,7 @@
           </div>
           <!-- Component End  -->
 
-          <div class="flex items-center justify-center h-full text-gray-600 bg-white w-2/5 border-l-2 ml-8">
+          <div class="flex items-center justify-center h-full text-gray-600  w-2/5 border-l-2 ml-8">
             <!-- Component Start -->
             <div class="flex flex-col  max-w-full ps-8 w-full h-full pe-0">
                 <div class="flex items-center mb-6">

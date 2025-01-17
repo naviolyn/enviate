@@ -5,7 +5,7 @@
           @click="isSidebarOpen = false"
           class="fixed inset-0 z-10 bg-black bg-opacity-50 lg:hidden"
         ></div>
-        <div x-show="isSidebarOpen" class="fixed inset-y-0 z-10 w-16 bg-lightGreen"></div>
+        <div x-show="isSidebarOpen" class="fixed inset-y-0 z-10 w-16 bg-gradient-mediumGreen"></div>
   
         <!-- Mobile bottom bar -->
         <nav
@@ -85,7 +85,7 @@
             <a href="/today-task">
               <img
                 class="w-10 h-auto"
-                src="{{ asset('img/logo.png') }}"
+                src="{{ asset('img/nobg-logo.png') }}"
                 alt="K-UI"
               />
             </a>
@@ -187,13 +187,13 @@
           x-transition:leave-start="translate-x-0"
           x-transition:leave-end="-translate-x-full"
           x-show="isSidebarOpen"
-          class="fixed inset-y-0 left-0 z-10 flex-shrink-0 w-64 border-r-2 border-0 sm:left-16 rounded-tr-3xl rounded-br-3xl sm:w-72 lg:static lg:w-64 bg-lightGreen"
+          class="fixed inset-y-0 left-0 z-10 flex-shrink-0 w-64 border-r-2 border-0 sm:left-16 rounded-tr-3xl rounded-br-3xl sm:w-72 lg:static lg:w-64 bg-gradient-mediumGreen"
         >
           <nav x-show="currentSidebarTab == 'linksTab'" aria-label="Main" class="flex flex-col h-full">
   
             <!-- Links -->
             <div class="flex-1 px-4 space-y-2 overflow-hidden hover:overflow-auto py-10">
-              <a href="/today-task" class="flex items-center w-full space-x-2 text-darkGreen rounded-lg {{ Request::is('today-task*') ? 'bg-fadeGreen' : '' }}">
+              <a href="/today-task" class="flex items-center w-full space-x-2 text-white rounded-lg {{ Request::is('today-task*') ? 'bg-fadeGreen' : '' }}">
                 <span aria-hidden="true" class="p-2 rounded-lg">
                   <i class="fa-solid fa-calendar-day"></i>
                 </span>
@@ -201,7 +201,7 @@
               </a>
               <a
                 href="#"
-                class="flex items-center space-x-2 text-darkGreen rounded-lg {{ Request::is('weekly-task*') ? 'bg-fadeGreen' : '' }}"
+                class="flex items-center space-x-2 text-white rounded-lg {{ Request::is('weekly-task*') ? 'bg-fadeGreen' : '' }}"
               >
                 <span
                   aria-hidden="true"
@@ -213,7 +213,7 @@
               </a>
               <a
                 href="#"
-                class="flex items-center space-x-2 text-darkGreen rounded-lg "
+                class="flex items-center space-x-2 text-white rounded-lg "
               >
                 <span
                   aria-hidden="true"

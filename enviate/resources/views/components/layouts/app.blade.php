@@ -14,7 +14,7 @@
   <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
     </head>
     <body>
-        <div x-data="setup()" @resize.window="watchScreen()">
+        <div x-data="setup()" @resize.window="watchScreen()" style="background-color: rgba(251, 252, 251, 1)">
             <div class="flex h-screen antialiased text-gray-900">
               <!-- Sidebar -->
               @livewire('sidebar')
@@ -25,11 +25,6 @@
               </div>
             </div>            
         </div>
-
-              
-
-        
-        
 
     </body>
     @livewireScripts
