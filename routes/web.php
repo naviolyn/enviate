@@ -7,6 +7,7 @@ use App\Livewire\TodayTask;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UserController;
 
 // Route::get('/', function () {
 //     return view('livewire.today-task');
@@ -21,14 +22,14 @@ Route::get('/verify-email', function () {
     return view('verification');
  });
 
- Route::get('/admin/dashboard', function () {
+ Route::get('/dashboard', function () {
     return view('admin.dashboard');
- });
+ }); 
 
- Route::get('/admin/users', function () {
-    return view('admin.users');
- });
- Route::get('/admin/tasks', function () {
+ Route::get('/users', [UserController::class, 'index'])->name('users.index');
+ Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+ Route::get('/tasks', function () {
     return view('admin.tasks');
  });
 
