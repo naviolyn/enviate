@@ -230,7 +230,7 @@
   
   
           <section x-show="currentSidebarTab == 'notificationsTab'" class="px-4 py-6">
-            <h2 class="text-xl">Notifications</h2>
+            <h2 class="text-xl text-white">Notifications</h2>
           </section>
         </div>
       </div>

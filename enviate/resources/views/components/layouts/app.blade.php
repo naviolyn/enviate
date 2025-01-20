@@ -12,9 +12,14 @@
         <script src="https://kit.fontawesome.com/9db9644a22.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
   <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div x-data="setup()" @resize.window="watchScreen()" style="background-color: rgba(251, 252, 251, 1)">
+        <div x-data="setup()" @resize.window="watchScreen()" style="background-color: #F9F7EA">
             <div class="flex h-screen antialiased text-gray-900">
               <!-- Sidebar -->
               @livewire('sidebar')
