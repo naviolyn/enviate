@@ -37,52 +37,51 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span class="text-xs font-semibold leading-tight text-slate-400">1</span>
-                        </td>
-                        <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                              <h6 class="mb-0 text-sm leading-normal">John Michael</h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <p class="mb-0 text-xs font-semibold leading-tight">Makan</p>
-                        </td>
-                        <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span class="text-xs font-semibold leading-tight text-slate-400">1</span>
-                        </td>
-                        <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span class="text-xs font-semibold leading-tight text-slate-400">1</span>
-                        </td>
-                        <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span class="text-xs font-semibold leading-tight text-slate-400">1</span>
-                        </td>
-                        <td class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span class="bg-gradient-to-tl from-green-600 to-lime-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Online</span>
-                        </td>
-                        <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span class="text-xs font-semibold leading-tight text-slate-400">23/04/18</span>
-                        </td>
-                        <td class="p-2 text-left align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <a href="/user-management/edit" class=" "
-                              data-bs-toggle="tooltip" data-bs-original-title="Edit user">
-                              <i class="fa-solid fa-user-pen"></i>
-                          </a>
-                          <span>
-                              <form id="delete-form"
-                                  action="" method="POST"
-                                  style="display: inline;">
-                                  <a href="#" class=" "
-                                      onclick=""
-                                      data-bs-toggle="tooltip" data-bs-original-title="Delete">
-                                      <i class="cursor-pointer fas fa-trash text-secondary"></i>
-                                  </a>
-                              </form>
-                          </span>
-                      </td>
-                      </tr>
-                    </tbody>
+                                @foreach($users as $user)
+                                    <tr>
+                                        <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                            <span class="text-xs font-semibold leading-tight text-slate-400">{{ $user->user_id }}</span>
+                                        </td>
+                                        <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                            <h6 class="mb-0 text-sm leading-normal">{{ $user->username }}</h6>
+                                        </td>
+                                        <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                            <p class="mb-0 text-xs font-semibold leading-tight">{{ $user->email }}</p>
+                                        </td>
+                                        <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                            <span class="text-xs font-semibold leading-tight text-slate-400">{{ $user->level }}</span>
+                                        </td>
+                                        <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                            <span class="text-xs font-semibold leading-tight text-slate-400">{{ $user->leaflets }}</span>
+                                        </td>
+                                        <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                            <span class="text-xs font-semibold leading-tight text-slate-400">{{ $user->crystal }}</span>
+                                        </td>
+                                        <td class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                            <span class="bg-gradient-to-tl from-green-600 to-lime-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">
+                                                {{ $user->role == 'user' ? 'User' : ($user->role == 'mitra' ? 'Mitra' : 'Admin') }}
+                                            </span>
+                                        </td>
+                                        <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                            <span class="text-xs font-semibold leading-tight text-slate-400">{{ $user->created_at->format('d/m/y') }}</span>
+                                        </td>
+                                        <td class="p-2 text-left align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                            <a href="/user-management/edit" class=" " data-bs-toggle="tooltip" data-bs-original-title="Edit user">
+                                                <i class="fa-solid fa-user-pen"></i>
+                                            </a>
+                                            <span>
+                                                <form id="delete-form" action="{{ route('user.destroy', $user->user_id) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <a href="#" class=" " onclick="this.closest('form').submit()" data-bs-toggle="tooltip" data-bs-original-title="Delete">
+                                                        <i class="cursor-pointer fas fa-trash text-secondary"></i>
+                                                    </a>
+                                                </form>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
                   </table>
                 </div>
               </div>
