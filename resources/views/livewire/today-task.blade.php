@@ -12,7 +12,6 @@
               </div>
               <div class="overflow-y-auto h-full">
                   <div>
-
                       {{-- task1 --}}
                       <div class="flex w-full justify-between hover:bg-gray-100 rounded-md px-2">
                           <input class="hidden" type="checkbox" id="task_1" checked>
@@ -108,7 +107,7 @@
           </div>
           <!-- Component End  -->
 
-          <div class="flex items-center justify-center h-full text-gray-600  w-2/5 border-l-2 ml-8">
+          <div class="flex items-center justify-center h-full text-gray-600  w-2/5 border-l-2 ml-8 border-gray-100">
             <!-- Component Start -->
             <div class="flex flex-col  max-w-full ps-8 w-full h-full pe-0">
                 <div class="flex items-center mb-6">

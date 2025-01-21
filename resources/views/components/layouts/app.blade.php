@@ -19,10 +19,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div x-data="setup()" @resize.window="watchScreen()" style="background-color: #F9F7EA">
-            <div class="flex h-screen antialiased text-gray-900">
+        <div x-data="setup()" @resize.window="watchScreen()"  class="bg-bodybg {{ Request::is('leaderboard*') ? 'active bg-lightGreen' : '' }}">
+            <div class="flex h-screen antialiased text-gray-900 flex-grow-0">
               <!-- Sidebar -->
-              @livewire('sidebar')
+              <div class="w-0 sm:w-16">
+                @livewire('sidebar')
+              </div>
+              
               <div class="w-full h-full">
                   <main class="px-4 py-8 h-full">
                   {{ $slot }}

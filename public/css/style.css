@@ -1,6 +1,6 @@
 body {
     --mediumGreen: rgba(92, 186, 163, 1);
-    --lightGreen: #c8e8d9;
+    --lightGreen: #E8F5EB;
     font-family: 'Montserrat', sans-serif;
 
 }
@@ -47,4 +47,14 @@ body {
     background-color: #d1d5db; /* Equivalent to bg-gray-300 */
   }
   
+}
+
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

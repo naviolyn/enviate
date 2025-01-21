@@ -18,6 +18,10 @@ export default {
                 'oke' : '#10B981',
                 'darkGreen' : 'rgba(11,127,100,1)',
                 'fadeGreen' : 'rgba(27, 42, 15, 0.16)',
+                'lightGreen' : '#E8F5EB',
+                'bodybg' : '#fdfdf6',
+                'green-900' : 'rgba(0, 79, 61, 1)',
+                'orange' : '#E45E46',
             }
         },
     },
