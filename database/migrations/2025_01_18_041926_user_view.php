@@ -16,7 +16,7 @@ return new class extends Migration
         DB::statement("
             CREATE VIEW `user_view` AS
             SELECT 
-                `users`.`user_id` AS `user_id`, 
+                `users`.`id` AS `user_id`, 
                 `users`.`username` AS `username`, 
                 `users`.`email` AS `email`, 
                 `users`.`level` AS `level`, 

@@ -224,7 +224,7 @@
 
           <!-- Links -->
           <div class="flex-1 px-4 space-y-2 overflow-hidden hover:overflow-auto py-10">
-            <a href="#" class="flex items-center w-full space-x-2 text-white bg-indigo-600 rounded-lg">
+            <a href="{{ route('today-task') }}" class="flex items-center w-full space-x-2 text-white bg-indigo-600 rounded-lg">
               <span aria-hidden="true" class="p-2 bg-indigo-700 rounded-lg">
                 <i class="fa-solid fa-calendar-day"></i>
               </span>
@@ -303,12 +303,12 @@
           </button>
 
           <!-- Github link -->
-          <a
+          <!-- <a
             href="https://github.com/kamona-ui/dashboard-alpine"
             target="_blank"
             class="p-2 text-white bg-black rounded-lg shadow-md hover:text-gray-200 focus:outline-none focus:ring focus:ring-black focus:ring-offset-gray-100 focus:ring-offset-2"
-          >
-            <span class="sr-only">github link</span>
+          > -->
+            <!-- <span class="sr-only">github link</span>
             <svg
               aria-hidden="true"
               class="w-6 h-6"
@@ -323,7 +323,7 @@
               ></path>
             </svg>
           </a>
-        </div>
+        </div> -->
 
         <!-- Mobile sub header button -->
         <button
@@ -434,12 +434,12 @@
             </svg>
           </button>
           <!-- Github link -->
-          <a
+          <!-- <a
             href="https://github.com/kamona-ui/dashboard-alpine"
             target="_blank"
             class="p-2 text-white bg-black rounded-lg shadow-md hover:text-gray-200 focus:outline-none focus:ring focus:ring-black focus:ring-offset-gray-100 focus:ring-offset-2"
-          >
-            <span class="sr-only">github link</span>
+          > -->
+            <!-- <span class="sr-only">github link</span>
             <svg
               aria-hidden="true"
               class="w-6 h-6"
@@ -454,7 +454,7 @@
               ></path>
             </svg>
           </a>
-        </div>
+        </div> -->
       </header>
 
       <div class="flex flex-1">

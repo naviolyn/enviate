@@ -17,9 +17,7 @@
         <div class="h-full">
             @yield('content')
         </div>
-    </div>
-            
-            
+    </div>         
 
 </body>
 </html>
