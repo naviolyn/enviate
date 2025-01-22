@@ -1,50 +1,42 @@
 <?php
 
-use App\Livewire\Challenge;
-use App\Livewire\Leaderboard;
-use App\Livewire\Sidebar;
-use App\Livewire\TodayTask;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\UserController;
+use App\Http\Middleware\MitraMiddleware;
+use App\Http\Middleware\AdminMiddleware;
+use App\Livewire\TodayTask;
+use App\Livewire\Leaderboard;
 
-// Route::get('/', function () {
-//     return view('livewire.today-task');
-// });
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
 
-Route::get('/verify-email', function () {
-    return view('verification');
- });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
 
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
- Route::get('/verify-email', function () {
-    return view('verification');
- });
+Route::get('/today-task', TodayTask::class)->name('today-task');
 
- Route::get('/dashboard', function () {
+Route::get('/leaderboard', Leaderboard::class)->name('leaderboard');
+
+// Mitra Middleware
+Route::middleware(['auth', MitraMiddleware::class])->group(function () {
+    
+});
+
+// Admin Middleware
+Route::get('/admin-dashboard', function () {
     return view('admin.dashboard');
- }); 
+});
 
- Route::get('/users', [UserController::class, 'index'])->name('users.index');
- Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+Route::middleware(['auth', AdminMiddleware::class])->group(function () {
+    // Route::get('/dashboard-admin', function () {
+    //     return view('admin.dashboard');
+    // });
+});
 
- Route::get('/tasks', function () {
-    return view('admin.tasks');
- });
-
-
-
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-
-Route::get('/register', [AuthController::class, 'showRegisterForm']);
-Route::post('/register', [AuthController::class, 'register']);
-
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-
-Route::get('/today-task', TodayTask::class);
-Route::get('/challenge', Challenge::class);
-Route::get('/', TodayTask::class);
-Route::get('/leaderboard', Leaderboard::class);
+require __DIR__.'/auth.php';
