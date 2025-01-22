@@ -1,16 +1,16 @@
      <!-- Sidebar -->
-     <div class="flex flex-shrink-0 transition-all">
+     <div class="flex flex-shrink-0 transition-all overflow-x-hidden fixed h-screen z-10">
         <div
           x-show="isSidebarOpen"
           @click="isSidebarOpen = false"
           class="fixed inset-0 z-10 bg-black bg-opacity-50 lg:hidden"
         ></div>
-        <div x-show="isSidebarOpen" class="fixed inset-y-0 z-10 w-16 bg-gradient-mediumGreen"></div>
+        <div x-show="isSidebarOpen" class="fixed inset-y-0 z-10 w-16 bg-darkGreen"></div>
   
         <!-- Mobile bottom bar -->
         <nav
           aria-label="Options"
-          class="fixed inset-x-0 bottom-0 flex flex-row-reverse items-center justify-between px-4 py-2 bg-white sm:hidden shadow-t rounded-t-3xl"
+          class="fixed inset-x-0 bottom-0 flex flex-row-reverse items-center justify-between px-4 py-2 sm:hidden shadow-t rounded-t-3xl"
         >
           <!-- Menu button -->
           <button
@@ -59,7 +59,7 @@
               @keydown.escape="isOpen = false"
               x-ref="userMenu"
               tabindex="-1"
-              class="absolute w-48 py-1 mt-2 origin-bottom-left bg-white rounded-md shadow-lg left-10 bottom-14 focus:outline-none"
+              class="absolute w-48 py-1 mt-2 origin-bottom-left rounded-md shadow-lg left-10 bottom-14 focus:outline-none"
               role="menu"
               aria-orientation="vertical"
               aria-label="user menu"
@@ -83,7 +83,7 @@
         <!-- Left mini bar -->
         <nav
           aria-label="Options"
-          class="z-20 flex-col items-center flex-shrink-0 hidden w-16 py-4 bg-white border-r-2 border-0 sm:flex rounded-tr-3xl rounded-br-3xl bg-gradient-mediumGreen" style="border: 0px solid white"
+          class="z-20 flex-col items-center flex-shrink-0 hidden w-16 py-4 border-0 sm:flex rounded-tr-3xl rounded-br-3xl bg-darkGreen" style="border: 0px solid white"
         >
           <!-- Logo -->
           <div class="flex-shrink-0 py-4">
@@ -117,14 +117,15 @@
             </a>
             
             {{-- leaderboard button --}}
+            <a href="/leaderboard" class="p-0 m-0">
             <button
-              @click="(isSidebarOpen && currentSidebarTab == 'leaderboardTab') ? isSidebarOpen = false : isSidebarOpen = true; currentSidebarTab = 'leaderboardTab'"
               class="p-2 transition-colors rounded-lg hover:text-white focus:outline-none {{ Request::is('leaderboard*') ? 'bg-fadeGreen' : '' }}"
               :class="(isSidebarOpen && currentSidebarTab == 'leaderboardTab') ? 'text-white' : 'text-white'"
             >
-              <span class="sr-only">Toggle challenge panel</span>
+            <span class="sr-only">Toggle leaderboard panel</span>
               <i class="fa-solid fa-chart-simple w-6 text-2xl"></i>
             </button>
+            </a>
             {{-- Volunteer button --}}
             <button
               @click="(isSidebarOpen && currentSidebarTab == volunteerTab') ? isSidebarOpen = false : isSidebarOpen = true; currentSidebarTab = 'volunteerTab'"
@@ -164,7 +165,7 @@
               @keydown.escape="isOpen = false"
               x-ref="userMenu"
               tabindex="-1"
-              class="absolute w-48 py-1 mt-2 origin-bottom-left bg-white rounded-md shadow-lg left-10 bottom-14 focus:outline-none"
+              class="absolute w-48 py-1 mt-2 origin-bottom-left rounded-md shadow-lg left-10 bottom-14 focus:outline-none"
               role="menu"
               aria-orientation="vertical"
               aria-label="user menu"
@@ -193,7 +194,7 @@
           x-transition:leave-start="translate-x-0"
           x-transition:leave-end="-translate-x-full"
           x-show="isSidebarOpen"
-          class="fixed inset-y-0 left-0 z-10 flex-shrink-0 w-64 border-r-2 border-0 sm:left-16 rounded-tr-3xl rounded-br-3xl sm:w-72 lg:static lg:w-64 bg-gradient-mediumGreen"
+           class="fixed inset-y-0 left-0 z-10 flex-shrink-0 w-64 border-0 sm:left-16 rounded-tr-3xl rounded-br-3xl sm:w-72 lg:static lg:w-64 bg-darkGreen"
         >
           <nav x-show="currentSidebarTab == 'linksTab'" aria-label="Main" class="flex flex-col h-full">
   

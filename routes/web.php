@@ -6,6 +6,7 @@ use App\Http\Middleware\MitraMiddleware;
 use App\Http\Middleware\AdminMiddleware;
 use App\Livewire\TodayTask;
 use App\Livewire\Leaderboard;
+use App\Livewire\Volunteer;
 
 Route::get('/', function () {
     return view('welcome');
@@ -40,3 +41,5 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/volunteer', Volunteer::class);
