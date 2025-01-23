@@ -1,5 +1,5 @@
      <!-- Sidebar -->
-     <div class="flex flex-shrink-0 transition-all overflow-x-hidden fixed h-screen z-10">
+     <div class="flex flex-shrink-0 transition-all fixed h-screen z-10">
         <div
           x-show="isSidebarOpen"
           @click="isSidebarOpen = false"
@@ -165,7 +165,7 @@
               @keydown.escape="isOpen = false"
               x-ref="userMenu"
               tabindex="-1"
-              class="absolute w-48 py-1 mt-2 origin-bottom-left rounded-md shadow-lg left-10 bottom-14 focus:outline-none"
+              class="z-50 absolute w-48 py-1 mt-2 origin-bottom-left rounded-md border border-gray-200 left-10 bottom-14 focus:outline-none bg-bodybg"
               role="menu"
               aria-orientation="vertical"
               aria-label="user menu"
@@ -175,7 +175,7 @@
               </span>
               <hr>
               <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
+              <a href="/edit-profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
               <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
@@ -199,7 +199,7 @@
           <nav x-show="currentSidebarTab == 'linksTab'" aria-label="Main" class="flex flex-col h-full">
   
             <!-- Links -->
-            <div class="flex-1 px-4 space-y-2 overflow-hidden hover:overflow-auto py-10">
+            <div class="flex-1 px-4 space-y-2 hover:overflow-auto py-10">
               <a href="/today-task" class="flex items-center w-full space-x-2 text-white rounded-lg {{ Request::is('today-task*') ? 'bg-fadeGreen' : '' }}">
                 <span aria-hidden="true" class="p-2 rounded-lg">
                   <i class="fa-solid fa-calendar-day"></i>
