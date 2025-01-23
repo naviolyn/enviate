@@ -118,14 +118,15 @@
             </button>
             </a>
             {{-- Volunteer button --}}
+            <a href="/volunteer" class="p-0 m-0">
             <button
-              @click="(isSidebarOpen && currentSidebarTab == volunteerTab') ? isSidebarOpen = false : isSidebarOpen = true; currentSidebarTab = 'volunteerTab'"
               class="p-2 transition-colors rounded-lg  hover:text-white focus:outline-none"
               :class="(isSidebarOpen && currentSidebarTab == 'volunteerTab') ? 'text-white bg-fadeGreen' : 'text-white'"
             >
               <span class="sr-only">Toggle challenge panel</span>
               <i class="fa-solid fa-puzzle-piece w-6 text-2xl"></i>
             </button>
+            </a>
             <!-- Notifications button -->
             <button
               @click="(isSidebarOpen && currentSidebarTab == 'notificationsTab') ? isSidebarOpen = false : isSidebarOpen = true; currentSidebarTab = 'notificationsTab'"
