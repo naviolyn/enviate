@@ -220,7 +220,13 @@
               <span>Monthly Task</span>
             </a>
           </div>
+          
         </nav>
+        <section x-show="currentSidebarTab == 'notificationsTab'" class="px-4 py-10">
+          <div class="w-full flex justify-between items-center pl-2"><h2 class="text-lg text-white font-semibold">Notifications</h2>
+            
+          </div> 
+        </section> 
 
         </div>
         <div
@@ -351,7 +357,7 @@
               </a>
               <!-- Notifications button -->
               <button
-                @click="(isSidebarOpen && currentSidebarTab == 'notificationsTab') ? isSidebarOpen = false : isSidebarOpen = true; currentSidebarTab = 'notificationsTab'"
+                @click="(isSidebarOpen && currentSidebarTab == 'notificationsTab2') ? isSidebarOpen = false : isSidebarOpen = true; currentSidebarTab = 'notificationsTab2'"
                 class="w-full text-left px-4 py-2 transition-colors rounded-lg  hover:text-white focus:outline-none"
               >
                 <i class="fa-solid fa-bell w-6 text-2xl mr-2"></i>
@@ -361,14 +367,14 @@
             
           </nav>
 
-          <section x-show="currentSidebarTab == 'notificationsTab'" class="px-4 py-10">
+          <section x-show="currentSidebarTab == 'notificationsTab2'" class="px-4 py-10 static lg:hidden">
             <div class="w-full flex justify-between items-center pl-2"><h2 class="text-lg text-white font-semibold">Notifications</h2>
               <button
               @click="
-              if (currentSidebarTab === 'notificationsTab') {
+              if (currentSidebarTab === 'notificationsTab2') {
                 currentSidebarTab = 'slide';
               } else {
-                currentSidebarTab = 'notificationsTab';
+                currentSidebarTab = 'notificationsTab2';
               }
               isSidebarOpen = true;
             "
@@ -377,7 +383,7 @@
                 <i class="fa-solid fa-xmark"></i>
                 </button>
             </div> 
-          </section>
+          </section> 
         </div>
         
       </div>
