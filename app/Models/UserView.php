@@ -13,10 +13,9 @@ class UserView extends Model
     public $timestamps = false;
 
     // If the primary key is not `id`, specify it
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = 'id';
 
     protected $casts = [
         'created_at' => 'datetime',
     ];
 }
-

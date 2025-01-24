@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\UserView;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -14,17 +16,16 @@ class UserController extends Controller
         
         // Pass the users data to the view
         return view('admin.users', compact('users'));
-    }
+    }  
 
-    public function destroy($id)
+    public function updateStatus(Request $request, $id)
     {
-        // Find the user by id
         $user = User::findOrFail($id);
 
-        // Delete the user
-        $user->delete();
+        // Perbarui status berdasarkan nilai dari dropdown
+        $user->status = $request->input('status');
+        $user->save();
 
-        // Redirect or return a response
-        return redirect()->route('users.index')->with('success', 'User deleted successfully');
+        return redirect()->back()->with('success', 'Status pengguna berhasil diperbarui.');
     }
 }

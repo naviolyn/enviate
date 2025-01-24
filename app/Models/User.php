@@ -12,7 +12,7 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    protected $primaryKey = 'user_id'; // Sesuaikan primary key
+    protected $primaryKey = 'id'; // Sesuaikan primary key
     public $incrementing = true; // Jika primary key auto-increment
     protected $keyType = 'int'; // Tipe data primary key
 

@@ -1,13 +1,16 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\MitraMiddleware;
 use App\Http\Middleware\AdminMiddleware;
-use App\Livewire\EditProfile;
 use App\Livewire\TodayTask;
 use App\Livewire\Leaderboard;
+use App\Models\User;
+use App\Livewire\EditProfile;
 use App\Livewire\Volunteer;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\TaskController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,7 +18,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard');
+})->name('dashboard'); 
 
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -24,6 +27,10 @@ Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.
 Route::get('/today-task', TodayTask::class)->name('today-task');
 
 Route::get('/leaderboard', Leaderboard::class)->name('leaderboard');
+
+Route::get('/volunteer', Volunteer::class);
+
+Route::get('/edit-profile', EditProfile::class);
 
 // Mitra Middleware
 Route::middleware(['auth', MitraMiddleware::class])->group(function () {
@@ -35,6 +42,12 @@ Route::get('/admin-dashboard', function () {
     return view('admin.dashboard');
 });
 
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::patch('/user-management/{id}/toggle-status', [UserController::class, 'updateStatus'])->name('user.toggleStatus');
+
+Route::resource('tasks', TaskController::class);
+
+
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     // Route::get('/dashboard-admin', function () {
     //     return view('admin.dashboard');
@@ -42,6 +55,3 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
-Route::get('/volunteer', Volunteer::class);
-Route::get('/edit-profile', EditProfile::class);
