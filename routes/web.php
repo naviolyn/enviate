@@ -7,6 +7,7 @@ use App\Livewire\TodayTask;
 use App\Livewire\Leaderboard;
 use App\Models\User;
 use App\Livewire\EditProfile;
+use App\Livewire\UserTasks;
 use App\Livewire\Volunteer;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -24,7 +25,8 @@ Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit')
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-Route::get('/today-task', TodayTask::class)->name('today-task');
+Route::get('/today-task', 'App\Livewire\UserTasks')->name('tasks.index');
+Route::post('/complete-task/{id}', [TaskController::class, 'completeTask'])->name('task.complete');
 
 Route::get('/leaderboard', Leaderboard::class)->name('leaderboard');
 

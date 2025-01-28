@@ -9,14 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+        public function up(): void
     {
         Schema::create('user_tasks', function (Blueprint $table) {
-            $table->increments('user_task_id');
-            $table->integer('user_id');
-            $table->integer('task_id');
+            $table->unsignedBigInteger('user_id'); // Mengacu pada tabel users
+            $table->unsignedInteger('task_id'); // Mengacu pada tabel tasks
             $table->enum('status', ['pending', 'completed'])->default('pending');
             $table->timestamp('completed_at')->nullable();
+
+            // Primary key gabungan
+            $table->primary(['user_id', 'task_id']);
+
+            // Foreign key constraints
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('task_id')->references('task_id')->on('tasks')->onDelete('cascade');
         });
     }
 

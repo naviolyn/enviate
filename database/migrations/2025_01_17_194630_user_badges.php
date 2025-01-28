@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('user_badges', function (Blueprint $table) {
             $table->increments('user_badge_id');
-            $table->integer('user_id');
-            $table->integer('badge_id');
+            $table->unsignedBigInteger('user_id'); // Menggunakan unsignedBigInteger untuk sesuai dengan id tabel users
+            $table->unsignedBigInteger('badge_id');
             $table->timestamp('earned_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+
+            // Foreign key constraint
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('badge_id')->references('badge_id')->on('badges')->onDelete('cascade');
         });
     }
 

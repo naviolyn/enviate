@@ -15,7 +15,7 @@
               <p class="mt-8 text-gray-700 dark:text-gray-300">Odio incidunt nam itaque sed eius modi error totam sit illum. Voluptas doloribus asperiores quaerat aperiam. Quidem harum omnis beatae ipsum soluta!</p>
               <div class="mt-16 flex flex-wrap justify-center gap-y-4 gap-x-6">
                   <a
-                    href="#"
+                    href="{{ route('login') }}"
                     class="bg-amber-500 rounded-full relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max"
                   >
                     <span class="relative text-base font-semibold text-white"

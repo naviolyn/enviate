@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('user_volunteers', function (Blueprint $table) {
             $table->increments('user_volunteer_id');
-            $table->integer('user_id');
-            $table->integer('volunteer_id');
+            $table->unsignedBigInteger('user_id'); // Tipe data sesuai dengan id pada tabel users
+            $table->unsignedInteger('volunteer_id'); // Tipe data disesuaikan dengan tabel volunteers
             $table->enum('status', ['pending', 'confirmed'])->default('pending');
             $table->timestamp('confirmed_at')->nullable();
+
+            // Foreign key constraints
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('volunteer_id')->references('volunteer_id')->on('volunteers')->onDelete('cascade');
         });
     }
 

@@ -49,4 +49,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class, 'user_tasks', 'user_id', 'task_id')
+            ->withPivot('status', 'completed_at');
+    }
 }
