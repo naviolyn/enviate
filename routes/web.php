@@ -12,6 +12,7 @@ use App\Livewire\Volunteer;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
+use App\Livewire\MitraVolunteer;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,6 +32,7 @@ Route::post('/complete-task/{id}', [TaskController::class, 'completeTask'])->nam
 Route::get('/leaderboard', Leaderboard::class)->name('leaderboard');
 
 Route::get('/volunteer', Volunteer::class);
+Route::get('/list-volunteer', MitraVolunteer::class);
 
 Route::get('/edit-profile', EditProfile::class);
 

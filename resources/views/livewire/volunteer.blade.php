@@ -5,7 +5,7 @@
           <div class="max-w-full w-full h-full pe-0">
               <div class="flex flex-col md:flex-row justify-between mb-6 text-darkGreen align-middle">
                   <div class="flex items-center mb-6 text-darkGreen">
-                  <i class="fa-solid fa-chart-simple w-6 text-2xl"></i>   
+                  <i class="fa-solid fa-puzzle-piece w-6 text-2xl"></i>   
                   <h4 class="font-semibold ml-3 text-lg">Volunteer</h4>
                   
                   </div>
