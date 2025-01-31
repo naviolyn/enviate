@@ -6,7 +6,7 @@
           class="fixed inset-0 z-10 bg-black bg-opacity-50 lg:hidden"
         ></div>
         <div x-show="isSidebarOpen" class="fixed inset-y-0 z-10 w-16 bg-darkGreen"></div>
-  
+
         <!-- Mobile bottom bar -->
         <nav
           aria-label="Options"
@@ -21,7 +21,7 @@
             <span class="sr-only">Toggle sidebar</span>
             <i class="fa-solid fa-bars"></i>
           </button>
-  
+
           <!-- Logo -->
           <a href="/today-task">
             <img
@@ -30,7 +30,7 @@
               alt="K-UI"
             />
           </a>
-  
+
           <!-- User avatar button -->
           <div class="relative flex items-center flex-shrink-0 p-2" x-data="{ isOpen: false }">
             <button
@@ -56,7 +56,7 @@
               aria-label="user menu"
             >
               <span id="username" class="block px-4 py-2 text-sm text-gray-700">
-                  Name
+                {{ Auth::user()->username }}
               </span>
               <hr>
               <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
@@ -70,7 +70,7 @@
             </div>
           </div>
         </nav>
-  
+
         <!-- Left mini bar -->
         <nav
           aria-label="Options"
@@ -96,7 +96,7 @@
               <span class="sr-only">Toggle sidebar</span>
               <i class="fa-solid fa-calendar-check w-6 text-2xl"></i>
             </button>
-            <!-- Challenge button -->  
+            <!-- Challenge button -->
             <a href="/challenge" class="p-0 m-0">
                 <button
               class="p-2 transition-colors rounded-lg  hover:text-white focus:outline-none {{ Request::is('challenge*') ? 'bg-fadeGreen' : '' }}"
@@ -106,7 +106,7 @@
               <i class="fa-solid fa-cubes-stacked w-6 text-2xl"></i>
             </button>
             </a>
-            
+
             {{-- leaderboard button --}}
             <a href="/leaderboard" class="p-0 m-0">
             <button
@@ -137,7 +137,7 @@
               <i class="fa-solid fa-bell w-6 text-2xl"></i>
             </button>
           </div>
-  
+
           <!-- User avatar -->
           <div class="relative flex items-center flex-shrink-0 p-2" x-data="{ isOpen: false }">
             <button
@@ -163,7 +163,7 @@
               aria-label="user menu"
             >
               <span id="username" class="block px-4 py-2 text-sm text-gray-700">
-                  Name
+                {{ Auth::user()->username }}
               </span>
               <hr>
               <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
@@ -177,7 +177,7 @@
             </div>
           </div>
         </nav>
-  
+
         <div
           x-transition:enter="transform transition-transform duration-300"
           x-transition:enter-start="-translate-x-full"
@@ -221,13 +221,13 @@
               <span>Monthly Task</span>
             </a>
           </div>
-          
+
         </nav>
         <section x-show="currentSidebarTab == 'notificationsTab'" class="px-4 py-10">
           <div class="w-full flex justify-between items-center pl-2"><h2 class="text-lg text-white font-semibold">Notifications</h2>
-            
-          </div> 
-        </section> 
+
+          </div>
+        </section>
 
         </div>
         <div
@@ -300,21 +300,21 @@
                 function toggleAccordion(index) {
                   const content = document.getElementById(`content-${index}`);
                   const icon = document.getElementById(`icon-${index}`);
-               
+
                   // SVG for Minus icon
                   const minusSVG = `
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
                       <path d="M3.75 7.25a.75.75 0 0 0 0 1.5h8.5a.75.75 0 0 0 0-1.5h-8.5Z" />
                     </svg>
                   `;
-               
+
                   // SVG for Plus icon
                   const plusSVG = `
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
                       <path d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z" />
                     </svg>
                   `;
-               
+
                   // Toggle the content's max-height for smooth opening and closing
                   if (content.style.maxHeight && content.style.maxHeight !== '0px') {
                     content.style.maxHeight = '0';
@@ -325,9 +325,9 @@
                   }
                 }
               </script>
-              
-              
-              <!-- Challenge button -->  
+
+
+              <!-- Challenge button -->
               <a href="/challenge" class="p-0 m-0">
                   <button
                 class="w-full text-left px-4 py-2 transition-colors rounded-lg  hover:text-white focus:outline-none {{ Request::is('challenge*') ? 'bg-fadeGreen' : '' }}"
@@ -336,7 +336,7 @@
                 <span>Challenge</span>
               </button>
               </a>
-              
+
               {{-- leaderboard button --}}
               <a href="/leaderboard" class="p-0 m-0">
               <button
@@ -351,7 +351,7 @@
               <button
                 class="w-full text-left px-4 py-2 transition-colors rounded-lg  hover:text-white focus:outline-none  {{ Request::is('volunteer*') ? 'bg-fadeGreen' : '' }}"
               >
-                
+
                 <i class="fa-solid fa-puzzle-piece w-6 text-2xl mr-2"></i>
                 <span>Volunteer</span>
               </button>
@@ -365,7 +365,7 @@
                 <span>Notifications</span>
               </button>
             </div>
-            
+
           </nav>
 
           <section x-show="currentSidebarTab == 'notificationsTab2'" class="px-4 py-10 static lg:hidden">
@@ -383,8 +383,8 @@
                 >
                 <i class="fa-solid fa-xmark"></i>
                 </button>
-            </div> 
-          </section> 
+            </div>
+          </section>
         </div>
-        
+
       </div>
