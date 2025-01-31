@@ -15,6 +15,7 @@ use App\Http\Controllers\TaskController;
 use App\Livewire\EditVolunteer;
 use App\Livewire\MitraVolunteer;
 
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
