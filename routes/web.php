@@ -12,6 +12,7 @@ use App\Livewire\Volunteer;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
+use App\Livewire\EditVolunteer;
 use App\Livewire\MitraVolunteer;
 
 Route::get('/', function () {
@@ -35,6 +36,7 @@ Route::get('/volunteer', Volunteer::class);
 Route::get('/list-volunteer', MitraVolunteer::class);
 
 Route::get('/edit-profile', EditProfile::class);
+Route::get('/edit-volunteer', EditVolunteer::class);
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::patch('/user-management/{id}/toggle-status', [UserController::class, 'updateStatus'])->name('user.toggleStatus');

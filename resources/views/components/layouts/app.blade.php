@@ -12,6 +12,8 @@
         <script src="https://kit.fontawesome.com/9db9644a22.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
   <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
