@@ -14,7 +14,7 @@ class MitraMiddleware
             return $next($request);
         }
 
-        return redirect()->route('user.dashboard');
+        return redirect()->route('user.today-task');
     }
 }
 
