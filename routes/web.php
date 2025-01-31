@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard'); 
+})->name('dashboard');
 
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -36,26 +36,41 @@ Route::get('/list-volunteer', MitraVolunteer::class);
 
 Route::get('/edit-profile', EditProfile::class);
 
-// Mitra Middleware
-Route::middleware(['auth', MitraMiddleware::class])->group(function () {
-    
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/today-task', App\Livewire\TodayTask::class)->name('user.today-task');
+
+    Route::middleware(['mitra'])->group(function () {
+        Route::get('/mitra-dashboard', function () {
+            return view('mitra.dashboard');
+        })->name('mitra.dashboard');
+    });
+
+    Route::middleware(['admin'])->group(function () {
+        Route::get('/admin-dashboard', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
+    });
 });
 
-// Admin Middleware
-Route::get('/admin-dashboard', function () {
-    return view('admin.dashboard');
-});
+
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::patch('/user-management/{id}/toggle-status', [UserController::class, 'updateStatus'])->name('user.toggleStatus');
 
 Route::resource('tasks', TaskController::class);
 
-
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
-    // Route::get('/dashboard-admin', function () {
-    //     return view('admin.dashboard');
-    // });
+    Route::get('/admin-dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
 });
+
+Route::middleware(['auth', MitraMiddleware::class])->group(function () {
+    Route::get('/mitra-dashboard', function () {
+        return view('mitra.dashboard');
+    })->name('mitra.dashboard');
+});
+
 
 require __DIR__.'/auth.php';
