@@ -21,7 +21,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div x-data="setup()" @resize.window="watchScreen()"  class="bg-bodybg {{ Request::is('leaderboard*') ? 'active bg-lightGreen' : '' }}">
+        <div x-data="setup()" @resize.window="watchScreen()"  class="bg-bodybg {{ Request::is(['leaderboard*', 'customize-avatar']) ? 'active bg-lightGreen' : '' }} ">
             <div class="flex h-screen antialiased text-gray-900 flex-grow-0">
               <!-- Sidebar -->
               <div class="w-0 sm:w-16">
@@ -35,6 +35,7 @@
               </div>
             </div>            
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.1/dist/flowbite.min.js"></script>
 
     </body>
     @livewireScripts
