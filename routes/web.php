@@ -3,17 +3,45 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\MitraMiddleware;
 use App\Http\Middleware\AdminMiddleware;
+use App\Models\User;
+use Livewire\Livewire; // Import Livewire
 use App\Livewire\TodayTask;
 use App\Livewire\Leaderboard;
-use App\Models\User;
 use App\Livewire\EditProfile;
 use App\Livewire\UserTasks;
 use App\Livewire\Volunteer;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\TaskController;
+use App\Livewire\TambahVolunteer;
 use App\Livewire\EditVolunteer;
-use Livewire\Livewire; // Import Livewire
+// use App\Http\Controllers\ProfileController;
+// use App\Http\Controllers\UserController;
+// use App\Http\Controllers\TaskController;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
+
+// Autentikasi Google
+Route::get('/auth/google', function () {
+    return Socialite::driver('google')->redirect();
+})->name('google.login');
+
+Route::get('/auth/google/callback', function () {
+    $googleUser = Socialite::driver('google')->stateless()->user();
+
+    // Cek apakah pengguna sudah terdaftar
+    $user = User::updateOrCreate([
+        'email' => $googleUser->getEmail(),
+    ], [
+        'name' => $googleUser->getName(),
+        'google_id' => $googleUser->getId(),
+        'password' => bcrypt('default_password'), // Bisa diubah sesuai kebutuhan
+    ]);
+
+    // Login pengguna
+    Auth::login($user);
+
+    // Redirect ke halaman setelah login
+    return redirect('/today-task');  // Sesuaikan dengan rute tujuan setelah login
+});
+
 
 // Define routes
 Route::get('/', function () {
@@ -50,7 +78,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/today-task', App\Livewire\TodayTask::class)->name('user.today-task');
 
     Route::middleware(['mitra'])->group(function () {
-        Route::get('/mitra-dashboard', function () {
+        Route::get('/mitra-volunteer', function () {
             return view('mitra.dashboard');
         })->name('mitra.dashboard');
     });
@@ -74,6 +102,10 @@ Route::middleware(['auth', MitraMiddleware::class])->group(function () {
     Route::get('/mitra-dashboard', function () {
         return view('mitra.dashboard');
     })->name('mitra.dashboard');
+
+    Route::get('/mitra-volunteer', \App\Livewire\MitraVolunteer::class);
+
+    Route::get('/tambah-volunteer', \App\Livewire\TambahVolunteer::class)->name('tambah-volunteer');
 });
 
 require __DIR__.'/auth.php';

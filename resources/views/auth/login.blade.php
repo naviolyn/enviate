@@ -13,7 +13,7 @@
                     <!-- Email Address -->
                     <div>
                         <x-input-label for="email" :value="__('Your Email')" class="mb-2"/>
-                        <x-text-input id="email" type="email" name="email" :value="old('email')" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="name@company.com" required autofocus />
+                        <x-text-input id="email" type="email" name="email" :value="old('email')" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="example@gmail.com" required autofocus />
                         <x-input-error :messages="$errors->get('email')" />
                     </div>
                     
@@ -22,6 +22,10 @@
                         <x-input-label for="password" :value="__('Password')" class="mb-2"/>
                         <x-text-input id="password" type="password" name="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " required />
                         <x-input-error :messages="$errors->get('password')" />
+                    </div>
+
+                    <div class="mt-4">
+                    <a href="{{ route('google.login') }}" class="underline text-sm">Login with Your Google Account</a>
                     </div>
                     
                     <!-- Remember Me -->

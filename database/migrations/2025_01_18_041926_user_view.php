@@ -22,8 +22,7 @@ return new class extends Migration
                 `users`.`level` AS `level`, 
                 `users`.`leaflets` AS `leaflets`, 
                 `users`.`crystal` AS `crystal`, 
-                `users`.`role` AS `role`, 
-                `users`.`location` AS `location`, 
+                `users`.`role` AS `role`,  
                 `users`.`created_at` AS `created_at` 
             FROM `users`
         ");

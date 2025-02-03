@@ -1,32 +1,33 @@
-<?php
+    <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+    use Illuminate\Database\Migrations\Migration;
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up()
-{
-    if (!Schema::hasTable('users')) {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->nullable(); // Default Laravel Breeze
-            $table->string('username', 50)->unique()->notNullable();
-            $table->string('email', 100)->unique()->notNullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password', 255)->notNullable();
-            $table->rememberToken();
-            $table->integer('level')->default(1);
-            $table->integer('leaflets')->default(0);
-            $table->integer('crystal')->default(0);
-            $table->enum('role', ['user', 'mitra', 'admin'])->notNullable()->default('user');
-            $table->string('location', 100)->nullable();
-            $table->timestamps(0);
-        });        
+    return new class extends Migration
+    {
+        /**
+         * Run the migrations.
+         */
+        public function up()
+    {
+        if (!Schema::hasTable('users')) {
+            Schema::create('users', function (Blueprint $table) {
+                $table->id();
+                $table->string('username', 50)->unique()->nullable()->default(null);
+                $table->string('email', 100)->unique()->notNullable();
+                $table->timestamp('email_verified_at')->nullable();
+                $table->string('password', 255)->notNullable();
+                $table->string('google_id')->nullable();
+                $table->rememberToken();
+                $table->integer('level')->default(1);
+                $table->integer('leaflets')->default(0);
+                $table->integer('crystal')->default(0);
+                $table->string('province')->nullable();
+                $table->string('city')->nullable();
+                $table->enum('role', ['user', 'mitra', 'admin'])->notNullable()->default('user');
+                $table->timestamps(0);
+            });        
         
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

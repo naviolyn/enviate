@@ -7,7 +7,7 @@
   <div aria-hidden="true" class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">
       <div class="blur-[106px] h-56 bg-gradient-to-br from-lightGreen to-amber-300"></div>
       <div class="blur-[106px] h-32 bg-gradient-to-r from-lightGreen to-amber-300"></div>
-  </div>
+  </div> 
   <Container>
       <div class="relative pt-36 ml-auto">
           <div class="lg:w-2/3 text-center mx-auto">

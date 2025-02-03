@@ -29,45 +29,46 @@ class TambahVolunteer extends Component
     }
 
     public function save()
-{
-    // Validasi input
-    $this->validate([
-        'name' => 'required|string|max:255',
-        'crystal_reward' => 'required|integer|min:0', // Validasi minimal 0 untuk crystal_reward
-        'leaflets_reward' => 'required|integer|min:0', // Validasi minimal 0 untuk leaflets_reward
-        'category' => 'required|string',
-        'start_date' => 'required|date',
-        'end_date' => 'required|date|after_or_equal:start_date', // Ensure end date is after start date
-        'description' => 'required|string',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Gambar opsional tapi dengan batasan yang tepat
-    ]);
-
-    try {
-        // Simpan gambar jika ada
-        $imagePath = $this->image ? $this->image->store('volunteers', 'public') : null;
-
-        // Memanggil stored procedure
-        \DB::select('CALL AddVolunteer(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-            $this->name,
-            $this->description,
-            $this->created_by,
-            $this->crystal_reward,
-            $this->leaflets_reward,
-            $this->category,
-            $this->start_date,
-            $this->end_date,
-            $imagePath
+    {
+        // Validasi input
+        $this->validate([
+            'name' => 'required|string|max:255',
+            'crystal_reward' => 'required|integer|min:0',
+            'leaflets_reward' => 'required|integer|min:0',
+            'category' => 'required|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Reset form setelah sukses
-        $this->reset();
+        try {
+            // Simpan gambar jika ada
+            $imagePath = $this->image ? $this->image->store('volunteers', 'public') : null;
 
-        session()->flash('success', 'Volunteer berhasil ditambahkan!');
-    } catch (\Exception $e) {
-        session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
-        \Log::error('Error saving volunteer: ' . $e->getMessage()); // Log kesalahan untuk debugging
+            // Simpan data volunteer menggunakan Eloquent
+            Volunteer::create([
+                'name' => $this->name,
+                'description' => $this->description,
+                'created_by' => $this->created_by,
+                'crystal_reward' => $this->crystal_reward,
+                'leaflets_reward' => $this->leaflets_reward,
+                'category' => $this->category,
+                'start_date' => $this->start_date,
+                'end_date' => $this->end_date,
+                'image' => $imagePath,
+            ]);
+
+            // Reset form setelah sukses
+            $this->reset();
+
+            session()->flash('success', 'Volunteer berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            \Log::error('Error saving volunteer: ' . $e->getMessage()); // Log kesalahan untuk debugging
+        }
     }
-}
+
     public function render()
     {
         return view('livewire.tambah-volunteer');
