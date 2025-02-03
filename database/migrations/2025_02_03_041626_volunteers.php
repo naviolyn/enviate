@@ -12,15 +12,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('volunteers', function (Blueprint $table) {
-            $table->increments('volunteer_id');
+            $table->id('volunteer_id'); // Primary Key
             $table->string('name', 100);
             $table->text('description');
-            $table->integer('created_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->integer('crystal_reward');
             $table->integer('leaflets_reward');
+            $table->enum('category', [
+                'Pelestarian Alam',
+                'Edukasi & Kampanye Lingkungan',
+                'Pembersihan & Pengelolaan Sampah',
+                'Advokasi Kebijakan Lingkungan',
+                'Pemantauan dan Penelitian Lingkungan'
+            ]);
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->string('image')->nullable();
+            $table->timestamps(); // created_at & updated_at
         });
     }
 
