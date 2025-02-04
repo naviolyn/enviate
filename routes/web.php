@@ -17,10 +17,10 @@ use App\Livewire\EditProfile;
 use App\Livewire\UserTasks;
 use App\Livewire\Volunteer;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
 use App\Livewire\CustomizeAvatar;
 use App\Livewire\EditVolunteer;
+use App\Livewire\RegisterVolunteer;
 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MitraController;
@@ -105,6 +105,13 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 
     Route::get('/tasks', [TasksController::class, 'index']);
     Route::post('/tasks', [TasksController::class, 'store'])->name('tasks.store');
+
+    Route::get('/avatar', function () {
+        return view('admin.avatar');
+    })->name('admin.avatar');
+    Route::get('/avatar/edit', function () {
+        return view('admin.edit-avatar');
+    })->name('admin.edit-avatar');
 });
 
 require __DIR__.'/auth.php';
