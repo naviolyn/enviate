@@ -1,9 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Middleware\MitraMiddleware;
 use App\Http\Middleware\AdminMiddleware;
+
 use App\Models\User;
+use App\Models\Task;
+
 use Livewire\Livewire; // Import Livewire
 use App\Livewire\TodayTask;
 use App\Livewire\Leaderboard;
@@ -15,14 +21,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
 use App\Livewire\CustomizeAvatar;
 use App\Livewire\EditVolunteer;
-use App\Livewire\MitraVolunteer;
-use App\Livewire\RegisterVolunteer;
-use App\Livewire\TambahVolunteer;
-// use App\Http\Controllers\ProfileController;
-// use App\Http\Controllers\UserController;
-// use App\Http\Controllers\TaskController;
-use Laravel\Socialite\Facades\Socialite;
-use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\MitraController;
+use App\Http\Controllers\Admin\TasksController;
 
 // Autentikasi Google
 Route::get('/auth/google', function () {
@@ -48,8 +50,7 @@ Route::get('/auth/google/callback', function () {
     return redirect('/today-task');  // Sesuaikan dengan rute tujuan setelah login
 });
 
-
-// Define routes
+// Halaman User
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -77,34 +78,7 @@ Route::get('/customize-avatar', CustomizeAvatar::class);
 Route::get('/edit-volunteer', EditVolunteer::class)->name('edit-volunteer');
 Route::get('/tambah-volunteer', \App\Livewire\TambahVolunteer::class)->name('tambah-volunteer');
 
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::patch('/user-management/{id}/toggle-status', [UserController::class, 'updateStatus'])->name('user.toggleStatus');
-
 Route::resource('tasks', TaskController::class);
-
-// Login sesuai role
-Route::middleware(['auth'])->group(function () {
-    Route::get('/today-task', App\Livewire\TodayTask::class)->name('user.today-task');
-
-    Route::middleware(['mitra'])->group(function () {
-        Route::get('/mitra-volunteer', function () {
-            return view('mitra.dashboard');
-        })->name('mitra.dashboard');
-    });
-
-    Route::middleware(['admin'])->group(function () {
-        Route::get('/admin-dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
-    });
-});
-
-// Middleware Admin
-Route::middleware(['auth', AdminMiddleware::class])->group(function () {
-    Route::get('/admin-dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
-});
 
 // Middleware Mitra
 Route::middleware(['auth', MitraMiddleware::class])->group(function () {
@@ -115,6 +89,22 @@ Route::middleware(['auth', MitraMiddleware::class])->group(function () {
     Route::get('/mitra-volunteer', \App\Livewire\MitraVolunteer::class);
 
     Route::get('/tambah-volunteer', \App\Livewire\TambahVolunteer::class)->name('tambah-volunteer');
+});
+
+// Middleware Admin
+Route::middleware(['auth', AdminMiddleware::class])->group(function () {
+    Route::get('/admin-dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+
+    Route::get('admin/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
+
+    Route::get('admin/mitra', [MitraController::class, 'index'])->name('users.index');
+    Route::post('/users/{user}/toggle-status', [MitraController::class, 'toggleStatus'])->name('users.toggleStatus');
+
+    Route::get('/tasks', [TasksController::class, 'index']);
+    Route::post('/tasks', [TasksController::class, 'store'])->name('tasks.store');
 });
 
 require __DIR__.'/auth.php';

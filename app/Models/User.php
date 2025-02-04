@@ -55,4 +55,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Task::class, 'user_tasks', 'user_id', 'task_id')
             ->withPivot('status', 'completed_at');
     }
+
+    public function isUser()
+    {
+        return $this->role === 'user'; // misalnya role 'user'
+    }
 }
