@@ -4,10 +4,17 @@
             <a href="/" class="flex items-center w-32">
                 <img src="{{ asset('img/logo.png') }}" class="mr-3 h-6 sm:h-9" alt="Enviate Logo" />
                 <span class="self-center text-xl font-semibold whitespace-nowrap">Enviate</span>
-            </a>
+            </a> 
             <div class="flex items-center justify-end lg:order-2 w-32">
-                <a href="/login" class="text-gray-800 hover:bg-amber-500 focus:ring-4 focus:ring-gray-300 font-medium text-sm px-4 lg:px-5 py-2 lg:py-2 mr-2 focus:outline-none bg-amber-400 rounded-full">Log in</a>
-                {{-- <a href="/register" class="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none">Register</a> --}}
+            <div class="flex space-x-4">
+    <a href="/login" class="inline-flex items-center justify-center text-white hover:bg-amber-500 focus:ring-4 focus:ring-amber-300 font-medium text-sm px-6 py-3 focus:outline-none bg-amber-400 rounded-full transition duration-200 ease-in-out whitespace-nowrap">
+        Log in
+    </a>
+    <a href="/register" class="inline-flex items-center justify-center text-amber-400 hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium text-sm px-6 py-3 focus:outline-none border border-amber-400 rounded-full transition duration-200 ease-in-out whitespace-nowrap">
+        Register
+    </a>
+</div>
+
                 <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-smtext-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="mobile-menu-2" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>

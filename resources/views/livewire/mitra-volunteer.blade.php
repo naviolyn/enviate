@@ -9,43 +9,12 @@
                     <h4 class="font-semibold ml-3 text-lg">Volunteer</h4>
                     </div>
                     <div class="flex gap-2">
-                    <button id="dropdownTime" data-dropdown-toggle="dropdown-time" data-dropdown-placement="bottom-end" class="text-white bg-darkGreen font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center h-fit" type="button">All time <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                    </svg>
-                    </button>
-                    <!-- Dropdown-time menu -->
-                    <div id="dropdown-time" class="z-10 hidden bg-darkGreen divide-y divide-gray-100 rounded-lg w-44">
-                        <ul class="py-2 text-sm text-white" aria-labelledby="dropdownTime">
-                          <li>
-                            <a href="#" class="block px-4 py-2">All time</a>
-                          </li>
-                          <li>
-                            <a href="#" class="block px-4 py-2">Monthly</a>
-                          </li>
-                          <li>
-                            <a href="#" class="block px-4 py-2">Weekly</a>
-                          </li>
-                        </ul>
-                    </div>
-
-                    <button id="dropdownPlace" data-dropdown-toggle="dropdown-place" data-dropdown-placement="bottom-end" class="text-white bg-darkGreen font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center h-fit" type="button">Indonesia<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                        </svg>
+                        
+                        <button onclick="window.location='{{ route('tambah-volunteer') }}'" 
+                        class="text-white bg-darkGreen font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center h-fit">
+                        Tambah Volunteer
                         </button>
-                        <!-- Dropdown-pleace menu -->
-                        <div id="dropdown-place" class="z-10 hidden bg-darkGreen divide-y divide-gray-100 rounded-lg w-44">
-                            <ul class="py-2 text-sm text-white" aria-labelledby="dropdownPlace">
-                              <li>
-                                <a href="#" class="block px-4 py-2">Indonesia</a>
-                              </li>
-                              <li>
-                                <a href="#" class="block px-4 py-2">Province</a>
-                              </li>
-                              <li>
-                                <a href="#" class="block px-4 py-2">City</a>
-                              </li>
-                            </ul>
-                        </div>
+                       
                 </div>
                 </div>
                 <div class="overflow-y-auto">
@@ -87,9 +56,10 @@
                                                       </button>
                                                 </td>
                                                 <td class="px-4 py-2">
-                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                    <a href="{{ route('edit-volunteer') }}">
+                                                        <i class="fa-solid fa-pen-to-square cursor-pointer"></i>
+                                                    </a>
                                                 </td>
-                                                
                                             </tr>
                                         </tbody>
                                     </table>
