@@ -2,15 +2,15 @@
     <nav class=" border-gray-200 px-4 lg:px-6 py-4 backdrop:blur-lg">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl text-white">
             <a href="/" class="flex items-center w-32">
-                <img src="{{ asset('img/logo.png') }}" class="mr-3 h-6 sm:h-9" alt="Enviate Logo" />
+                <img src="{{ asset('img/nobg-logo.png') }}" class="mr-3 h-6 sm:h-9" alt="Enviate Logo" />
                 <span class="self-center text-xl font-semibold whitespace-nowrap">Enviate</span>
             </a> 
             <div class="flex items-center justify-end lg:order-2 w-32">
-            <div class="flex space-x-4">
-    <a href="/login" class="inline-flex items-center justify-center text-white hover:bg-amber-500 focus:ring-4 focus:ring-amber-300 font-medium text-sm px-6 py-3 focus:outline-none bg-amber-400 rounded-full transition duration-200 ease-in-out whitespace-nowrap">
+            <div class="flex space-x-4 items-center">
+    <a href="/login" class="inline-flex items-center justify-center text-white focus:ring-4 focus:ring-amber-300 font-medium text-sm px-6 py-2 focus:outline-none bg-amber-500 rounded-full transition duration-200 ease-in-out whitespace-nowrap h-fit">
         Log in
     </a>
-    <a href="/register" class="inline-flex items-center justify-center text-amber-400 hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium text-sm px-6 py-3 focus:outline-none border border-amber-400 rounded-full transition duration-200 ease-in-out whitespace-nowrap">
+    <a href="/register" class="inline-flex items-center justify-center text-amber-400  focus:ring-4 focus:ring-gray-300 font-medium text-sm px-6 py-2 focus:outline-none border border-amber-400 rounded-full transition duration-200 ease-in-out whitespace-nowrap h-fit">
         Register
     </a>
 </div>

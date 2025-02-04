@@ -9,10 +9,10 @@
       <div class="blur-[106px] h-32 bg-gradient-to-r from-lightGreen to-amber-300"></div>
   </div> 
   <Container>
-      <div class="relative pt-36 ml-auto">
+      <div class="flex relative ml-auto h-[88vh] justify-center flex-col">
           <div class="lg:w-2/3 text-center mx-auto">
-              <h1 class="text-gray-900 text-balance dark:text-white font-bold text-5xl md:text-6xl xl:text-7xl">Shaping a world with <span class="text-amber-400">reimagination.</span></h1>
-              <p class="mt-8 text-gray-700 dark:text-gray-300">Odio incidunt nam itaque sed eius modi error totam sit illum. Voluptas doloribus asperiores quaerat aperiam. Quidem harum omnis beatae ipsum soluta!</p>
+              <h1 class="text-gray-900 text-balance dark:text-white font-bold text-5xl md:text-6xl xl:text-7xl">Act,  <span class="text-white">Earn Rewards, </span><span class="text-amber-400">Save the World!</span></h1>
+              <p class="mt-8 text-gray-700 dark:text-gray-300">The innovative platform that transforms your daily activities into real environmental action! </p>
               <div class="mt-16 flex flex-wrap justify-center gap-y-4 gap-x-6">
                   <a
                     href="{{ route('login') }}"
@@ -24,49 +24,16 @@
                   </a>
                   <a
                     href="#"
-                    class="bg-fadeGreen rounded-full relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max"
+                    class="border border-1 border-amber-500 rounded-full relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max"
                   >
                     <span
-                      class="relative text-base font-semibold text-white"
+                      class="relative text-base font-semibold text-amber-500"
                       >Learn more</span
                     >
                   </a>
               </div>
-              <div class="hidden py-8 mt-16 border-y border-fadeGreen sm:flex justify-between">
-                  <div class="text-left">
-                      <h6 class="text-lg font-semibold text-gray-700 dark:text-white">The lowest price</h6>
-                      <p class="mt-2 text-gray-200">Some text here</p>
-                  </div>
-                  <div class="text-left">
-                      <h6 class="text-lg font-semibold text-gray-700 dark:text-white">The fastest on the market</h6>
-                      <p class="mt-2 text-gray-200">Some text here</p>
-                  </div>
-                  <div class="text-left">
-                      <h6 class="text-lg font-semibold text-gray-700 dark:text-white">The most loved</h6>
-                      <p class="mt-2 text-gray-200">Some text here</p>
-                  </div>
-              </div>
           </div>
-          <div class="mt-12 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6">
-              <div class="p-4 grayscale transition duration-200 hover:grayscale-0">
-                  <img src="./images/clients/microsoft.svg" class="h-12 w-auto mx-auto" loading="lazy" alt="client logo" width="" height="" />
-                </div>
-              <div class="p-4 grayscale transition duration-200 hover:grayscale-0">
-                <img src="./images/clients/airbnb.svg" class="h-12 w-auto mx-auto" loading="lazy" alt="client logo" width="" height="" />
-              </div>
-              <div class="p-4 flex grayscale transition duration-200 hover:grayscale-0">
-                <img src="./images/clients/google.svg" class="h-9 w-auto m-auto" loading="lazy" alt="client logo" width="" height="" />
-              </div>
-              <div class="p-4 grayscale transition duration-200 hover:grayscale-0">
-                  <img src="./images/clients/ge.svg" class="h-12 w-auto mx-auto" loading="lazy" alt="client logo" width="" height="" />
-                </div>
-                <div class="p-4 flex grayscale transition duration-200 hover:grayscale-0">
-                  <img src="./images/clients/netflix.svg" class="h-8 w-auto m-auto" loading="lazy" alt="client logo" width="" height="" />
-                </div>
-              <div class="p-4 grayscale transition duration-200 hover:grayscale-0">
-                  <img src="./images/clients/google-cloud.svg" class="h-12 w-auto mx-auto" loading="lazy" alt="client logo" width="" height="" />
-              </div>
-            </div>
+          
       </div>
   </Container>
   <div id="features">
@@ -77,11 +44,57 @@
         </svg>
         
         <h2 class="my-8 text-2xl font-bold text-white md:text-4xl">
-          A technology-first approach to payments
-          and finance
+          Earn rewards while making a difference for the planet.
         </h2>
-        <p class="text-gray-600 dark:text-gray-300">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus ad ipsum pariatur autem, fugit laborum in atque amet obcaecati? Nisi minima aspernatur, quidem nulla cupiditate nam consequatur eligendi magni adipisci.</p>
+        <p class="text-gray-600 dark:text-gray-300">Complete tasks, take on challenges, and contribute to a sustainable future—all while earning exciting rewards! With Enviate, every action you take brings real impact to the environment. Start your journey today and turn your efforts into meaningful change!</p>
       </div>
+
+      <main class="grid min-h-screen w-full place-content-center bg-gray-900">
+        <div x-data="imageSlider" class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4">
+            <div class="absolute right-5 top-5 z-10 rounded-full bg-gray-600 px-2 text-center text-sm text-white">
+                <span x-text="currentIndex"></span>/<span x-text="images.length"></span>
+            </div>
+    
+            <button @click="previous()" class="absolute left-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 shadow-md">
+                <i class="fas fa-chevron-left text-2xl font-bold text-gray-500"></i>
+            </button>
+    
+            <button @click="forward()" class="absolute right-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 shadow-md">
+                <i class="fas fa-chevron-right text-2xl font-bold text-gray-500"></i>
+            </button>
+    
+            <div class="relative h-80" style="width: 30rem">
+                <template x-for="(image, index) in images">
+                    <div x-show="currentIndex == index + 1" x-transition:enter="transition transform duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition transform duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute top-0">
+                        <img :src="image" alt="image" class="rounded-sm" />
+                    </div>
+                </template>
+            </div>
+        </div>
+    </main>
+    
+<script>
+  document.addEventListener("alpine:init", () => {
+    Alpine.data("imageSlider", () => ({
+      currentIndex: 1,
+      images: [
+        "https://unsplash.it/640/425?image=30",
+        "https://unsplash.it/640/425?image=40",
+        "https://unsplash.it/640/425?image=50",
+      ],
+      previous() {
+        this.currentIndex = this.currentIndex === 1 ? this.images.length : this.currentIndex - 1;
+      },
+      forward() {
+        this.currentIndex = this.currentIndex === this.images.length ? 1 : this.currentIndex + 1;
+      },
+    }));
+});
+
+</script>
+    
+      
+      
       <div
         class="mt-16 grid divide-x divide-y divide-gray-700 overflow-hidden rounded-3xl border border-gray-100border-gray-700 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4"
       >
