@@ -26,6 +26,7 @@
                 $table->string('province')->nullable();
                 $table->string('city')->nullable();
                 $table->enum('role', ['user', 'mitra', 'admin'])->notNullable()->default('user');
+                $table->enum('status', ['0', '1'])->notNullable()->default('1'); 
                 $table->timestamps(0);
             });        
         

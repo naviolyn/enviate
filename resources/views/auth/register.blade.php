@@ -20,7 +20,7 @@
                     <!-- Email Address -->
                     <div class="mt-4">
                         <x-input-label for="email" class="block mb-2 text-sm font-medium text-gray-900" :value="__('Your Email')" />
-                        <x-text-input id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="name@company.com" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                        <x-text-input id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="example@gmail.com" type="email" name="email" :value="old('email')" required autocomplete="username" />
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
             

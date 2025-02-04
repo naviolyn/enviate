@@ -30,9 +30,6 @@
                                 <th class="px-6 py-3 text-center">ID</th>
                                 <th class="px-6 py-3 text-left">Username</th>
                                 <th class="px-6 py-3 text-left">Email</th>
-                                <th class="px-6 py-3 text-left">Level</th>
-                                <th class="px-6 py-3 text-left">Leaflets</th>
-                                <th class="px-6 py-3 text-left">Crystals</th>
                                 <th class="px-6 py-3 text-left">Province</th>
                                 <th class="px-6 py-3 text-left">City</th>
                                 <th class="px-6 py-3 text-left">Status</th>
@@ -45,9 +42,6 @@
                                 <td class="px-6 py-3 text-center">{{ $user->id }}</td>
                                 <td class="px-6 py-3">{{ $user->username ?? '-' }}</td>
                                 <td class="px-6 py-3">{{ $user->email }}</td>
-                                <td class="px-6 py-3">{{ $user->level }}</td>
-                                <td class="px-6 py-3">{{ $user->leaflets }}</td>
-                                <td class="px-6 py-3">{{ $user->crystal }}</td>
                                 <td class="px-6 py-3">{{ $user->province ?? '-' }}</td>
                                 <td class="px-6 py-3">{{ $user->city ?? '-' }}</td>
                                 <td class="px-6 py-3">

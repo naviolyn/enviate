@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name', 100);
             $table->text('description');
             $table->enum('type', ['daily', 'weekly', 'monthly']);
-            $table->integer('level')->default(1);
             $table->integer('leaflets_reward');
             $table->integer('created_by')->nullable();
             $table->tinyInteger('reminder')->default(0);
