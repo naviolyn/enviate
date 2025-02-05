@@ -197,7 +197,7 @@
               <span>Today Task</span>
             </a>
             <a
-              href="#"
+              href="/weekly-task"
               class="flex items-center space-x-2 text-white rounded-lg {{ Request::is('weekly-task*') ? 'bg-fadeGreen' : '' }}"
             >
               <span
@@ -209,7 +209,7 @@
               <span>Weekly Task</span>
             </a>
             <a
-              href="#"
+              href="/monthly-task"
               class="flex items-center space-x-2 text-white rounded-lg "
             >
               <span
@@ -269,7 +269,7 @@
                           <span>Today Task</span>
                         </a>
                         <a
-                          href="#"
+                          href="/weekly-task"
                           class="flex items-center space-x-2 text-white rounded-lg {{ Request::is('weekly-task*') ? 'bg-fadeGreen' : '' }}"
                         >
                           <span
@@ -281,7 +281,7 @@
                           <span>Weekly Task</span>
                         </a>
                         <a
-                          href="#"
+                          href="/monthly-task"
                           class="flex items-center space-x-2 text-white rounded-lg "
                         >
                           <span
