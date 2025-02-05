@@ -22,9 +22,13 @@ use App\Livewire\CustomizeAvatar;
 use App\Livewire\EditVolunteer;
 use App\Livewire\RegisterVolunteer;
 
+
+
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MitraController;
 use App\Http\Controllers\Admin\TasksController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
 
 // Autentikasi Google
 Route::get('/auth/google', function () {
@@ -49,6 +53,10 @@ Route::get('/auth/google/callback', function () {
     // Redirect ke halaman setelah login
     return redirect('/today-task');  // Sesuaikan dengan rute tujuan setelah login
 });
+
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 // Halaman User
 Route::get('/', function () {

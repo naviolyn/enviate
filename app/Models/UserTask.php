@@ -9,15 +9,11 @@ class UserTask extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     protected $table = 'user_tasks';
-    protected $primaryKey = 'user_task_id';
-    protected $fillable = [
-        'user_id',
-        'task_id',
-        'status',
-        'completed_at',
-    ];
-
+    protected $primaryKey = 'user_id';
+    public $incrementing = false;
+    protected $fillable = ['user_id', 'task_id', 'status', 'completed_at'];
     public function task()
     {
         return $this->belongsTo(Task::class, 'task_id');

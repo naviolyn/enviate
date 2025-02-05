@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
         } elseif ($user->role === 'mitra') {
             return redirect()->route('mitra.dashboard');
         } else {
-            return redirect()->route('livewire.dashboard');
+            return redirect()->route('dashboard');
         }
     }
 

@@ -12,6 +12,7 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $guarded = [];
     protected $primaryKey = 'id'; // Sesuaikan primary key
     public $incrementing = true; // Jika primary key auto-increment
     protected $keyType = 'int'; // Tipe data primary key
@@ -59,5 +60,17 @@ class User extends Authenticatable
     public function isUser()
     {
         return $this->role === 'user'; // misalnya role 'user'
+    }
+
+    public function todayTasks()
+    {
+        return $this->hasMany(UserTask::class, 'user_id')
+                    ->where('status', 'in_progress');
+    }
+
+    public function completedTasks()
+    {
+        return $this->hasMany(UserTask::class, 'user_id')
+                    ->where('status', 'completed');
     }
 }
