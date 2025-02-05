@@ -18,11 +18,14 @@
 <body>
     <div class="background overflow-hidden"></div>
     <div class="h-screen flex flex-col">
-        @include('components.navbar')
+        @include('components.layouts.navbar')
         <div class="h-full">
             @yield('content')
+            @include('components.layouts.footer')
         </div>
-    </div>        
+        
+    </div>    
+        
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.1/dist/flowbite.min.js"></script>
 </body>
 </html>
