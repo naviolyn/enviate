@@ -1,6 +1,6 @@
 <div class="bg-lightGreen h-full">
     <div class="flex font-medium w-full h-full flex-col sm:flex-col md:flex-row gap-4 lg:gap-8 lg:px-4 px-2">
-        <div class="flex items-center justify-center h-full text-gray-600 w-full md:w-2/6  border-gray-100 bg-darkGreen rounded-2xl py-4">
+        {{-- <div class="flex items-center justify-center h-full text-gray-600 w-full md:w-2/6  border-gray-100 bg-darkGreen rounded-2xl py-4">
             <!-- Component Start -->
             <div class="flex flex-col  max-w-full w-full h-full pe-0 justify-center">
                 <div class="flex flex-col items-center text-white align-middle text-center justify-center p-4">
@@ -10,9 +10,9 @@
                     <h4 class="font-semibold ml-3 text-xl pt-3">nama aatar</h4>
                 </div>
                   </div>
-        </div>
+        </div> --}}
         
-        <div class="flex items-center justify-center h-full text-gray-600  w-full md:w-4/6 bg-white py-2 rounded-2xl">
+        <div class="flex items-center justify-center h-full text-gray-600  w-full bg-white py-2 rounded-2xl">
             <!-- Component Start -->
             <div class="w-full h-full pe-0">
                 <div class=" h-full overflow-hidden">
@@ -29,7 +29,7 @@
                                       <div class="flex gap-2 h-full">
 
                                         <div class="w-9/12 bg-lightGreen rounded-xl h-full py-2">
-                                          <div x-data="imageSlider" class="relative mx-auto max-w-2xl overflow-hidden rounded-md p-2 sm:p-4 h-full">
+                                          <div x-data="imageSlider" class="relative mx-auto max-w-3xl overflow-hidden rounded-md p-2 sm:p-4 h-full">
                                       
                                               <button @click="previous()" class="absolute left-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-fadeGreen">
                                                   <i class="fas fa-chevron-left text-2xl font-bold text-white"></i>
@@ -41,9 +41,15 @@
                                       
                                               <div class="relative h-full items-center" >
                                                   <template x-for="(image, index) in images">
-                                                      <div x-show="currentIndex == index + 1" x-transition:enter="transition transform duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition transform duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute top-0 align-middle w-full h-full p-16">
-                                                          <img :src="image" alt="image" class=" aspect-square rounded-sm h-full object-cover mx-auto" />
+                                                      <div x-show="currentIndex == index + 1" x-transition:enter="transition transform duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition transform duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute top-0 align-middle w-full h-full p-16 flex flex-col justify-center">
+                                                          <img :src="image" alt="image" class="w-max max-h-[100%] aspect-square rounded-sm object-cover mx-auto" />
+                                                          <div><p class="mt-8 text-center text-xl text-black font-bold">nama</p>
+                                                            <p class="mt-2 text-center text-sm">Earn 1000 leaflets</p>
+
+                                                          </div>
+                                                          
                                                       </div>
+                                                      
                                                   </template>
                                               </div>
                                           </div> 
@@ -108,25 +114,11 @@
                                         <div class="absolute left-0 px-2  mt-2 rounded-lg w-[99%] mx-auto transition-all duration-500 ease-in-out translate-x-40 opacity-0 invisible peer-checked:opacity-100 peer-checked:visible peer-checked:translate-x-1 h-[calc(100%-3rem)]">
                                           <div class="h-full bg-lightGreen rounded-xl">
                                             <div class="grid grid-cols-4 items-center gap-4 p-4 bg-lightGreen rounded-xl  overflow-scroll h-max no-scrollbar">
-                                              <div class=" aspect-square p-8 hover:bg-fadeGreen transition-all duration-300 ease-in-out rounded-lg">
+                                              <div class="aspect-square px-8 hover:bg-fadeGreen transition-all duration-300 ease-in-out rounded-lg flex flex-col justify-center items-center">
                                                 <img src="{{ asset('img/avatar.png') }}" alt="">
-                                              </div>
-                                              <div class=" aspect-square p-8 hover:bg-fadeGreen transition-all duration-300 ease-in-out rounded-lg">
-                                                <img src="{{ asset('img/avatar.png') }}" alt="">
-                                              </div>
-                                              <div class=" aspect-square p-8 hover:bg-fadeGreen transition-all duration-300 ease-in-out rounded-lg">
-                                                <img src="{{ asset('img/avatar.png') }}" alt="">
-                                              </div><div class=" aspect-square p-8 hover:bg-fadeGreen transition-all duration-300 ease-in-out rounded-lg">
-                                                <img src="{{ asset('img/avatar.png') }}" alt="">
-                                              </div>
-                                              <div class=" aspect-square p-8 hover:bg-fadeGreen transition-all duration-300 ease-in-out rounded-lg">
-                                                <img src="{{ asset('img/avatar.png') }}" alt="">
-                                              </div><div class=" aspect-square p-8 hover:bg-fadeGreen transition-all duration-300 ease-in-out rounded-lg">
-                                                <img src="{{ asset('img/avatar.png') }}" alt="">
-                                              </div><div class=" aspect-square p-8 hover:bg-fadeGreen transition-all duration-300 ease-in-out rounded-lg">
-                                                <img src="{{ asset('img/avatar.png') }}" alt="">
-                                              </div><div class=" aspect-square p-8 hover:bg-fadeGreen transition-all duration-300 ease-in-out rounded-lg">
-                                                <img src="{{ asset('img/avatar.png') }}" alt="">
+                                                <div class="flex flex-row text-center text-black/80  rounded-full border-none py-1.5 xl:px-4 mt-2 px-4 h-fit w-fit justify-center">
+                                                  <h3 class="text-sm">nama</h3>
+                                                  </div>
                                               </div>
                                               
                                             </div>
