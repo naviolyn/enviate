@@ -43,8 +43,8 @@
 
         <li class="mt-0.5 w-full">
         <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors 
-            {{ Request::is('admin/users') ? 'active bg-white rounded-lg shadow-soft-xl font-semibold text-slate-700' : '' }}" 
-            href="/admin/users">
+            {{ Request::is('/users') ? 'active bg-white rounded-lg shadow-soft-xl font-semibold text-slate-700' : '' }}" 
+            href="/users">
     <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
       <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <title>office</title>
@@ -65,7 +65,7 @@
 </li>
 
         <li class="mt-0.5 w-full">
-          <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" href="/admin/mitra">
+          <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" href="/partners">
             <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center fill-current stroke-0 text-center xl:p-2.5">
               <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>credit-card</title>

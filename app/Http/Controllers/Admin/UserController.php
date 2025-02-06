@@ -16,11 +16,14 @@ class UserController extends Controller
 
     public function toggleStatus(User $user)
     {
-        // Toggle the user's status (1 becomes 0, and 0 becomes 1)
+        if ($user->role !== 'user') {
+            return redirect()->route('users.index')->with('error', 'Unauthorized action.');
+        }
+
+        // Toggle status
         $user->status = $user->status == '1' ? '0' : '1';
         $user->save();
 
-        // Redirect back with success message
         return redirect()->route('users.index')->with('success', 'User status updated successfully.');
     }
 }

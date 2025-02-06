@@ -11,17 +11,20 @@ class MitraController extends Controller
     public function index()
     {
         $users = User::where('role', 'mitra')->get();
-        return view('admin.mitra', compact('users'));
+        return view('admin.partners', compact('users'));
     }
 
     public function toggleStatus(User $user)
     {
-        // Toggle the user's status (1 becomes 0, and 0 becomes 1)
+        if ($user->role !== 'mitra') {
+            return redirect()->route('mitra.index')->with('error', 'Unauthorized action.');
+        }
+
+        // Toggle status
         $user->status = $user->status == '1' ? '0' : '1';
         $user->save();
 
-        // Redirect back with success message
-        return redirect()->route('users.index')->with('success', 'User status updated successfully.');
+        return redirect()->route('mitra.index')->with('success', 'Partner status updated successfully.');
     }
 }
 

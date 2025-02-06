@@ -113,11 +113,11 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
-    Route::get('admin/users', [UserController::class, 'index'])->name('users.index');
-    Route::post('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('admin/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
 
-    Route::get('admin/mitra', [MitraController::class, 'index'])->name('users.index');
-    Route::post('/users/{user}/toggle-status', [MitraController::class, 'toggleStatus'])->name('users.toggleStatus');
+    Route::get('/partners', [MitraController::class, 'index'])->name('mitra.index');
+    Route::post('admin/mitra/{user}/toggle-status', [MitraController::class, 'toggleStatus'])->name('mitra.toggleStatus');
 
     Route::get('/tasks', [TasksController::class, 'index']);
     Route::post('/tasks', [TasksController::class, 'store'])->name('tasks.store');
