@@ -19,25 +19,32 @@ class UserTasks extends Component
     }
 
     private function loadTasks()
-{
-    $user = Auth::user();
+    {
+        $user = Auth::user();
 
-    $this->todayTasks = $user->todayTasks()->get();
+        // Tambahkan filter type 'daily' untuk todayTasks juga
+        $this->todayTasks = UserTask::where('user_id', $user->id)
+            ->where('status', 'in_progress')
+            ->whereHas('task', function($query) {
+                $query->where('type', 'daily');
+            })
+            ->get();
 
-    $this->completedTasks = UserTask::where('user_id', $user->id)
-        ->where('status', 'completed')
-        ->whereHas('task', function($query) {
-            $query->where('type', 'daily');
-        })
-        ->get();
+        $this->completedTasks = UserTask::where('user_id', $user->id)
+            ->where('status', 'completed')
+            ->whereHas('task', function($query) {
+                $query->where('type', 'daily');
+            })
+            ->get();
 
-    // Ambil semua task yang belum di-assign ke user
-    $this->otherTasks = Task::where('type', 'daily') // Hanya ambil task dengan type 'daily'
-    ->whereNotIn('task_id', function ($query) use ($user) {
-        $query->select('task_id')->from('user_tasks')->where('user_id', $user->id);
-    })->get();
-
-}
+        // Ambil semua task yang belum di-assign ke user
+        $this->otherTasks = Task::where('type', 'daily')
+            ->whereNotIn('task_id', function ($query) use ($user) {
+                $query->select('task_id')
+                    ->from('user_tasks')
+                    ->where('user_id', $user->id);
+            })->get();
+    }
 
 
     // Fungsi untuk memindahkan task ke "Your Today Task"
@@ -109,6 +116,45 @@ class UserTasks extends Component
     $userTask->status = $status;  // Set status menjadi 'in_progress'
     $userTask->completed_at = null;  // Karena statusnya 'in_progress', completed_at kosong
     $userTask->save();
+}
+
+public function unfinishTask($taskId)
+{
+    $user = Auth::user();
+
+    // Ambil task yang akan di-unfinish dan pastikan type-nya daily
+    $task = Task::where('task_id', $taskId)
+        ->where('type', 'daily')
+        ->first();
+
+    if (!$task) {
+        return;
+    }
+
+    // Ambil user task yang akan diupdate
+    $userTask = UserTask::where('user_id', $user->id)
+        ->where('task_id', $taskId)
+        ->whereHas('task', function($query) {
+            $query->where('type', 'daily');
+        })
+        ->first();
+
+    if ($userTask && $userTask->status === 'completed') {
+        // Update status task kembali ke in_progress
+        $userTask->status = 'in_progress';
+        $userTask->save();
+
+        // Kurangi leaflets user
+        $user->leaflets -= $task->leaflets_reward;
+        $user->save();
+
+        // Notifikasi Leaflets berkurang
+        $this->dispatch('leafletsUpdated', -$task->leaflets_reward, $task->name);
+        session()->flash('message', "Task dikembalikan ke Your Today Task. {$task->leaflets_reward} Leaflets dikurangi.");
+    }
+
+    // Refresh daftar tugas
+    $this->loadTasks();
 }
 
 

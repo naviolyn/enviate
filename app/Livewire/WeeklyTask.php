@@ -112,6 +112,46 @@ class WeeklyTask extends Component
     $userTask->save();
 }
 
+// Fungsi untuk mengembalikan task ke "Unfinished"
+public function unfinishTask($taskId)
+{
+    $user = Auth::user();
+
+    // Ambil task yang akan di-unfinish dan pastikan type-nya weekly
+    $task = Task::where('task_id', $taskId)
+        ->where('type', 'weekly')
+        ->first();
+
+    if (!$task) {
+        return;
+    }
+
+    // Ambil user task yang akan diupdate
+    $userTask = UserTask::where('user_id', $user->id)
+        ->where('task_id', $taskId)
+        ->whereHas('task', function($query) {
+            $query->where('type', 'weekly');
+        })
+        ->first();
+
+    if ($userTask && $userTask->status === 'completed') {
+        // Update status task kembali ke in_progress
+        $userTask->status = 'in_progress';
+        $userTask->save();
+
+        // Kurangi leaflets user
+        $user->leaflets -= $task->leaflets_reward;
+        $user->save();
+
+        // Notifikasi Leaflets berkurang
+        $this->dispatch('leafletsUpdated', -$task->leaflets_reward, $task->name);
+        session()->flash('message', "Task dikembalikan ke Your Today Task. {$task->leaflets_reward} Leaflets dikurangi.");
+    }
+
+    // Refresh daftar tugas
+    $this->loadTasks();
+}
+
 
     public function render()
     {
