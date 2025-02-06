@@ -24,13 +24,12 @@ use App\Livewire\CustomizeAvatar;
 use App\Livewire\EditVolunteer;
 use App\Livewire\RegisterVolunteer;
 
-
-
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MitraController;
 use App\Http\Controllers\Admin\TasksController;
+use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-
+use App\Livewire\Profile;
 
 // Autentikasi Google
 Route::get('/auth/google', function () {
@@ -83,25 +82,29 @@ Route::get('/leaderboard', Leaderboard::class)->name('leaderboard');
 Route::get('/volunteer', Volunteer::class);
 Route::get('/list-volunteer', \App\Livewire\MitraVolunteer::class); // Correctly reference the Livewire component
 
+Route::get('/profile', Profile::class);
 Route::get('/edit-profile', EditProfile::class);
 Route::get('/mitra/volunteer/edit', EditVolunteer::class);
 Route::get('/register-volunteer', RegisterVolunteer::class);
 Route::get('/customize-avatar', CustomizeAvatar::class);
 Route::get('/mitra/volunteer/edit', EditVolunteer::class)->name('edit-volunteer');
-Route::get('/tambah-volunteer', \App\Livewire\TambahVolunteer::class)->name('tambah-volunteer');
 
 Route::resource('tasks', TaskController::class);
 
 // Middleware Mitra
 Route::middleware(['auth', MitraMiddleware::class])->group(function () {
+    // Route yang bisa diakses user
     Route::get('/mitra/dashboard', function () {
         return view('mitra.dashboard');
     })->name('mitra.dashboard');
 
     Route::get('/mitra/volunteer', \App\Livewire\MitraVolunteer::class);
-    Route::get('/mitra/voluntee', \App\Livewire\VolunteeList::class);
 
-    Route::get('/mitra/volunteer/tambah', \App\Livewire\TambahVolunteer::class)->name('tambah-volunteer');
+    // Route untuk nyimpan
+    Route::post('/volunteer/store', [VolunteerController::class, 'store'])->name('volunteer.store');
+
+    Route::get('/mitra-volunteer', [VolunteerController::class, 'index'])->name('mitra-volunteer');
+
 });
 
 // Middleware Admin
