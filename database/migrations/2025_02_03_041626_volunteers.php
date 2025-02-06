@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('volunteer_id'); // Primary Key
             $table->string('name', 100);
             $table->text('description');
-            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable(); // Foreign Key ke users.id
             $table->integer('crystal_reward');
             $table->integer('leaflets_reward');
             $table->enum('category', [
@@ -29,6 +29,9 @@ return new class extends Migration
             $table->dateTime('end_date');
             $table->string('image')->nullable();
             $table->timestamps(); // created_at & updated_at
+
+            // Menambahkan foreign key ke tabel users
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
         });
     }
 
