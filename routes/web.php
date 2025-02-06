@@ -12,6 +12,8 @@ use App\Models\Task;
 
 use Livewire\Livewire; // Import Livewire
 use App\Livewire\TodayTask;
+use App\Livewire\WeeklyTask;
+use App\Livewire\MonthlyTask;
 use App\Livewire\Leaderboard;
 use App\Livewire\EditProfile;
 use App\Livewire\UserTasks;
@@ -72,6 +74,8 @@ Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.up
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 Route::get('/today-task', 'App\Livewire\UserTasks')->name('tasks.index');
+Route::get('/weekly-task', WeeklyTask::class)->middleware('auth');
+Route::get('/monthly-task', MonthlyTask::class)->middleware('auth');
 Route::post('/complete-task/{id}', [TaskController::class, 'completeTask'])->name('task.complete');
 
 Route::get('/leaderboard', Leaderboard::class)->name('leaderboard');

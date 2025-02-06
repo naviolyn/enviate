@@ -73,4 +73,21 @@ class User extends Authenticatable
         return $this->hasMany(UserTask::class, 'user_id')
                     ->where('status', 'completed');
     }
+
+    public function weeklyTasks()
+{
+    return $this->hasMany(UserTask::class, 'user_id')
+        ->whereHas('task', function ($query) {
+            $query->where('type', 'weekly');
+        });
+}
+
+public function monthlyTasks()
+{
+    return $this->hasMany(UserTask::class, 'user_id')
+        ->whereHas('task', function ($query) {
+            $query->where('type', 'monthly');
+        });
+}
+
 }

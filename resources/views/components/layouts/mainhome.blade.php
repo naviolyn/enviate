@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   @vite('resources/css/app.css')
-   
+
 
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <script src="https://kit.fontawesome.com/9db9644a22.js" crossorigin="anonymous"></script>
@@ -23,9 +23,9 @@
             @yield('content')
             @include('components.layouts.footer')
         </div>
-        
-    </div>    
-        
+
+    </div>
+
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.1/dist/flowbite.min.js"></script>
 </body>
 </html>
@@ -45,14 +45,14 @@ html {
     ::-webkit-scrollbar {
     width: 0.3rem; /* Equivalent to w-2 in Tailwind */
   }
-  
+
   /* Scrollbar track */
   ::-webkit-scrollbar-track {
     border-radius: 9999px; /* Equivalent to rounded-full */
     background-color: #f3f4f600; /* Equivalent to bg-gray-100 */
     margin-block: 10px;
   }
-  
+
   /* Scrollbar thumb */
   ::-webkit-scrollbar-thumb {
     border-radius: 9999px; /* Equivalent to rounded-full */
@@ -66,7 +66,7 @@ html {
         left: 0;
         width: 130vw;
         height: 110vh;
-        background: 
+        background:
         url('{{ asset('img/bg.jpg') }}');
         background-size: cover;
         background-position: center;
