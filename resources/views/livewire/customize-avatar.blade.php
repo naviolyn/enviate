@@ -126,6 +126,13 @@
                                           
                                     </div>
                                   </li>
+                                  <li class=" ml-auto pr-3">
+                                    <div class="flex justify-end">
+                                      <button type="submit"
+                                          class="text-white bg-orange focus:ring-4 focus:outline-none focus:ring-lightGreen font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Save</button>
+                                  </div>
+                                  </li>
+
                                 </ul>
                                 
                                 </div>
