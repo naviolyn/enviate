@@ -28,7 +28,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MitraController;
 use App\Http\Controllers\Admin\TasksController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-
+use App\Livewire\Profile;
 
 // Autentikasi Google
 Route::get('/auth/google', function () {
@@ -79,6 +79,7 @@ Route::get('/leaderboard', Leaderboard::class)->name('leaderboard');
 Route::get('/volunteer', Volunteer::class);
 Route::get('/list-volunteer', \App\Livewire\MitraVolunteer::class); // Correctly reference the Livewire component
 
+Route::get('/profile', Profile::class);
 Route::get('/edit-profile', EditProfile::class);
 Route::get('/mitra/volunteer/edit', EditVolunteer::class);
 Route::get('/register-volunteer', RegisterVolunteer::class);
