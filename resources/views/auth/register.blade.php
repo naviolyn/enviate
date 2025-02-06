@@ -5,7 +5,7 @@
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-full lg:py-0">
         <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+                <h1 class="text-xl font-bold leading-tight tracking-tight text-darkGreen md:text-2xl">
                     Create an account
                 </h1>
                 <form method="POST" action="{{ route('register') }}">
@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
-                        <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
+                        <a class=" hover:underline text-sm text-gray-600" href="{{ route('login') }}">
                             {{ __('Already registered?') }}
                         </a>
 

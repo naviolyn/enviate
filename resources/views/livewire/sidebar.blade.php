@@ -63,7 +63,7 @@
               <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
               <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+                <button type="submit" class="text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100  w-full" role="menuitem">
                   Sign Out
                 </button>
               </form>
@@ -88,6 +88,7 @@
           </div>
           <div class="flex flex-col items-center flex-1 p-2 space-y-4">
             <!-- Menu button -->
+            @if (Auth::user()->role == 'user')
             <button
               @click="(isSidebarOpen && currentSidebarTab == 'linksTab') ? isSidebarOpen = false : isSidebarOpen = true; currentSidebarTab = 'linksTab'"
               class="p-2 transition-colors rounded-lg hover:text-white focus:outline-none {{ Request::is('today-task*') ? 'bg-fadeGreen' : '' }}"
@@ -96,16 +97,6 @@
               <span class="sr-only">Toggle sidebar</span>
               <i class="fa-solid fa-calendar-check w-6 text-2xl"></i>
             </button>
-            <!-- Challenge button -->
-            <a href="/challenge" class="p-0 m-0">
-                <button
-              class="p-2 transition-colors rounded-lg  hover:text-white focus:outline-none {{ Request::is('challenge*') ? 'bg-fadeGreen' : '' }}"
-              :class="(isSidebarOpen && currentSidebarTab == 'challengeTab') ? 'text-white bg-fadeGreen' : 'text-white'"
-            >
-              <span class="sr-only">Toggle challenge panel</span>
-              <i class="fa-solid fa-cubes-stacked w-6 text-2xl"></i>
-            </button>
-            </a>
 
             {{-- leaderboard button --}}
             <a href="/leaderboard" class="p-0 m-0">
@@ -123,7 +114,7 @@
               class="p-2 transition-colors rounded-lg  hover:text-white focus:outline-none"
               :class="(isSidebarOpen && currentSidebarTab == 'volunteerTab') ? 'text-white bg-fadeGreen' : 'text-white'"
             >
-              <span class="sr-only">Toggle challenge panel</span>
+              <span class="sr-only">s</span>
               <i class="fa-solid fa-puzzle-piece w-6 text-2xl"></i>
             </button>
             </a>
@@ -136,6 +127,7 @@
               <span class="sr-only">Toggle notifications panel</span>
               <i class="fa-solid fa-bell w-6 text-2xl"></i>
             </button>
+            @endif
           </div>
 
           <!-- User avatar -->
@@ -170,7 +162,7 @@
               <a href="/edit-profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
               <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+                <button type="submit" class=" text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100  w-full" role="menuitem">
                   Sign Out
                 </button>
               </form>
@@ -326,16 +318,6 @@
                 }
               </script>
 
-
-              <!-- Challenge button -->
-              <a href="/challenge" class="p-0 m-0">
-                  <button
-                class="w-full text-left px-4 py-2 transition-colors rounded-lg  hover:text-white focus:outline-none {{ Request::is('challenge*') ? 'bg-fadeGreen' : '' }}"
-              >
-                <i class="fa-solid fa-cubes-stacked w-6 text-2xl mr-2 "></i>
-                <span>Challenge</span>
-              </button>
-              </a>
 
               {{-- leaderboard button --}}
               <a href="/leaderboard" class="p-0 m-0">

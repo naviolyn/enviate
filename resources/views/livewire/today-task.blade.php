@@ -15,7 +15,7 @@
                         @foreach($todayTasks as $task)
     <div class="flex w-full justify-between hover:bg-fadeGreen/[0.08] rounded-md px-2" wire:key="today-task-{{ $task->task_id }}">
         <input class="hidden" type="checkbox" id="task_{{ $task->task_id }}"
-               wire:click="completeTask({{ $task->task_id }})">
+               wire:click="completeTask({{ $task->task_id }})" >
         <label class="flex items-center h-10 rounded cursor-pointer" for="task_{{ $task->task_id }}">
             <span class="flex items-center justify-center w-5 h-5 border-2 border-gray-300 rounded-full">
                 @if($task->status === 'completed')

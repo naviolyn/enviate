@@ -2,6 +2,7 @@ body {
     --mediumGreen: rgba(92, 186, 163, 1);
     --lightGreen: #E8F5EB;
     font-family: 'Montserrat', sans-serif;
+    scroll-behavior: smooth;
 
 }
 
