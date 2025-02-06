@@ -27,19 +27,18 @@
               <div class="w-0 sm:w-16">
                 @livewire('sidebar')
               </div>
-              
+
               <div class="w-full h-full">
                   <main class="px-4 py-8 h-full">
                   {{ $slot }}
                   </main>
               </div>
-            </div>            
+            </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.1/dist/flowbite.min.js"></script>
 
     </body>
     @livewireScripts
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script>
         const setup = () => {
             return {
