@@ -79,6 +79,10 @@ class MonthlyTask extends Component
         ->where('status', 'completed') // Ambil task yang sudah selesai
         ->get();
 
+    // Notifikasi Leaflets
+    $this->dispatch('leafletsUpdated', $task->leaflets_reward, $task->name);
+    session()->flash('message', "Tugas berhasil diselesaikan! Anda mendapatkan {$task->leaflets_reward} Leaflets.");
+
     // Refresh daftar tugas
     $this->loadTasks();
 }

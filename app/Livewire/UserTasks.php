@@ -79,6 +79,11 @@ class UserTasks extends Component
 
         // Refresh daftar tugas
         $this->loadTasks();
+
+        // Notifikasi Leaflets
+        $this->dispatch('leafletsUpdated', $task->leaflets_reward, $task->name);
+        session()->flash('message', "Tugas berhasil diselesaikan! Anda mendapatkan {$task->leaflets_reward} Leaflets.");
+
     }
 
 
