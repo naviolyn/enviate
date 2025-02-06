@@ -23,7 +23,13 @@ class UserTasks extends Component
     $user = Auth::user();
 
     $this->todayTasks = $user->todayTasks()->get();
-    $this->completedTasks = $user->completedTasks()->get();
+
+    $this->completedTasks = UserTask::where('user_id', $user->id)
+        ->where('status', 'completed')
+        ->whereHas('task', function($query) {
+            $query->where('type', 'daily');
+        })
+        ->get();
 
     // Ambil semua task yang belum di-assign ke user
     $this->otherTasks = Task::where('type', 'daily') // Hanya ambil task dengan type 'daily'
@@ -73,9 +79,13 @@ class UserTasks extends Component
 
         // Perbarui daftar tugas
         $this->todayTasks = $this->todayTasks->reject(fn($t) => $t->task_id == $taskId);
+
         $this->completedTasks = UserTask::where('user_id', $user->id)
-            ->where('status', 'completed')
-            ->get();
+        ->where('status', 'completed')
+        ->whereHas('task', function($query) {
+            $query->where('type', 'daily');
+        })
+        ->get();
 
         // Refresh daftar tugas
         $this->loadTasks();

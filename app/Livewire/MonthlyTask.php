@@ -23,7 +23,13 @@ class MonthlyTask extends Component
     $user = Auth::user();
 
     $this->monthlyTasks = $user->monthlyTasks()->where('status', 'in_progress')->get();
-    $this->completedTasks = $user->completedTasks()->get();
+
+    $this->completedTasks = UserTask::where('user_id', $user->id)
+        ->where('status', 'completed')
+        ->whereHas('task', function($query) {
+            $query->where('type', 'monthly');
+        })
+        ->get();
 
     // Ambil semua task yang belum di-assign ke user
     $this->otherTasks = Task::where('type', 'monthly') // Hanya ambil task dengan type 'monthly'
@@ -76,8 +82,11 @@ class MonthlyTask extends Component
             ->get();
 
     $this->completedTasks = UserTask::where('user_id', $user->id)
-        ->where('status', 'completed') // Ambil task yang sudah selesai
-        ->get();
+            ->where('status', 'completed')
+            ->whereHas('task', function($query) {
+                $query->where('type', 'monthly');
+            })
+            ->get();
 
     // Notifikasi Leaflets
     $this->dispatch('leafletsUpdated', $task->leaflets_reward, $task->name);

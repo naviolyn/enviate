@@ -23,7 +23,13 @@ class WeeklyTask extends Component
     $user = Auth::user();
 
     $this->weeklyTasks = $user->weeklyTasks()->where('status', 'in_progress')->get();
-    $this->completedTasks = $user->completedTasks()->get();
+
+    $this->completedTasks = UserTask::where('user_id', $user->id)
+        ->where('status', 'completed')
+        ->whereHas('task', function($query) {
+            $query->where('type', 'weekly');
+        })
+        ->get();
 
     // Ambil semua task yang belum di-assign ke user
     $this->otherTasks = Task::where('type', 'weekly')
@@ -77,8 +83,11 @@ class WeeklyTask extends Component
             ->get();
 
     $this->completedTasks = UserTask::where('user_id', $user->id)
-        ->where('status', 'completed') // Ambil task yang sudah selesai
-        ->get();
+            ->where('status', 'completed')
+            ->whereHas('task', function($query) {
+                $query->where('type', 'weekly');
+            })
+            ->get();
 
     // Notifikasi Leaflets
     $this->dispatch('leafletsUpdated', $task->leaflets_reward, $task->name);
