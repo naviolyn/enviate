@@ -19,18 +19,25 @@ class Notifications extends Component
     }
 
     public function addNotification($amount, $taskName)
-    {
+{
+    // Pesan berbeda untuk penambahan dan pengurangan leaflets
+    if ($amount > 0) {
         $message = "You received {$amount} Leaflets for completing the task {$taskName}";
-
-        // Simpan notifikasi ke database
-        Notification::create([
-            'user_id' => Auth::id(),
-            'message' => $message,
-        ]);
-
-        // Ambil notifikasi terbaru dari database
-        $this->notifications = Notification::where('user_id', Auth::id())->latest()->get();
+    } else {
+        // Ubah nilai negatif menjadi positif untuk pesan
+        $positiveAmount = abs($amount);
+        $message = "Your Leaflets have been reduced by {$positiveAmount} for uncompleting the task {$taskName}";
     }
+
+    // Simpan notifikasi ke database
+    Notification::create([
+        'user_id' => Auth::id(),
+        'message' => $message,
+    ]);
+
+    // Ambil notifikasi terbaru dari database
+    $this->notifications = Notification::where('user_id', Auth::id())->latest()->get();
+}
 
     public function render()
     {

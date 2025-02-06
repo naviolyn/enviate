@@ -17,9 +17,13 @@ return new class extends Migration
             $table->text('description');
             $table->enum('type', ['daily', 'weekly', 'monthly']);
             $table->integer('leaflets_reward');
-            $table->integer('created_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable(); // Foreign Key ke users.id
+            $table->enum('status', ['0', '1'])->notNullable()->default('1'); 
             $table->tinyInteger('reminder')->default(0);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+
+            // Menambahkan foreign key ke tabel users
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
         });
     }
 

@@ -23,6 +23,18 @@
                         <x-text-input id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="example@gmail.com" type="email" name="email" :value="old('email')" required autocomplete="username" />
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
+
+                    <!-- Location -->
+                    <div class="mt-4">
+                        <x-input-label for="location" class="block mb-2 text-sm font-medium text-gray-900" :value="__('Your Location')" />
+                        <x-text-input id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Fetching location..." type="text" name="location" required />
+                        
+                        <!-- Hidden fields untuk province dan city -->
+                        <input type="hidden" id="province" name="province">
+                        <input type="hidden" id="city" name="city">
+
+                        <x-input-error :messages="$errors->get('location')" class="mt-2" />
+                    </div>
             
                     <!-- Password -->
                     <div class="mt-4">
@@ -58,4 +70,51 @@
                     </div>
                 </form>
                 </section>
+
+                <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                async function (position) {
+                    let latitude = position.coords.latitude;
+                    let longitude = position.coords.longitude;
+
+                    // Panggil API OpenStreetMap untuk reverse geocoding
+                    let response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+                    let data = await response.json();
+
+                    if (data && data.address) {
+                        let city = data.address.city || data.address.town || data.address.village || "";
+                        let province = data.address.state || "";
+
+                        let locationInput = document.getElementById("location");
+                        let cityInput = document.getElementById("city");
+                        let provinceInput = document.getElementById("province");
+
+                        if (!locationInput.value) {
+                            locationInput.value = `${city}, ${province}`;
+                        }
+
+                        // Simpan ke hidden input fields
+                        cityInput.value = city;
+                        provinceInput.value = province;
+                    }
+                },
+                function (error) {
+                    console.error("Error getting location: ", error);
+                    document.getElementById("location").placeholder = "Enter location manually";
+                }
+            );
+        } else {
+            document.getElementById("location").placeholder = "Geolocation not supported";
+        }
+
+        // Update province & city saat user mengetik lokasi secara manual
+        document.getElementById("location").addEventListener("input", function () {
+            let locationParts = this.value.split(",");
+            document.getElementById("city").value = locationParts[0]?.trim() || "";
+            document.getElementById("province").value = locationParts[1]?.trim() || "";
+        });
+    });
+</script>
                         @endsection

@@ -18,91 +18,97 @@
 @section('content')
 <div class="flex flex-wrap -mx-3">
     <div class="flex-none w-full max-w-full px-3">
-        <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-            <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                <h6>Tasks Table</h6>
+        <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white shadow-lg rounded-xl p-6">
+            <div class="pb-4 border-b border-gray-200">
+                <h6 class="text-lg font-semibold text-gray-700">Tasks List</h6>
             </div>
             <div class="flex-auto px-0 pt-0 pb-2">
                 <div class="p-0 overflow-x-auto">
-                    <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+                <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
                         <thead>
-                            <tr>
-                                <th class="px-6 py-3 text-center">ID</th>
-                                <th class="px-6 py-3 text-left">Task Name</th>
-                                <th class="px-6 py-3 text-left">Description</th>
-                                <th class="px-6 py-3 text-left">Type</th>
-                                <th class="px-6 py-3 text-left">Leaflets Reward</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($tasks as $task)
-                            <tr>
-                                <td class="px-6 py-3 text-center">{{ $task->task_id }}</td>
-                                <td class="px-6 py-3">{{ $task->name ?? '-' }}</td>
-                                <td class="px-6 py-3">{{ $task->description }}</td>
-                                <td class="px-6 py-3">{{ $task->type ?? '-' }}</td>
-                                <td class="px-6 py-3">{{ $task->leaflets_reward ?? '-' }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @if(session('success'))
-                        <div class="mt-4 text-green-500">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                </div>
+                        <tr>
+                            <th class="px-6 py-3 text-center">ID</th>
+                            <th class="px-6 py-3 text-center">Task Name</th>
+                            <th class="px-6 py-3 text-center">Description</th>
+                            <th class="px-6 py-3 text-center">Type</th>
+                            <th class="px-6 py-3 text-center">Leaflets Reward</th>
+                            <th class="px-6 py-3 text-center">Status</th>
+                            <th class="px-6 py-3 text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($tasks as $task)
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-3 text-center">{{ $task->task_id }}</td>
+                            <td class="px-6 py-3 text-center">{{ $task->name ?? '-' }}</td>
+                            <td class="px-6 py-3 text-center">{{ $task->description }}</td>
+                            <td class="px-6 py-3 text-center">{{ $task->type ?? '-' }}</td>
+                            <td class="px-6 py-3 text-center">{{ $task->leaflets_reward ?? '-' }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
+            @if(session('success'))
+                <div class="mt-4 p-3 bg-green-500 text-white rounded-lg">
+                    {{ session('success') }}
+                </div>
+            @endif
         </div>
     </div>
 </div>
 
-<!-- Modal Button -->
-<button onclick="openModal()" class="btn btn-primary mb-4">Add Task</button>
+<!-- Tombol Add Task di Bawah -->
+<div class="flex mt-6">
+    <button onclick="openModal()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition duration-300">
+        + Add Task
+    </button>
+</div>
 
 <!-- Modal -->
 <div id="taskModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-50">
-    <div class="bg-white p-6 rounded-lg w-96">
-        <h6>Add New Task</h6>
+    <div class="bg-white p-6 rounded-lg w-full max-w-md shadow-lg relative">
+        <h6 class="text-lg font-semibold text-gray-700">Add New Task</h6>
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
         <form action="{{ route('tasks.store') }}" method="POST">
             @csrf
-            <div class="mb-4">
-                <label for="name" class="block">Task Name</label>
-                <input type="text" name="name" id="name" class="form-input w-full" required>
+            <div class="mt-4">
+                <label for="name" class="block text-gray-700">Task Name</label>
+                <input type="text" name="name" id="name" class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" required>
             </div>
-            <div class="mb-4">
-                <label for="description" class="block">Description</label>
-                <textarea name="description" id="description" class="form-input w-full" required></textarea>
+            <div class="mt-4">
+                <label for="description" class="block text-gray-700">Description</label>
+                <textarea name="description" id="description" class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" required></textarea>
             </div>
-            <div class="mb-4">
-                <label for="type" class="block">Type</label>
-                <select name="type" id="type" class="form-input w-full" required>
+            <div class="mt-4">
+                <label for="type" class="block text-gray-700">Type</label>
+                <select name="type" id="type" class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300" required>
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
                     <option value="monthly">Monthly</option>
                 </select>
             </div>
-            <div class="mb-4">
-                <label for="leaflets_reward" class="block">Leaflets Reward</label>
-                <input type="number" name="leaflets_reward" id="leaflets_reward" class="form-input w-full">
+            <div class="mt-4">
+                <label for="leaflets_reward" class="block text-gray-700">Leaflets Reward</label>
+                <input type="number" name="leaflets_reward" id="leaflets_reward" class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300">
             </div>
-            <div class="flex justify-between">
-                <button type="submit" class="btn btn-primary">Add Task</button>
-                <button type="button" onclick="closeModal()" class="btn btn-secondary">Cancel</button>
+            <div class="mt-6 flex justify-between">
+                <button type="submit" class="!bg-green-600 hover:!bg-green-700 text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-300">Add Task</button>
+                <button type="button" onclick="closeModal()" class="!bg-gray-400 hover:!bg-gray-500 text-white font-bold py-2 px-6 rounded-lg transition duration-300">Cancel</button>
             </div>
         </form>
     </div>
 </div>
 
 <script>
-    // Fungsi untuk membuka modal
     function openModal() {
         document.getElementById('taskModal').classList.remove('hidden');
+        document.body.classList.add('overflow-hidden'); // Hilangkan scroll ketika modal terbuka
     }
 
-    // Fungsi untuk menutup modal
     function closeModal() {
         document.getElementById('taskModal').classList.add('hidden');
+        document.body.classList.remove('overflow-hidden'); // Kembalikan scroll
     }
 </script>
 

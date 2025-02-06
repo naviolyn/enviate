@@ -54,6 +54,9 @@
                             </svg>
                         </span>
                         <span class="ml-4 text-sm">{{ $task->task->name }}</span>
+                        <button wire:click.prevent="unfinishTask({{ $task->task_id }})" class="ml-auto items-center text-sm bg-red-500 text-white px-3 py-1 rounded">
+                            Unfinished
+                        </button>
                     </label>
                     @endforeach
         </div>
