@@ -9,7 +9,7 @@
                 <p class="text-white">
                     {{ $notification->message }}
                     <br>
-                    <span class="text-xs text-gray-400">Received on: {{ $notification->created_at->format('d-m-Y H:i') }}</span>
+                    <span class="text-xs text-gray-400">Received on: {{ $notification->created_at->format('d-m-Y') }}</span>
                 </p>
             </li>
             @endforeach
