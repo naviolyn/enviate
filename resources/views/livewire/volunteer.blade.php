@@ -5,84 +5,68 @@
           <div class="max-w-full w-full h-full pe-0">
               <div class="flex flex-col md:flex-row justify-between mb-6 text-darkGreen align-middle">
                   <div class="flex items-center mb-6 text-darkGreen">
-                  <i class="fa-solid fa-puzzle-piece w-6 text-2xl"></i>   
+                  <i class="fa-solid fa-puzzle-piece w-6 text-2xl"></i>
                   <h4 class="font-semibold ml-3 text-lg">Volunteer</h4>
-                  
+
                   </div>
                   <div class="flex gap-2">
-                      
-                  <button id="dropdownTime" data-dropdown-toggle="dropdown-time" data-dropdown-placement="bottom-end" class="text-white bg-darkGreen font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center h-fit" type="button">All time <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                  </svg>
-                  </button>
-                  <!-- Dropdown-time menu -->
-                  <div id="dropdown-time" class="z-10 hidden bg-darkGreen divide-y divide-gray-100 rounded-lg w-44">
-                      <ul class="py-2 text-sm text-white" aria-labelledby="dropdownTime">
-                        <li>
-                          <a href="#" class="block px-4 py-2">All time</a>
-                        </li>
-                        <li>
-                          <a href="#" class="block px-4 py-2">Monthly</a>
-                        </li>
-                        <li>
-                          <a href="#" class="block px-4 py-2">Weekly</a>
-                        </li>
-                      </ul>
-                  </div>
+                    <button id="dropdownPlace" data-dropdown-toggle="dropdown-place" data-dropdown-placement="bottom-end" class="text-white bg-darkGreen font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center h-fit" type="button">
+                        {{ $selectedCategory ?? 'All Categories' }}
+                        <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
 
-                  <button id="dropdownPlace" data-dropdown-toggle="dropdown-place" data-dropdown-placement="bottom-end" class="text-white bg-darkGreen font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center h-fit" type="button">Indonesia<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                      </svg>
-                      </button>
-                      <!-- Dropdown-pleace menu -->
-                      <div id="dropdown-place" class="z-10 hidden bg-darkGreen divide-y divide-gray-100 rounded-lg w-44">
-                          <ul class="py-2 text-sm text-white" aria-labelledby="dropdownPlace">
+                    <div id="dropdown-place" class="z-10 hidden bg-darkGreen divide-y divide-gray-100 rounded-lg w-44">
+                        <ul class="py-2 text-sm text-white" aria-labelledby="dropdownPlace">
                             <li>
-                              <a href="#" class="block px-4 py-2">Indonesia</a>
+                                <a href="#" wire:click.prevent="setCategory(null)" class="block px-4 py-2">All Categories</a>
                             </li>
-                            <li>
-                              <a href="#" class="block px-4 py-2">Province</a>
-                            </li>
-                            <li>
-                              <a href="#" class="block px-4 py-2">City</a>
-                            </li>
-                          </ul>
-                      </div>
+                            @foreach ($categories as $category)
+                                <li>
+                                    <a href="#" wire:click.prevent="setCategory('{{ $category }}')" class="block px-4 py-2">{{ $category }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
               </div>
               </div>
               <div class="overflow-y-auto">
-                      <div class="grid grid-cols-1 lg:grid-cols-3 md:gap-4 md:grid-cols-2 xl:grid-cols-4 justify-between">
-                          <div class="w-full bg-white rounded-xl border-fadeGreen border-solid border overflow-hidden h-fit">
-                              <div class="relative">
-                                <img src="https://placehold.co/400x300" alt="Product" class="w-full h-52 object-cover">
-                                <span style="top: 1.25rem; right: 0.75rem;" class="absolute  bg-darkGreen text-white px-3 py-1 rounded-full text-sm font-medium">
-                                  Date
-                                </span>
-                              </div>
-                              <div class="p-5 space-y-4">
-                                <div>
-                                  <h3 class="text-xl font-bold text-gray-900">Volunteer</h3>
-                                  <p class="text-md font-bold text-darkGreen">Mitra</p>
-                                  <p class="text-gray-500 mt-1 text-sm">Description</p>
-                                </div>
-                                
-                                <div class="flex justify-between items-center">
-                                  <div class="space-y-1">
+                <div class="grid grid-cols-1 lg:grid-cols-3 md:gap-4 md:grid-cols-2 xl:grid-cols-4 justify-between">
+                    @foreach ($volunteers as $volunteer)
+                    <div class="w-full bg-white rounded-xl border-fadeGreen border-solid border overflow-hidden h-fit">
+                        <div class="relative">
+                            <img src="{{ asset('storage/' . $volunteer->image) }}" alt="{{ $volunteer->name }}" class="w-full h-52 object-cover">
+                            <span style="top: 1.25rem; right: 0.75rem;" class="absolute bg-darkGreen text-white px-3 py-1 rounded-full text-sm font-medium">
+                                {{ \Carbon\Carbon::parse($volunteer->start_date)->format('d M Y') }} -
+                                {{ \Carbon\Carbon::parse($volunteer->end_date)->format('d M Y') }}
+                            </span>
+                        </div>
+                        <div class="p-5 space-y-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">{{ $volunteer->name }}</h3>
+                                <p class="text-md font-bold text-darkGreen">{{ $volunteer->creator->username }}</p>
+                                <p class="text-gray-500 mt-1 text-sm">{{ $volunteer->description }}</p>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="space-y-1">
                                     <p class="text-sm text-gray-500">Benefits</p>
-                                  </div>
-                                  
-                                  <div class="flex items-center gap-1">
-                                    <div class="text-sm text-darkGreen">enak</div>
-                                    <span class="text-sm text-darkGreen">makan</span>
-                                  </div>
                                 </div>
-                          
-                                <button class="w-full bg-orange  text-white font-medium py-2 rounded-lg transition-colors">
-                                  Register
-                                </button>
-                              </div>
-                          </div>
-                      </div>
+                                <div class="flex items-center gap-1">
+                                    <div class="text-sm text-darkGreen">{{ $volunteer->crystal_reward }} Crystals</div>
+                                    <span class="text-sm text-darkGreen">{{ $volunteer->leaflets_reward }} Leaflets</span>
+                                </div>
+                            </div>
+                            <button wire:navigate href="/register-volunteer?volunteer_id={{ $volunteer->volunteer_id }}"
+                                class="w-full bg-orange text-white font-medium py-2 rounded-lg transition-colors">
+                                Register
+                            </button>
+
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+
                 </div>
           </div>
       </div>

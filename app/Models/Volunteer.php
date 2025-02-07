@@ -18,11 +18,8 @@ class Volunteer extends Model
         'category', 'start_date', 'end_date', 'image', 'created_by'
     ];
 
-    /**
-     * Relasi ke User (Volunteer dibuat oleh user tertentu)
-     */
-    public function creator(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'created_by', 'id');
-    }
+    public function creator()
+{
+    return $this->belongsTo(User::class, 'created_by', 'id');
+}
 }
