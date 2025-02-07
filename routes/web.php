@@ -80,7 +80,7 @@ Route::get('/volunteer', Volunteer::class);
 Route::get('/list-volunteer', \App\Livewire\MitraVolunteer::class); // Correctly reference the Livewire component
 
 Route::get('/profile', Profile::class);
-Route::get('/edit-profile', EditProfile::class);
+Route::get('/settings', EditProfile::class);
 Route::get('/mitra/volunteer/edit', EditVolunteer::class);
 Route::get('/register-volunteer', RegisterVolunteer::class);
 Route::get('/customize-avatar', CustomizeAvatar::class);

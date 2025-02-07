@@ -48,7 +48,13 @@ body {
   }
   
 }
-
+.custom-scrollbar::-webkit-scrollbar-track {
+  margin: 17px 0; /* Adds top & bottom margin */
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(27, 42, 15, 0.16); 
+}
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;

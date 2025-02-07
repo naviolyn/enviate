@@ -1,13 +1,11 @@
 <div class="h-full overflow-hidden">
 
-    <div class="flex items-center justify-center font-medium w-full h-full  flex-row">
-        <div class="flex items-center justify-center h-full text-gray-600  w-3/5">
-            <!-- Component Start -->
-            <div class="flex flex-col  max-w-full ps-8 w-full h-full pe-0">
-                <div class="flex items-center mb-6">
-                    <svg class="h-8 w-8  stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-                    </svg>
+  <div class="flex items-center justify-center font-medium w-full h-full flex-col lg:flex-row">
+      <div class="flex items-center justify-center h-full text-gray-600 w-full lg:w-3/5">
+          <!-- Component Start -->
+          <div class="flex flex-col max-w-full ps-8 w-full h-full pe-0">
+              <div class="flex items-center mb-6">
+                <i class="fa-solid fa-calendar-week text-xl"></i>
                     <h4 class="font-semibold ml-3 text-lg">Your Weekly Task</h4>
                 </div>
                 <div class="overflow-y-auto h-full">
@@ -46,7 +44,7 @@
     <div id="content-1" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
         <div>
             @foreach($completedTasks as $task)
-                    <input class="hidden" type="checkbox" id="task_{{ $task->task_id }}" wire:key="completed-task-{{ $task->task_id }}">
+                    <input class="hidden" type="checkbox" id="task_{{ $task->task_id }}" wire:click.prevent="unfinishTask({{ $task->task_id }})" checked>
                     <label class="flex items-center h-10 px-2 rounded cursor-pointer hover:bg-gray-100" for="task_{{ $task->task_id }}">
                         <span class="flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-300 rounded-full">
                             <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -54,9 +52,6 @@
                             </svg>
                         </span>
                         <span class="ml-4 text-sm">{{ $task->task->name }}</span>
-                        <button wire:click.prevent="unfinishTask({{ $task->task_id }})" class="ml-auto items-center text-sm bg-red-500 text-white px-3 py-1 rounded">
-                            Unfinished
-                        </button>
                     </label>
                     @endforeach
         </div>
@@ -98,14 +93,11 @@
             </div>
             <!-- Component End  -->
 
-            <div class="flex items-center justify-center h-full text-gray-600  w-2/5 border-l-2 ml-8 border-gray-100">
+            <div class="flex items-center justify-center h-full text-gray-600  w-full lg:w-2/5 border-t-2 pt-8 lg:pt-0 lg:border-t-0 lg:border-l-2 lg:ml-8 border-gray-100">
               <!-- Component Start -->
               <div class="flex flex-col  max-w-full ps-8 w-full h-full pe-0">
                   <div class="flex items-center mb-6">
-                      <svg class="h-8 w-8  stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-                      </svg>
-                      <h4 class="font-semibold ml-3 text-lg">Other Daily Task</h4>
+                      <h4 class="font-semibold ml-3 text-lg">Other Monthly Task</h4>
                   </div>
                   <div class="overflow-y-auto h-full">
                       <div>

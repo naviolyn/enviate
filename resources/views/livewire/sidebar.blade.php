@@ -111,7 +111,7 @@
             {{-- Volunteer button --}}
             <a href="/volunteer" class="p-0 m-0">
             <button
-              class="p-2 transition-colors rounded-lg  hover:text-white focus:outline-none"
+              class="p-2 transition-colors rounded-lg  hover:text-white focus:outline-none {{ Request::is('volunteer*') ? 'bg-fadeGreen' : '' }}"
               :class="(isSidebarOpen && currentSidebarTab == 'volunteerTab') ? 'text-white bg-fadeGreen' : 'text-white'"
             >
               <span class="sr-only">s</span>
@@ -228,7 +228,7 @@
           </div>
 
         </nav>
-        <section x-show="currentSidebarTab == 'notificationsTab'" class="px-2 py-10 h-full overflow-y-auto">
+        <section x-show="currentSidebarTab == 'notificationsTab'" class="px-2 py-10 h-full overflow-y-auto custom-scrollbar">
           <div class="w-full flex justify-between items-center"><h2 class="text-2xl text-white font-semibold">Notifications</h2>
           </div>
           <livewire:notifications />
