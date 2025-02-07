@@ -108,11 +108,11 @@
                                             <tbody>
                                                 @foreach($volunteers as $volunteer)
                                                     <tr class="border-b hover:bg-darkGreen/20">
-                                                        <th scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
+                                                        <th scope="row" class="bg-primary-100 text-gray-900 text-xs font-medium px-2 py-0.5 rounded">
                                                             {{ $volunteer->name }}
                                                         </th>
                                                         <td class="px-4 py-3">
-                                                            <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded">
+                                                            <span class="bg-primary-100 text-gray-900 text-xs font-medium px-2 py-0.5 rounded">
                                                                 {{ \Carbon\Carbon::parse($volunteer->start_date)->format('d M Y') }} - 
                                                                 {{ \Carbon\Carbon::parse($volunteer->end_date)->format('d M Y') }}
                                                             </span>

@@ -44,9 +44,9 @@
                         </div>
                         <div class="p-5 space-y-4">
                             <div>
-                                <h3 class="text-xl font-bold text-gray-900">{{ $volunteer->name }}</h3>
+                                <p class="text-xl font-bold text-gray-900">{{ $volunteer->name }}</p>
                                 <p class="text-md font-bold text-darkGreen">{{ $volunteer->creator->username }}</p>
-                                <p class="text-gray-500 mt-1 text-sm">{{ $volunteer->description }}</p>
+                                <p class="text-gray-500 mt-1 text-sm">{{ Str::limit($volunteer->description, 200, '...') }}</p>
                             </div>
                             <div class="flex justify-between items-center">
                                 <div class="space-y-1">

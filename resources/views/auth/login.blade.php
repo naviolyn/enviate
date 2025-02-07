@@ -24,33 +24,33 @@
                         <x-input-error :messages="$errors->get('password')" />
                     </div>
 
-                    <div class="mt-4">
-                    <a href="{{ route('google.login') }}" class="underline text-sm">Login with Your Google Account</a>
-                    </div>
-                    
-                    <!-- Remember Me -->
-                    <div class="mt-4 flex items-center align-middle">
+
+                    <div class="mt-4 flex items-center justify-between">
                         <label for="remember_me" >
-                            <input id="remember_me" type="checkbox" name="remember" class="rounded-full mb-1 w-3 h-3">
+                            <input id="remember_me" type="checkbox" name="remember" class="rounded-full mb-1 w-3 h-3 checked:bg-darkGreen focus:bg-darkGreen active:bg-darkGreen focus:ring-darkGreen checked:hover:bg-darkGreen">
                             <span class="mb-1">{{ __('Remember me') }}</span>
                         </label>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="mt-4 flex items-center justify-between">
                         @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="underline text-sm">
+                            <a href="{{ route('password.request') }}" class="hover:underline text-sm text-gray-500">
                                 {{ __('Forgot your password?') }}
                             </a>
                         @endif
+                    </div>
 
+                    <div class="mt-8">
                         <x-primary-button>
                             {{ __('Log in') }}
                         </x-primary-button>
                     </div>
 
-                    <br><p class="text-sm font-light text-gray-500">
-                        Don’t have an account yet? <a href="/register" class="font-medium text-primary-600 hover:underline ">Sign up</a>
+                    <div class="mt-8 flex flex-col justify-center">
+                    <a href="{{ route('google.login') }}" class="text-sm text-center font-medium">Login with Your Google Account</a>
+                    </div>
+
+                    
+
+                    <br><p class="mt-4 text-sm font-light text-gray-500">
+                        Don’t have an account yet? <a href="/register" class="font-medium text-primary-600 hover:underline ">Register now</a>
                     </p>
                 </form>
             </div>

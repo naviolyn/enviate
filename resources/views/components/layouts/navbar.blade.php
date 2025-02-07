@@ -32,7 +32,7 @@
                         <a href="/login" class="inline-flex items-center justify-center text-white focus:ring-4 focus:ring-amber-300 font-medium text-sm px-6 py-2 focus:outline-none bg-amber-500 rounded-full transition duration-200 ease-in-out whitespace-nowrap h-fit">
                             Log in
                         </a>
-                        <a href="/register" class="inline-flex items-center justify-center text-amber-400 focus:ring-4 focus:ring-gray-300 font-medium text-sm px-6 py-2 focus:outline-none border border-amber-400 rounded-full transition duration-200 ease-in-out whitespace-nowrap h-fit">
+                        <a href="/register" class="inline-flex items-center justify-center text-amber-400 focus:ring-4 focus:ring-amber-300 font-medium text-sm px-6 py-2 focus:outline-none border border-amber-400 rounded-full transition duration-200 ease-in-out whitespace-nowrap h-fit">
                             Register
                         </a>
                     @endauth

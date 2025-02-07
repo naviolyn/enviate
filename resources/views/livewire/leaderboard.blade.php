@@ -57,7 +57,7 @@
                                                     <td class="px-4 py-3">{{ $user->level }}</td>
                                                     <td class="px-4 py-3 font-medium text-gray-900">
                                                         <div class="flex items-center">
-                                                            <img src="{{ asset('img/logo.png') }}" class="w-4">
+                                                            <img src="{{ asset('img/black-logo.png') }}" class="w-4">
                                                             <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded">{{ $user->leaflets }}</span>
                                                         </div>
                                                     </td>
@@ -85,7 +85,7 @@
                       <div class="px-4 mx-auto max-w-screen-xl lg:py-2 lg:px-4">
                         <div class="flex flex-row gap-2">
                             <div class="flex flex-row text-center text-amber-400 bg-green-900 rounded-full border-none py-2 xl:px-4 mb-2 px-4 h-fit w-fit">
-                                <img src="{{ asset('img/avatar.png') }}" alt="" class="w-5 h-6=5 mr-2">
+                                <img src="{{ asset('img/nobg-logo.png') }}" alt="" class="w-5 h-6=5 mr-2">
                                 <h3 class="text-sm">{{ Auth::user()->leaflets }} Leaflets</h3>
                                 </div>
                             <div class="flex flex-col text-center text-white bg-green-900 rounded-full border-none py-2 xl:px-4 mb-2 px-4 h-fit w-fit">
@@ -97,7 +97,7 @@
                   <div class="overflow-y-auto no-scrollbar h-full">
                       <div>
                         <div class="mx-4 flex flex-col text-center text-white bg-green-900 rounded-lg border-none xl:p-4 mb-2 p-4">
-                            <h3 class="mb-2 text-2xl font-extrabold text-amber-400">Country</h3>
+                            <h3 class="mb-2 text-2xl font-extrabold text-amber-400">Indonesia</h3>
                             <div class="flex justify-center items-baseline mt-1">
                                 <span class="mr-2 text-2xl font-extrabold">#{{ $this->getUserRank('indonesia') }}</span>
                             </div>

@@ -47,7 +47,29 @@ body {
     background-color: #d1d5db; /* Equivalent to bg-gray-300 */
   }
   
+  
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 2.4px solid rgba(11,127,100,1);
+  -webkit-text-fill-color: black;
+  -webkit-box-shadow: 0 0 0px 1000px var(--lightGreen) inset;
+  transition: background-color 5000s ease-in-out 0s;
+};
+
+/* Untuk beberapa browser berbasis Chromium */
+input:-internal-autofill-selected {
+  background-color: aqua;
+}
+
+
 .custom-scrollbar::-webkit-scrollbar-track {
   margin: 17px 0; /* Adds top & bottom margin */
   background: transparent;
