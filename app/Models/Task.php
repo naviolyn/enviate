@@ -20,6 +20,7 @@ class Task extends Model
         'leaflets_reward',
         'created_by',
         'reminder',
+        'status',
     ];
 
     public $timestamps = false;

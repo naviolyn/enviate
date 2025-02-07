@@ -27,7 +27,7 @@
                     <!-- Location -->
                     <div class="mt-4">
                         <x-input-label for="location" class="block mb-2 text-sm font-medium text-gray-900" :value="__('Your Location')" />
-                        <x-text-input id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Fetching location..." type="text" name="location" required />
+                        <x-text-input id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="City, Province" type="text" name="location" required />
                         
                         <!-- Hidden fields untuk province dan city -->
                         <input type="hidden" id="province" name="province">

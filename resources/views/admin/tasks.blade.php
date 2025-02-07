@@ -19,8 +19,11 @@
 <div class="flex flex-wrap -mx-3">
     <div class="flex-none w-full max-w-full px-3">
         <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white shadow-lg rounded-xl p-6">
-            <div class="pb-4 border-b border-gray-200">
+            <div class="pb-4 border-b border-gray-200 flex justify-between items-center">
                 <h6 class="text-lg font-semibold text-gray-700">Tasks List</h6>
+                <button onclick="openModal()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg shadow-md transition duration-300">
+                    + Add Task
+                </button>
             </div>
             <div class="flex-auto px-0 pt-0 pb-2">
                 <div class="p-0 overflow-x-auto">
@@ -40,10 +43,24 @@
                         @foreach ($tasks as $task)
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-3 text-center">{{ $task->task_id }}</td>
-                            <td class="px-6 py-3 text-center">{{ $task->name ?? '-' }}</td>
+                            <td class="px-6 py-3 text-center">{{ $task->name }}</td>
                             <td class="px-6 py-3 text-center">{{ $task->description }}</td>
-                            <td class="px-6 py-3 text-center">{{ $task->type ?? '-' }}</td>
+                            <td class="px-6 py-3 text-center">{{ $task->type }}</td>
                             <td class="px-6 py-3 text-center">{{ $task->leaflets_reward ?? '-' }}</td>
+                            <td class="px-6 py-3 text-center">
+                                    <span class="px-3 py-1 text-white rounded-lg {{ $task->status == '1' ? 'bg-green-500' : 'bg-red-500' }}">
+                                        {{ $task->status == '1' ? 'Active' : 'Inactive' }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-3 text-center">
+                                <form action="{{ route('tasks.toggleStatus', $task->task_id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="">
+                                        {{ $task->status == '1' ? 'Deactivate' : 'Activate' }}
+                                    </button>
+                                </form>
+
+                                </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -56,13 +73,6 @@
             @endif
         </div>
     </div>
-</div>
-
-<!-- Tombol Add Task di Bawah -->
-<div class="flex mt-6">
-    <button onclick="openModal()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition duration-300">
-        + Add Task
-    </button>
 </div>
 
 <!-- Modal -->
@@ -101,15 +111,27 @@
 </div>
 
 <script>
+    // Function to open the modal
     function openModal() {
         document.getElementById('taskModal').classList.remove('hidden');
-        document.body.classList.add('overflow-hidden'); // Hilangkan scroll ketika modal terbuka
+        document.body.classList.add('overflow-hidden');
     }
 
+    // Function to close the modal
     function closeModal() {
         document.getElementById('taskModal').classList.add('hidden');
-        document.body.classList.remove('overflow-hidden'); // Kembalikan scroll
+        document.body.classList.remove('overflow-hidden');
     }
+
+    // Hide the notification after a delay
+    setTimeout(() => {
+        const alert = document.querySelector('.alert');
+        if (alert) {
+            alert.style.transition = "opacity 0.5s";
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 500); // Remove element after fading out
+        }
+    }, 30); // Change 3000 to the delay time in milliseconds
 </script>
 
 @endsection

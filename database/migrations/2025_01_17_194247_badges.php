@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id('badge_id');
             $table->string('name', 50);
             $table->text('description');
+            $table->string('image_path')->nullable(); // Menyimpan path gambar
+            $table->integer('required_level')->default(1); // Level minimal untuk mengakses
             $table->timestamp('created_at')->useCurrent();
-        });        
+        });             
     }
 
     /**

@@ -23,13 +23,14 @@ use App\Http\Controllers\TaskController;
 use App\Livewire\CustomizeAvatar;
 use App\Livewire\EditVolunteer;
 use App\Livewire\RegisterVolunteer;
+use App\Livewire\Profile;
 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MitraController;
 use App\Http\Controllers\Admin\TasksController;
 use App\Http\Controllers\VolunteerController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Livewire\Profile;
+use App\Http\Controllers\AvatarController;
+use App\Http\Controllers\BadgeController;
 
 // Autentikasi Google
 Route::get('/auth/google', function () {
@@ -54,10 +55,6 @@ Route::get('/auth/google/callback', function () {
     // Redirect ke halaman setelah login
     return redirect('/today-task');  // Sesuaikan dengan rute tujuan setelah login
 });
-
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 // Halaman User
 Route::get('/', function () {
@@ -119,15 +116,22 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/partners', [MitraController::class, 'index'])->name('mitra.index');
     Route::post('admin/mitra/{user}/toggle-status', [MitraController::class, 'toggleStatus'])->name('mitra.toggleStatus');
 
-    Route::get('/tasks', [TasksController::class, 'index']);
+    Route::get('/tasks', [TasksController::class, 'index'])->name('tasks.index');
+    Route::post('admin/tasks/toggle-status/{taskId}', [TasksController::class, 'toggleStatus'])->name('tasks.toggleStatus');
     Route::post('/tasks', [TasksController::class, 'store'])->name('tasks.store');
 
-    Route::get('/avatar', function () {
-        return view('admin.avatar');
-    })->name('admin.avatar');
-    Route::get('/avatar/edit', function () {
-        return view('admin.edit-avatar');
-    })->name('admin.edit-avatar');
+    Route::get('/avatar', [AvatarController::class, 'index'])->name('avatar.index');
+    Route::post('/avatar', [AvatarController::class, 'store'])->name('avatar.store');
+    Route::put('/avatar/{id}', [AvatarController::class, 'update'])->name('avatar.update');
+
+    Route::get('/badge', [BadgeController::class, 'index'])->name('badge.index');
+    Route::post('/badge', [BadgeController::class, 'store'])->name('badge.store');
+    Route::put('/badge/{id}', [BadgeController::class, 'update'])->name('badge.update');
+
+    Route::get('/badges/{id}', function ($id) {
+        $badge = Badge::findOrFail($id);
+        return response()->json($badge);
+    })->middleware('auth', 'checkLevel:id');    
 });
 
 require __DIR__.'/auth.php';

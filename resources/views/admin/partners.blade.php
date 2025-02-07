@@ -28,28 +28,28 @@
                         <thead>
                             <tr>
                                 <th class="px-6 py-3 text-center">ID</th>
-                                <th class="px-6 py-3 text-left">Username</th>
-                                <th class="px-6 py-3 text-left">Email</th>
-                                <th class="px-6 py-3 text-left">Province</th>
-                                <th class="px-6 py-3 text-left">City</th>
-                                <th class="px-6 py-3 text-left">Status</th>
-                                <th class="px-6 py-3 text-left">Action</th>
+                                <th class="px-6 py-3 text-center">Username</th>
+                                <th class="px-6 py-3 text-center">Email</th>
+                                <th class="px-6 py-3 text-center">Province</th>
+                                <th class="px-6 py-3 text-center">City</th>
+                                <th class="px-6 py-3 text-center">Status</th>
+                                <th class="px-6 py-3 text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($users as $user)
                             <tr>
                                 <td class="px-6 py-3 text-center">{{ $user->id }}</td>
-                                <td class="px-6 py-3">{{ $user->username ?? '-' }}</td>
-                                <td class="px-6 py-3">{{ $user->email }}</td>
-                                <td class="px-6 py-3">{{ $user->province ?? '-' }}</td>
-                                <td class="px-6 py-3">{{ $user->city ?? '-' }}</td>
-                                <td class="px-6 py-3">
+                                <td class="px-6 py-3 text-center">{{ $user->username ?? '-' }}</td>
+                                <td class="px-6 py-3 text-center">{{ $user->email }}</td>
+                                <td class="px-6 py-3 text-center">{{ $user->province ?? '-' }}</td>
+                                <td class="px-6 py-3 text-center">{{ $user->city ?? '-' }}</td>
+                                <td class="px-6 py-3 text-center">
                                     <span class="px-3 py-1 text-white rounded-lg {{ $user->status == '1' ? 'bg-green-500' : 'bg-red-500' }}">
                                         {{ $user->status == '1' ? 'Active' : 'Inactive' }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-3">
+                                <td class="px-6 py-3 text-center">
                                 <form action="{{ route('mitra.toggleStatus', $user->id) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="">

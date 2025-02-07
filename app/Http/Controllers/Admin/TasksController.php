@@ -19,19 +19,31 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data
-        $validated = $request->validate([
+        $validated = $request->validate([ 
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'type' => 'required|in:daily,weekly,monthly', // Pastikan type sesuai enum
+            'type' => 'required|in:daily,weekly,monthly',
             'leaflets_reward' => 'nullable|integer',
         ]);
 
-        // Menyimpan data ke dalam database
+       // Set default status ke '1' saat task dibuat
+        $validated['status'] = '1';
+
         Task::create($validated);
 
-        // Mengalihkan kembali dengan pesan sukses
-        return redirect()->route('tasks.store')->with('success', 'Task successfully added!');
+        return redirect()->route('tasks.index')->with('success', 'Task successfully added!');
+    }
+
+    public function toggleStatus($taskId)
+    {
+        // Temukan task berdasarkan ID
+        $task = Task::findOrFail($taskId);
+
+        // Toggle status task ('1' -> '0', '0' -> '1')
+        $task->status = $task->status === '1' ? '0' : '1';
+        $task->save();
+
+        return redirect()->route('tasks.index')->with('success', 'Task status updated successfully.');
     }
 
 }
