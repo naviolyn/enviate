@@ -128,6 +128,19 @@
               <i class="fa-solid fa-bell w-6 text-2xl"></i>
             </button>
             @endif
+            @if (Auth::user()->role == 'mitra')
+            {{-- Volunteer button --}}
+            <a href="/mitra/volunteer" class="p-0 m-0">
+              <button
+                class="p-2 transition-colors rounded-lg  hover:text-white focus:outline-none"
+                :class="(isSidebarOpen && currentSidebarTab == 'volunteerTab') ? 'text-white bg-fadeGreen' : 'text-white'"
+              >
+                <span class="sr-only">s</span>
+                <i class="fa-solid fa-puzzle-piece w-6 text-2xl"></i>
+              </button>
+              </a>
+
+            @endif
           </div>
 
           <!-- User avatar -->
