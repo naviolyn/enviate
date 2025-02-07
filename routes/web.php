@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 use App\Http\Middleware\MitraMiddleware;
 use App\Http\Middleware\AdminMiddleware;
@@ -18,20 +19,19 @@ use App\Livewire\Leaderboard;
 use App\Livewire\EditProfile;
 use App\Livewire\UserTasks;
 use App\Livewire\Volunteer;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TaskController;
 use App\Livewire\CustomizeAvatar;
+use App\Livewire\EditVolunteer;
 use App\Livewire\RegisterVolunteer;
+use App\Livewire\Profile;
 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MitraController;
 use App\Http\Controllers\Admin\TasksController;
 use App\Http\Controllers\VolunteerController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Livewire\Profile;
-use App\Livewire\EditVolunteer;
-use App\Livewire\VolunteeList;
-// use App\Livewire\VolunteerDetail;
+use App\Http\Controllers\AvatarController;
+use App\Http\Controllers\StyleController;
+use App\Http\Controllers\BadgeController;
+use App\Http\Controllers\ProfileController;
 
 // Autentikasi Google
 Route::get('/auth/google', function () {
@@ -57,9 +57,10 @@ Route::get('/auth/google/callback', function () {
     return redirect('/today-task');  // Sesuaikan dengan rute tujuan setelah login
 });
 
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+Mail::raw('Testing Mailtrap', function ($message) {
+    $message->to('test-recipient@mailtrap.io') // Gunakan email dari Mailtrap
+            ->subject('Mailtrap Test');
+});
 
 // Halaman User
 Route::get('/', function () {
@@ -70,7 +71,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::get('/profile', [ProfileController::class, 'edit'])->name('livewire.edit-profile');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
@@ -78,19 +79,25 @@ Route::get('/today-task', 'App\Livewire\UserTasks')->name('tasks.index');
 Route::get('/weekly-task', WeeklyTask::class)->middleware('auth');
 Route::get('/monthly-task', MonthlyTask::class)->middleware('auth');
 Route::post('/complete-task/{id}', [TaskController::class, 'completeTask'])->name('task.complete');
-Route::patch('/tasks/{task}/toggle-status', [TaskController::class, 'toggleStatus'])->name('tasks.toggleStatus');
 
 Route::get('/leaderboard', Leaderboard::class)->name('leaderboard');
 
 Route::get('/volunteer', Volunteer::class);
-
+Route::get('/list-volunteer', \App\Livewire\MitraVolunteer::class); // Correctly reference the Livewire component
 
 Route::get('/profile', Profile::class);
 Route::get('/edit-profile', EditProfile::class);
+Route::get('/mitra/volunteer/edit', EditVolunteer::class);
 Route::get('/register-volunteer', RegisterVolunteer::class);
 Route::get('/customize-avatar', CustomizeAvatar::class);
+Route::get('/mitra/volunteer/edit', EditVolunteer::class)->name('edit-volunteer');
 
 Route::resource('tasks', TaskController::class);
+
+Route::get('/badges/{id}', function ($id) {
+    $badge = Badge::findOrFail($id);
+    return response()->json($badge);
+})->middleware('auth', 'checkLevel:id');    
 
 // Middleware Mitra
 Route::middleware(['auth', MitraMiddleware::class])->group(function () {
@@ -100,16 +107,13 @@ Route::middleware(['auth', MitraMiddleware::class])->group(function () {
     })->name('mitra.dashboard');
 
     Route::get('/mitra/volunteer', \App\Livewire\MitraVolunteer::class);
-    Route::get('/mitra-volunteer/user/{id}', VolunteeList::class);
-    Route::get('/mitra-volunteer', [VolunteerController::class, 'index'])->name('mitra-volunteer');
-    Route::post('/mitra-volunteer', [VolunteerController::class, 'store'])->name('mitra-volunteer.store');
-    Route::get('/mitra-volunteer/edit/{id}', [VolunteerController::class, 'edit'])->name('mitra-volunteer.edit');
-    Route::put('/mitra-volunteer/{id}', [VolunteerController::class, 'update'])->name('mitra-volunteer.update');
-    Route::delete('/mitra-volunteer/{id}', [VolunteerController::class, 'destroy'])->name('mitra-volunteer.destroy');
 
+    // Route untuk nyimpan
+    Route::post('/volunteer/store', [VolunteerController::class, 'store'])->name('volunteer.store');
+
+    Route::get('/mitra-volunteer', [VolunteerController::class, 'index'])->name('mitra-volunteer');
 
 });
-
 
 // Middleware Admin
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
@@ -123,16 +127,23 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/partners', [MitraController::class, 'index'])->name('mitra.index');
     Route::post('admin/mitra/{user}/toggle-status', [MitraController::class, 'toggleStatus'])->name('mitra.toggleStatus');
 
-    Route::get('/tasks', [TasksController::class, 'index']);
+    Route::get('/tasks', [TasksController::class, 'index'])->name('tasks.index');
+    Route::post('admin/tasks/toggle-status/{taskId}', [TasksController::class, 'toggleStatus'])->name('tasks.toggleStatus');
     Route::post('/tasks', [TasksController::class, 'store'])->name('tasks.store');
 
-    Route::get('/avatar', function () {
-        return view('admin.avatar');
-    })->name('admin.avatar');
-    Route::get('/avatar/edit', function () {
-        return view('admin.edit-avatar');
-    })->name('admin.edit-avatar');
-});
+    // Avatar Routes
+    Route::get('/avatar', [AvatarController::class, 'index'])->name('avatar.index');
+    Route::post('/avatar', [AvatarController::class, 'store'])->name('avatar.store');
+    Route::put('/avatar/{id}', [AvatarController::class, 'update'])->name('avatar.update');
 
+    // Style Routes
+    Route::match(['get', 'post'], '/admin/avatars/{avatar_id}/styles', [StyleController::class, 'index'])->name('style.index');
+    Route::post('/avatar/{avatar}/style', [StyleController::class, 'store'])->name('style.store');
+    Route::put('/style/{id}', [StyleController::class, 'update'])->name('style.update');
+
+    Route::get('/badge', [BadgeController::class, 'index'])->name('badge.index');
+    Route::post('/badge', [BadgeController::class, 'store'])->name('badge.store');
+    Route::put('/badge/{id}', [BadgeController::class, 'update'])->name('badge.update');
+});
 
 require __DIR__.'/auth.php';

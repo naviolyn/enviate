@@ -33,27 +33,41 @@
                                 <th class="px-6 py-3 text-center">Name</th>
                                 <th class="px-6 py-3 text-center">Leaflet Reward</th>
                                 <th class="px-6 py-3 text-center">Image</th>
-                                <th class="px-6 py-3 text-center">Edit</th>
+                                <td class="px-6 py-3 text-center">View Styles</td>
+                                <td class="px-6 py-3 text-center">Add Styles</td>
+                                <th class="px-6 py-3 text-center">Edit Avatar</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($avatar as $avatar)
-                            <tr>
-                                <td class="px-6 py-3 text-center">{{ $avatar->id }}</td>
-                                <td class="px-6 py-3 text-center">{{ $avatar->name }}</td>
-                                <td class="px-6 py-3 text-center">{{ $avatar->leaflet_reward }}</td>
-                                <td class="px-6 py-3 text-center">
-                                    <img src="{{ asset('storage/' . $avatar->image) }}" alt="Avatar Image" class="w-16 h-16 rounded-md mx-auto">
-                                </td>
-                                <td class="px-6 py-3 text-center">
+@foreach ($avatars as $avatar)
+    <tr>
+        <td class="px-6 py-3 text-center">{{ $avatar->id }}</td>
+        <td class="px-6 py-3 text-center">{{ $avatar->name }}</td>
+        <td class="px-6 py-3 text-center">{{ $avatar->leaflet_reward }}</td>
+        <td class="px-6 py-3 text-center">
+            <img src="{{ asset('storage/' . $avatar->image) }}" alt="Avatar Image" class="w-16 h-16 rounded-md mx-auto">
+        </td>
+        <td class="px-6 py-3 text-center">
+        <a href="{{ route('style.index', ['avatar_id' => $avatar->id]) }}" 
+   class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">
+   View Styles
+</a>
+</td>
+<td class="px-6 py-3 text-center">
+    <button onclick="openStyleModal({{ $avatar->id }})" 
+        class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300">
+        Add Styles
+    </button>
+</td>
+        <td class="px-6 py-3 text-center">
             <button onclick="openEditModal({{ $avatar->id }}, '{{ $avatar->name }}', '{{ $avatar->leaflet_reward }}', '{{ asset('storage/' . $avatar->image) }}')" 
                 class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300">
                 Edit
             </button>
         </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
+    </tr>
+@endforeach
+</tbody>
                     </table>
                 </div>
             </div>
@@ -118,6 +132,36 @@
     </div>
 </div>
 
+<!-- Modal Style -->
+<div id="styleModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white p-6 rounded-lg w-96">
+        <h6>Add Style</h6>
+        <form id="styleForm" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-4">
+                <label for="style_name" class="block">Style Name</label>
+                <input type="text" name="name" id="style_name" class="form-input w-full" required>
+            </div>
+            <div class="mb-4">
+                <label for="leaflet_cost" class="block">Leaflet Cost</label>
+                <input type="number" name="leaflet_cost" id="leaflet_cost" class="form-input w-full">
+            </div>
+            <div class="mb-4">
+                <label for="style_image" class="block">Upload Style Image</label>
+                <input type="file" name="image" id="style_image" class="form-input w-full">
+            </div>
+            <input type="hidden" name="avatar_id" id="style_avatar_id">
+            <div class="mt-6 flex justify-between">
+                <button type="submit" class="!bg-green-600 hover:!bg-green-700 text-white font-bold py-2 px-6 rounded-lg">
+                    Add Style
+                </button>
+                <button type="button" onclick="closeStyleModal()" class="!bg-gray-400 hover:!bg-gray-500 text-white font-bold py-2 px-6 rounded-lg">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <script>
     function openModal() {
@@ -142,6 +186,16 @@
 
     function closeEditModal() {
         document.getElementById('editAvatarModal').classList.add('hidden');
+    }
+
+    function openStyleModal(avatarId) {
+        document.getElementById('style_avatar_id').value = avatarId;
+        document.getElementById('styleForm').action = "/avatar/" + avatarId + "/style";
+        document.getElementById('styleModal').classList.remove('hidden');
+    }
+
+    function closeStyleModal() {
+        document.getElementById('styleModal').classList.add('hidden');
     }
 </script>
 

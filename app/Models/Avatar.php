@@ -15,4 +15,9 @@ class Avatar extends Model
     {
         return $this->belongsToMany(User::class, 'user_avatar');
     }
+
+    public function styles()
+    {
+        return $this->hasMany(Style::class);
+    }
 }

@@ -10,8 +10,8 @@ class AvatarController extends Controller
 {
     public function index()
     {
-        $avatar = Avatar::all();
-        return view('admin.avatar', compact('avatar'));
+        $avatars = Avatar::all(); // Gunakan nama variabel jamak
+        return view('admin.avatar', compact('avatars'));
     }
 
     public function store(Request $request)
@@ -42,21 +42,21 @@ class AvatarController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $avatar = Avatar::findOrFail($id);
+        $avatars = Avatar::findOrFail($id);
 
-        $avatar->name = $request->name;
-        $avatar->leaflet_reward = $request->leaflet_reward;
+        $avatars->name = $request->name;
+        $avatars->leaflet_reward = $request->leaflet_reward;
 
         if ($request->hasFile('image')) {
             // Hapus gambar lama jika ada
-            Storage::disk('public')->delete($avatar->image);
+            Storage::disk('public')->delete($avatars->image);
 
             // Simpan gambar baru
             $imagePath = $request->file('image')->store('avatar_images', 'public');
-            $avatar->image = $imagePath;
+            $avatars->image = $imagePath;
         }
 
-        $avatar->save();
+        $avatars->save();
 
         return redirect()->back()->with('success', 'Avatar updated successfully!');
     }
