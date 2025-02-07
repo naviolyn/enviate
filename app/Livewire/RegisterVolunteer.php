@@ -5,6 +5,10 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\VolunteerRegistration;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Volunteer;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VolunteerRegistrationMail;
+
 
 class RegisterVolunteer extends Component
 {
@@ -30,7 +34,7 @@ class RegisterVolunteer extends Component
     {
         $this->validate();
 
-        VolunteerRegistration::create([
+        $registration = VolunteerRegistration::create([
             'volunteer_id' => $this->volunteer_id,
             'user_id' => Auth::id(),
             'name' => $this->name,
@@ -39,9 +43,20 @@ class RegisterVolunteer extends Component
             'reason' => $this->reason,
         ]);
 
-        session()->flash('success', 'Registration successful!');
+        // **Perbaikan: Pastikan model Volunteer digunakan dengan find()**
+        $volunteer = Volunteer::find($this->volunteer_id);
+
+        if ($volunteer) {
+            // Kirim email ke user
+            Mail::to($this->email)->send(new VolunteerRegistrationMail($volunteer->name, $this->name));
+        } else {
+            session()->flash('error', 'Volunteer not found!');
+        }
+
+        session()->flash('success', 'Registration successful! Please check your email.');
         $this->reset();
     }
+
 
     public function render()
     {

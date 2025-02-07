@@ -78,6 +78,7 @@ Route::get('/today-task', 'App\Livewire\UserTasks')->name('tasks.index');
 Route::get('/weekly-task', WeeklyTask::class)->middleware('auth');
 Route::get('/monthly-task', MonthlyTask::class)->middleware('auth');
 Route::post('/complete-task/{id}', [TaskController::class, 'completeTask'])->name('task.complete');
+Route::patch('/tasks/{task}/toggle-status', [TaskController::class, 'toggleStatus'])->name('tasks.toggleStatus');
 
 Route::get('/leaderboard', Leaderboard::class)->name('leaderboard');
 
@@ -105,7 +106,7 @@ Route::middleware(['auth', MitraMiddleware::class])->group(function () {
     Route::get('/mitra-volunteer/edit/{id}', [VolunteerController::class, 'edit'])->name('mitra-volunteer.edit');
     Route::put('/mitra-volunteer/{id}', [VolunteerController::class, 'update'])->name('mitra-volunteer.update');
     Route::delete('/mitra-volunteer/{id}', [VolunteerController::class, 'destroy'])->name('mitra-volunteer.destroy');
-   
+
 
 });
 
@@ -132,6 +133,6 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
         return view('admin.edit-avatar');
     })->name('admin.edit-avatar');
 });
-     
+
 
 require __DIR__.'/auth.php';
