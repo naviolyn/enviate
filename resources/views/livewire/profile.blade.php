@@ -7,28 +7,27 @@
                       <div class="h-full aspect-square bg-bodybg rounded-full p-4 align-middle">
                         <img src="{{ asset('img/avatar.png') }}" alt="" class="w-full">
                       </div>
-                      
+
                       <div class="flex flex-col justify-start px-4">
-                        <h1 class="font-semibold ml-3 text-3xl pt-3 text-left">name </h1>
-                        <h1 class="font-semibold ml-3 text-xl pt-3 text-left text-white/85">@username </h1>
+                        <h1 class="font-semibold ml-3 text-3xl pt-3 text-left">{{ Auth::user()->username }}</h1>
+                        <h1 class="font-semibold ml-3 text-xl pt-3 text-left text-white/85">{{ Auth::user()->email }} </h1>
                       </div>
-                      
+
                       <div class="px-4 mx-auto max-w-screen-xl lg:py-2 lg:px-4">
                         <div class="flex flex-row gap-2">
                             <div class="flex flex-row text-center text-amber-400 bg-green-900 rounded-full border-none py-2 xl:px-4 mb-2 px-4 h-fit w-fit">
                                 <img src="{{ asset('img/avatar.png') }}" alt="" class="w-5 h-6=5 mr-2">
-                                <h3 class="text-sm">10000 lft</h3>
+                                <h3 class="text-sm">{{ Auth::user()->leaflets }} Leaflets</h3>
                                 </div>
                             <div class="flex flex-col text-center text-white bg-green-900 rounded-full border-none py-2 xl:px-4 mb-2 px-4 h-fit w-fit">
-                                <h3 class="text-sm">Lvl. 999</h3>
+                                <h3 class="text-sm">Level {{ Auth::user()->level }}</h3>
                                 </div>
                             </div>
                         </div>
                   </div>
-                  
+
                     </div>
               </div>
               </div>
   </div>
-  
-  
+
