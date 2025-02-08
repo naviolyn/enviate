@@ -23,6 +23,7 @@ use App\Livewire\CustomizeAvatar;
 use App\Livewire\EditVolunteer;
 use App\Livewire\RegisterVolunteer;
 use App\Livewire\Profile;
+use App\Livewire\ChangePassword;    
 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MitraController;
@@ -89,6 +90,7 @@ Route::get('/profile', Profile::class);
 Route::get('/edit-profile', EditProfile::class);
 Route::get('/mitra/volunteer/edit', EditVolunteer::class);
 Route::get('/register-volunteer', RegisterVolunteer::class);
+Route::get('/settings/password', ChangePassword::class)->name('settings.password')->middleware('auth');
 Route::get('/customize-avatar', CustomizeAvatar::class)->name('customize-avatar');
 Route::get('/mitra/volunteer/edit', EditVolunteer::class)->name('edit-volunteer');
 

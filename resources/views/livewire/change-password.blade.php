@@ -6,50 +6,42 @@
             <main class="h-full md:w-2/3 lg:w-9/12 pl-4 overflow-scroll py-4">
                 <div class="px-2 py-2">
                     <div class="w-full px-6 pb-8 sm:max-w-xl sm:rounded-lg">
-                        <h2 class="text-2xl font-bold sm:text-xl">Change Password</h2>
 
-                        <div class="grid max-w-2xl mx-auto mt-8">
-                            <div class="items-center mt-8 sm:mt-14 text-[#202142]">
+                        <!-- Notifikasi -->
+                        <div>
+    @if (session()->has('success'))
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
+            <p>{{ session('success') }}</p>
+        </div>
+    @endif
 
-                                <div class="flex flex-col items-center w-full mb-2 space-x-0 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mb-6">
-                                    <div class="w-full">
-                                        <label for="username"
-                                            class="block mb-2 text-sm font-medium">Password</label>
-                                        <input type="text" id="username" wire:model="username"
-                                            class="bg-white border border-gray-200 text-sm rounded-lg focus:ring-darkGreen focus:border-darkGreen block w-full p-2.5 focus:bg-lightGreen "
-                                            placeholder="Username" required>
-                                    </div>
-                                </div>
+    <div class="mb-4">
+        <label for="current_password" class="block text-sm font-medium text-gray-700">Current Password</label>
+        <input type="password" id="current_password" wire:model="current_password"
+            class="mt-1 block w-full border border-gray-300 rounded-lg p-2.5">
+        @error('current_password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+    </div>
 
-                                <div class="mb-2 sm:mb-6">
-                                    <label for="email"
-                                        class="block mb-2 text-sm font-medium">New Password</label>
-                                    <input type="email" id="email" wire:model="email"
-                                        class="bg-white border border-gray-200 text-sm rounded-lg focus:ring-darkGreen focus:border-darkGreen block w-full p-2.5 focus:bg-lightGreen"
-                                        placeholder="email@gmail.com" required>
-                                </div>
+    <div class="mb-4">
+        <label for="new_password" class="block text-sm font-medium text-gray-700">New Password</label>
+        <input type="password" id="new_password" wire:model="new_password"
+            class="mt-1 block w-full border border-gray-300 rounded-lg p-2.5">
+        @error('new_password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+    </div>
 
-                                <div class="mb-2 sm:mb-6">
-                                    <label for="email"
-                                        class="block mb-2 text-sm font-medium">Repeat New Password</label>
-                                    <input type="email" id="email" wire:model="email"
-                                        class="bg-white border border-gray-200 text-sm rounded-lg focus:ring-darkGreen focus:border-darkGreen block w-full p-2.5 focus:bg-lightGreen"
-                                        placeholder="email@gmail.com" required>
-                                </div>
+    <div class="mb-4">
+        <label for="new_password_confirmation" class="block text-sm font-medium text-gray-700">Confirm New Password</label>
+        <input type="password" id="new_password_confirmation" wire:model="new_password_confirmation"
+            class="mt-1 block w-full border border-gray-300 rounded-lg p-2.5">
+        @error('new_password_confirmation') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+    </div>
 
-                                <div class="flex justify-end">
-                                    <button type="button" wire:click="save"
-                                        class="text-white bg-orange focus:ring-4 focus:outline-none focus:ring-lightGreen font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-                                        Save
-                                    </button>
-                                </div>
+    <button wire:click="updatePassword"
+        class="text-white bg-orange focus:ring-4 focus:outline-none focus:ring-lightGreen font-medium rounded-lg text-sm px-5 py-2.5">
+        Update Password
+    </button>
+</div>
 
-                                <!-- Menampilkan pesan setelah berhasil disimpan -->
-                                @if (session()->has('message'))
-                                    <div class="mt-4 text-green-500">
-                                        {{ session('message') }}
-                                    </div>
-                                @endif
                             </div>
                         </div>
                     </div>
@@ -57,4 +49,18 @@
             </main>
         </div>
     </div>
+
+    <!-- Script untuk menghilangkan notifikasi otomatis -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(() => {
+                let successMessage = document.getElementById('successMessage');
+                if (successMessage) {
+                    successMessage.style.transition = "opacity 0.5s";
+                    successMessage.style.opacity = "0";
+                    setTimeout(() => successMessage.remove(), 500);
+                }
+            }, 3000); // Menghilangkan notifikasi setelah 3 detik
+        });
+    </script>
 </div>

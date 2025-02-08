@@ -15,12 +15,13 @@
                                     src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGZhY2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
                                     alt="Bordered avatar">
 
-                                <div class="flex flex-col space-y-5 sm:ml-8">
-                                    <button type="button"
-                                        class="py-2 px-7 text-base font-medium text-white focus:outline-none bg-orange rounded-full border">
-                                        Customize Avatar
-                                    </button>
-                                </div>
+                                    <div class="flex flex-col space-y-5 sm:ml-8">
+    <button type="button"
+        onclick="window.location.href='{{ route('customize-avatar') }}'"
+        class="py-2 px-7 text-base font-medium text-white focus:outline-none bg-orange rounded-full border">
+        Customize Avatar
+    </button>
+</div>
                             </div>
 
                             <div class="items-center mt-8 sm:mt-14 text-[#202142]">
