@@ -1,6 +1,3 @@
-<div>
-    {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
-</div>
 <div class="bg-bodybg h-full w-full overflow-hidden">
     <div class="w-full font-medium h-full flex-col sm:flex-col md:flex-row gap-4 lg:gap-8 lg:px-4 px-2">
         <div class="flex items-center justify-center h-full w-full bg-white border rounded-2xl">

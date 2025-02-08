@@ -1,3 +1,4 @@
+@section('title', 'Volunteer -')
 <div class="h-full bg-bodybg">
   <div class="flex  font-medium w-full h-full flex-col sm:flex-col md:flex-row gap-4 lg:gap-8 lg:px-4 px-2">
       <div class="flex items-center justify-center h-full text-gray-600  w-full">

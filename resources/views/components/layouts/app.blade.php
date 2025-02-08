@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         @livewireStyles
 
-        <title>Enviate{{ $title ?? 'Page Title' }}</title>
+        <title>@yield('title') Enviate  </title>
         @vite('resources/css/app.css')
 
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">

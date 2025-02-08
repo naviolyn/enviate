@@ -1,3 +1,4 @@
+@section('title', 'Register Volunteer -')
 <section class="pb-8">
     <div class="py-8 lg:py-8 px-8 mx-auto w-full md:w-3/5 lg:w-1/2 bg-white border border-gray-300 rounded-3xl">
         <h2 class="mb-4 text-4xl tracking-tight text-center font-extrabold text-gray-900">Register to Volunteer</h2>
