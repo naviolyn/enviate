@@ -2,7 +2,7 @@
     <h2 class="mb-4 text-xl font-bold text-gray-900">Detail Volunteer</h2>
     @if($volunteer)
         @if($volunteer->image)
-            <img src="{{ asset('storage/' . $volunteer->image) }}" alt="Volunteer Image" class="w-full h-auto mb-4 rounded">
+            <img src="{{ asset($volunteer->image) }}" alt="Volunteer Image" class="w-full h-auto mb-4 rounded">
         @endif
         <p><strong>Nama:</strong> {{ $volunteer->name }}</p>
         <p><strong>Tanggal:</strong> 

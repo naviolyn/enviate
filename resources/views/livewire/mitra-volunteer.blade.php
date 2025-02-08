@@ -73,7 +73,13 @@
                                                 <textarea name="description" id="description" rows="4" class="w-full p-2 border rounded" required></textarea>
                                                 @error('description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                             </div>
+                                        
+                                        <div class="sm:col-span-2">
+                                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Pesan Email</label>
+                                            <textarea name="email" id="email" rows="4" class="w-full p-2 border rounded" required></textarea>
+                                            @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                         </div>
+                                    </div>
                                         <div class="flex items-center space-x-4">
                                             <button type="submit" class="bg-darkGreen text-white px-5 py-2 rounded">Simpan</button>
                                             <button type="button" @click="openModal = false" class="bg-gray-500 text-white px-5 py-2 rounded">Batal</button>
@@ -102,6 +108,7 @@
                                                 <th scope="col" class="px-4 py-3">List</th>
                                                 <th scope="col" class="px-4 py-3">Detail</th>
                                                 <th scope="col" class="px-4 py-3">Edit</th>
+                                                <th scope="col" class="px-4 py-3">Hapus</th>
                                             </tr>
                                         </thead>
                                         @if(isset($volunteers) && $volunteers->count() > 0)
@@ -126,30 +133,40 @@
                                                             </span>
                                                         </td>
                                                         <td class="px-4 py-3">
+                                                            @php
+                                                                $registrationsCount = $volunteer->registrations()->count();
+                                                            @endphp
                                                             <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded">
-                                                                {{ rand(10, 100) }} {{-- Simulasi jumlah pendaftar --}}
+                                                                {{ $registrationsCount }} {{-- Menampilkan jumlah pendaftar --}}
                                                             </span>
                                                         </td>
                                                         <td class="px-4 py-3">
-                                                            <button class="bg-orange text-white font-medium py-1 rounded-lg transition-colors px-3">
+                                                            <a href="{{ route('mitra-volunteer.user', $volunteer->volunteer_id) }}" class="bg-orange text-white font-medium py-1 rounded-lg transition-colors px-3 inline-block text-center">
                                                                 List
-                                                            </button>
-                                                        </td>
-                                                        <!-- Bagian dari mitra-volunteer.blade.php -->
-                                                        <td>
-                                                            <a href="#">
-                                                                <i class="fa-solid fa-eye cursor-pointer"></i> Detail
                                                             </a>
-                                                            
                                                         </td>
-                                                        
-                                                        
-                                                        
-                                                            <td>
-                                                                <a href="{{ route('mitra-volunteer.edit', $volunteer->volunteer_id) }}">
-                                                                    <i class="fa-solid fa-pen-to-square cursor-pointer"></i>
-                                                                </a>
-                                                            </td>
+
+                                                        <!-- Bagian dari mitra-volunteer.blade.php -->
+                                                        <td class="px-4 py-3">
+                                                            <a href="{{ route('mitra-volunteer.detail', $volunteer->volunteer_id) }}">
+                                                                <i class="fa-solid fa-eye cursor-pointer"></i> Detail
+                                                            </a>  
+                                                        </td>
+                                                        <td class="px-4 py-3">
+                                                            <a href="{{ route('mitra-volunteer.edit', $volunteer->volunteer_id) }}" 
+                                                               class="bg-orange-500 hover:bg-orange-600 text-white font-medium py-1 px-3 rounded-lg transition-colors">
+                                                                Edit
+                                                            </a>
+                                                        </td>
+                                                        <td class="px-4 py-3">
+                                                            <form action="{{ route('mitra-volunteer.destroy', $volunteer->volunteer_id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus volunteer ini?');">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="bg-orange text-white font-medium py-1 rounded-lg transition-colors px-3">
+                                                                   Hapus
+                                                                </button>
+                                                            </form>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

@@ -37,7 +37,7 @@
                     @foreach ($volunteers as $volunteer)
                     <div class="w-full bg-white rounded-xl border-fadeGreen border-solid border overflow-hidden h-fit">
                         <div class="relative">
-                            <img src="{{ asset('storage/' . $volunteer->image) }}" alt="{{ $volunteer->name }}" class="w-full h-52 object-cover">
+                            <img src="{{ asset($volunteer->image) }}" alt="{{ $volunteer->name }}" class="w-full h-52 object-cover">
                             <span style="top: 1.25rem; right: 0.75rem;" class="absolute bg-darkGreen text-white px-3 py-1 rounded-full text-sm font-medium">
                                 {{ \Carbon\Carbon::parse($volunteer->start_date)->format('d M Y') }} -
                                 {{ \Carbon\Carbon::parse($volunteer->end_date)->format('d M Y') }}

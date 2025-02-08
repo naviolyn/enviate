@@ -29,10 +29,12 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MitraController;
 use App\Http\Controllers\Admin\TasksController;
 use App\Http\Controllers\VolunteerController;
-use App\Http\Controllers\AvatarController;
-use App\Http\Controllers\StyleController;
-use App\Http\Controllers\BadgeController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Livewire\Profile;
+use App\Livewire\EditVolunteer;
+use App\Livewire\VolunteerDetail;
+use App\Livewire\VolunteeList;
+// use App\Livewire\VolunteerDetail;
 
 // Autentikasi Google
 Route::get('/auth/google', function () {
@@ -94,25 +96,26 @@ Route::get('/settings/password', ChangePassword::class)->name('settings.password
 Route::get('/customize-avatar', CustomizeAvatar::class)->name('customize-avatar');
 Route::get('/mitra/volunteer/edit', EditVolunteer::class)->name('edit-volunteer');
 
-Route::get('/badges/{id}', function ($id) {
-    $badge = Badge::findOrFail($id);
-    return response()->json($badge);
-})->middleware('auth', 'checkLevel:id');
+
+
 
 // Middleware Mitra
 Route::middleware(['auth', MitraMiddleware::class])->group(function () {
     // Route yang bisa diakses user
-    Route::get('/mitra/dashboard', function () {
-        return view('mitra.dashboard');
-    })->name('mitra.dashboard');
+    Route::get('mitra-volunteer', function () {
+        return view('mitra/volunteer');
+    })->name('mitra-volunteer');
 
     Route::get('/mitra/volunteer', \App\Livewire\MitraVolunteer::class);
-
-    // Route untuk nyimpan
-    Route::post('/volunteer/store', [VolunteerController::class, 'store'])->name('volunteer.store');
-
+    Route::get('/mitra-volunteer/{volunteerId}/list', VolunteeList::class)
+    ->name('mitra-volunteer.user');
+    
     Route::get('/mitra-volunteer', [VolunteerController::class, 'index'])->name('mitra-volunteer');
-
+    Route::post('/mitra-volunteer', [VolunteerController::class, 'store'])->name('mitra-volunteer.store');
+    Route::get('/mitra-volunteer/edit/{id}', EditVolunteer::class)->name('mitra-volunteer.edit');
+      // Route untuk menampilkan detail volunteer menggunakan Livewire
+    Route::get('/mitra-volunteer/detail/{id}', VolunteerDetail::class)->name('mitra-volunteer.detail');
+    Route::delete('/mitra-volunteer/{id}', [VolunteerController::class, 'destroy'])->name('mitra-volunteer.destroy');
 });
 
 // Middleware Admin

@@ -24,7 +24,7 @@ class VolunteerRegistration extends Model
     {
         return $this->belongsTo(Volunteer::class, 'volunteer_id', 'volunteer_id');
     }
-
+    
     // Relasi ke tabel User
     public function user()
     {
