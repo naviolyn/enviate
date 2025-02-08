@@ -28,6 +28,17 @@
                                 <span class="inline-flex items-center rounded-full bg-amber-500 px-2 py-1 text-xs font-medium text-white ring-1 ring-amber-600/20 ring-inset">
                                     +{{ $task->task->leaflets_reward }} Leaflets
                                 </span>
+                                <button id="dropdownLeftEndButtonA" data-dropdown-toggle="dropdownLeftEndA" data-dropdown-placement="bottom-end" class="inline-flex items-center text-sm font-medium text-center text-gray-900 rounded-lg focus:outline-none" type="button">
+                                  <i class="fa-solid fa-lightbulb text-amber-500 ml-2"></i>
+                              </button>
+                              <!-- Dropdown menu -->
+                              <div id="dropdownLeftEndA" class="z-10 hidden bg-amber-100 divide-y divide-gray-100 rounded-lg w-96 ">
+                                  <ul class="py-2 text-xs text-darkGreen" aria-labelledby="dropdownMenuIconButton">
+                                    <li>
+                                      <a href="#" class="block px-4 py-2">{{ $task->task->description }}</a>
+                                    </li>
+                                  </ul>
+                              </div>
                             </div>
                         </div>
                     @endforeach
@@ -102,7 +113,7 @@
                   <div class="overflow-y-auto h-full">
                       <div>
                         @foreach($otherTasks as $task)
-                        <div class="flex w-full justify-between hover:bg-gray-100 rounded-md px-2" wire:key="other-task-{{ $task->task_id }}">
+                        <div class="flex w-full justify-between hover:bg-fadeGreen/[0.08] rounded-md px-2" wire:key="other-task-{{ $task->task_id }}">
                             <input class="hidden" type="checkbox" id="task_A">
                             <label class="flex items-center h-10 rounded cursor-pointer " for="task_A">
                                 <span class="flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-300 rounded-full">
@@ -114,6 +125,17 @@
                             </label>
                             <div class="ml-2 flex shrink-0 py-2 align-middle">
                                 <span class="inline-flex items-center rounded-full bg-amber-500 px-2 py-1 text-xs font-medium text-white ring-1 ring-amber-600/20 ring-inset">+{{ $task->leaflets_reward }} Leaflets</span>
+                                button id="dropdownLeftEndButtonB" data-dropdown-toggle="dropdownLeftEndB" data-dropdown-placement="bottom-end" class="inline-flex items-center text-sm font-medium text-center text-gray-900 rounded-lg focus:outline-none" type="button">
+                                  <i class="fa-solid fa-lightbulb text-amber-500 ml-2"></i>
+                              </button>
+                              <!-- Dropdown menu -->
+                              <div id="dropdownLeftEndB" class="z-10 hidden bg-amber-100 divide-y divide-gray-100 rounded-lg w-96 ">
+                                  <ul class="py-2 text-xs text-darkGreen" aria-labelledby="dropdownMenuIconButton">
+                                    <li>
+                                      <a href="#" class="block px-4 py-2">{{ $task->description }}</a>
+                                    </li>
+                                  </ul>
+                              </div>
                                 <button wire:click.prevent="addToMonthlyTask({{ $task->task_id }})" class="items-center text-sm align-middle ml-3 mr-2">
                                   <i class="fa-solid fa-plus align-middle items-center text-sm"></i>
                                 </button>
