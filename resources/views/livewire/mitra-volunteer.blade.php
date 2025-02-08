@@ -14,14 +14,14 @@
                             <button @click="openModal = true" class="text-white bg-darkGreen font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center h-fit">
                                 Tambah Volunteer
                             </button>
-                            <div x-show="openModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+                            <div x-show="openModal" class="overflow-hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
                                  x-transition:enter="transition ease-out duration-300"
                                  x-transition:enter-start="opacity-0"
                                  x-transition:enter-end="opacity-100"
                                  x-transition:leave="transition ease-in duration-300"
                                  x-transition:leave-start="opacity-100"
                                  x-transition:leave-end="opacity-0">
-                                <div class="bg-white rounded-lg shadow-lg max-w-2xl w-full p-6 relative">
+                                <div class="bg-white rounded-lg shadow-lg max-w-2xl w-full p-6 relative max-h-[95vh] overflow-scroll">
                                     <button @click="openModal = false" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800">✕</button>
                                     <h2 class="mb-4 text-xl font-bold text-gray-900">Tambahkan Volunteer</h2>
                                     <form action="{{ route('mitra-volunteer.store') }}" method="POST" enctype="multipart/form-data">
@@ -29,27 +29,27 @@
                                         <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
                                             <div class="sm:col-span-2">
                                                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Volunteer Name</label>
-                                                <input type="text" name="name" id="name" class="w-full p-2 border rounded" required>
+                                                <input type="text" name="name" id="name" class="mt-1 bg-white border border-gray-200 text-sm rounded-lg focus:ring-darkGreen focus:border-darkGreen block w-full p-2.5 focus:bg-lightGreen" required>
                                                 @error('name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                             </div>
                                             <div class="w-full">
                                                 <label for="image" class="block mb-2 text-sm font-medium text-gray-900">Upload Image</label>
-                                                <input type="file" name="image" id="image" accept="image/*" class="w-full p-2 border rounded">
+                                                <input type="file" name="image" id="image" accept="image/*" class="mt-1 bg-white border border-gray-200 text-sm rounded-lg focus:ring-darkGreen focus:border-darkGreen block w-full p-2.5 focus:bg-lightGreen">
                                                 @error('image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                             </div>
                                             <div class="w-full">
                                                 <label for="crystal_reward" class="block mb-2 text-sm font-medium text-gray-900">Crystal Reward</label>
-                                                <input type="number" name="crystal_reward" id="crystal_reward" class="w-full p-2 border rounded" required>
+                                                <input type="number" name="crystal_reward" id="crystal_reward" class="mt-1 bg-white border border-gray-200 text-sm rounded-lg focus:ring-darkGreen focus:border-darkGreen block w-full p-2.5 focus:bg-lightGreen" required>
                                                 @error('crystal_reward') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                             </div>
                                             <div class="w-full">
                                                 <label for="leaflets_reward" class="block mb-2 text-sm font-medium text-gray-900">Leaflets Reward</label>
-                                                <input type="number" name="leaflets_reward" id="leaflets_reward" class="w-full p-2 border rounded" required>
+                                                <input type="number" name="leaflets_reward" id="leaflets_reward" class="mt-1 bg-white border border-gray-200 text-sm rounded-lg focus:ring-darkGreen focus:border-darkGreen block w-full p-2.5 focus:bg-lightGreen" required>
                                                 @error('leaflets_reward') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                             </div>
                                             <div class="w-full">
                                                 <label for="category" class="block mb-2 text-sm font-medium text-gray-900">Category</label>
-                                                <select name="category" id="category" class="w-full p-2 border rounded">
+                                                <select name="category" id="category" class="mt-1 bg-white border border-gray-200 text-sm rounded-lg focus:ring-darkGreen focus:border-darkGreen block w-full p-2.5 focus:bg-lightGreen">
                                                     <option value="Pelestarian Alam">Pelestarian Alam</option>
                                                     <option value="Edukasi & Kampanye Lingkungan">Edukasi & Kampanye Lingkungan</option>
                                                     <option value="Pembersihan & Pengelolaan Sampah">Pembersihan & Pengelolaan Sampah</option>
@@ -60,29 +60,29 @@
                                             </div>
                                             <div class="w-full">
                                                 <label for="start_date" class="block mb-2 text-sm font-medium text-gray-900">Start Date</label>
-                                                <input type="date" name="start_date" id="start_date" class="w-full p-2 border rounded" required>
+                                                <input type="date" name="start_date" id="start_date" class="mt-1 bg-white border border-gray-200 text-sm rounded-lg focus:ring-darkGreen focus:border-darkGreen block w-full p-2.5 focus:bg-lightGreen" required>
                                                 @error('start_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                             </div>
                                             <div class="w-full">
                                                 <label for="end_date" class="block mb-2 text-sm font-medium text-gray-900">End Date</label>
-                                                <input type="date" name="end_date" id="end_date" class="w-full p-2 border rounded" required>
+                                                <input type="date" name="end_date" id="end_date" class="mt-1 bg-white border border-gray-200 text-sm rounded-lg focus:ring-darkGreen focus:border-darkGreen block w-full p-2.5 focus:bg-lightGreen" required>
                                                 @error('end_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Description</label>
-                                                <textarea name="description" id="description" rows="4" class="w-full p-2 border rounded" required></textarea>
+                                                <textarea name="description" id="description" rows="4" class="mt-1 bg-white border border-gray-200 text-sm rounded-lg focus:ring-darkGreen focus:border-darkGreen block w-full p-2.5 focus:bg-lightGreen" required></textarea>
                                                 @error('description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                             </div>
                                         
                                         <div class="sm:col-span-2">
                                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Pesan Email</label>
-                                            <textarea name="email" id="email" rows="4" class="w-full p-2 border rounded" required></textarea>
+                                            <textarea name="email" id="email" rows="4" class="mt-1 bg-white border border-gray-200 text-sm rounded-lg focus:ring-darkGreen focus:border-darkGreen block w-full p-2.5 focus:bg-lightGreen" required></textarea>
                                             @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                         </div>
                                     </div>
                                         <div class="flex items-center space-x-4">
-                                            <button type="submit" class="bg-darkGreen text-white px-5 py-2 rounded">Simpan</button>
-                                            <button type="button" @click="openModal = false" class="bg-gray-500 text-white px-5 py-2 rounded">Batal</button>
+                                            <button type="submit" class="bg-darkGreen text-white px-5 py-2 rounded-lg">Simpan</button>
+                                            <button type="button" @click="openModal = false" class="bg-orange text-white px-5 py-2 rounded-lg">Batal</button>
                                         </div>
                                     </form>
                                 </div>
@@ -114,7 +114,7 @@
                                         @if(isset($volunteers) && $volunteers->count() > 0)
                                             <tbody>
                                                 @foreach($volunteers as $volunteer)
-                                                    <tr class="border-b hover:bg-darkGreen/20">
+                                                    <tr class="border-b hover:bg-darkGreen/20 text-xs">
                                                         <th scope="row" class="bg-primary-100 text-gray-900 text-xs font-medium px-2 py-0.5 rounded">
                                                             {{ $volunteer->name }}
                                                         </th>
@@ -124,8 +124,8 @@
                                                                 {{ \Carbon\Carbon::parse($volunteer->end_date)->format('d M Y') }}
                                                             </span>
                                                         </td>
-                                                        <td scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                                                            {{ $volunteer->description }}
+                                                        <td scope="row" class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
+                                                            {{ strlen($volunteer->description) > 15 ? substr($volunteer->description, 0, 15) . '...' : $volunteer->description }}
                                                         </td>
                                                         <td class="px-4 py-3">
                                                             <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded">
@@ -154,7 +154,7 @@
                                                         </td>
                                                         <td class="px-4 py-3">
                                                             <a href="{{ route('mitra-volunteer.edit', $volunteer->volunteer_id) }}" 
-                                                               class="bg-orange-500 hover:bg-orange-600 text-white font-medium py-1 px-3 rounded-lg transition-colors">
+                                                               class="bg-orange-500 hover:bg-orange-600 text-dark font-medium py-1 px-3 rounded-lg transition-colors">
                                                                 Edit
                                                             </a>
                                                         </td>

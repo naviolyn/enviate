@@ -71,7 +71,7 @@
                     </div>
                     
                     @if (session()->has('message'))
-                        <div class="mt-4 p-4 bg-green-500 text-white rounded">
+                        <div class="mt-4 p-4 bg-darkGreen text-white rounded">
                             {{ session('message') }}
                         </div>
                     @endif

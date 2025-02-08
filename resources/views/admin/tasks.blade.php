@@ -48,7 +48,7 @@
                             <td class="px-6 py-3 text-center">{{ $task->type }}</td>
                             <td class="px-6 py-3 text-center">{{ $task->leaflets_reward ?? '-' }}</td>
                             <td class="px-6 py-3 text-center">
-                                    <span class="px-3 py-1 text-white rounded-lg {{ $task->status == '1' ? 'bg-green-500' : 'bg-red-500' }}">
+                                    <span class="px-3 py-1 text-white rounded-lg {{ $task->status == '1' ? 'bg-darkGreen' : 'bg-red-500' }}">
                                         {{ $task->status == '1' ? 'Active' : 'Inactive' }}
                                     </span>
                                 </td>
@@ -67,7 +67,7 @@
                 </table>
             </div>
             @if(session('success'))
-                <div class="mt-4 p-3 bg-green-500 text-white rounded-lg">
+                <div class="mt-4 p-3 bg-darkGreen text-white rounded-lg">
                     {{ session('success') }}
                 </div>
             @endif

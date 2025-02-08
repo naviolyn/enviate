@@ -45,7 +45,7 @@
                                 <td class="px-6 py-3 text-center">{{ $user->province ?? '-' }}</td>
                                 <td class="px-6 py-3 text-center">{{ $user->city ?? '-' }}</td>
                                 <td class="px-6 py-3 text-center">
-                                    <span class="px-3 py-1 text-white rounded-lg {{ $user->status == '1' ? 'bg-green-500' : 'bg-red-500' }}">
+                                    <span class="px-3 py-1 text-white rounded-lg {{ $user->status == '1' ? 'bg-darkGreen' : 'bg-red-500' }}">
                                         {{ $user->status == '1' ? 'Active' : 'Inactive' }}
                                     </span>
                                 </td>
@@ -62,7 +62,7 @@
                         </tbody>
                     </table>
                     @if(session('success'))
-    <div id="status-alert" class="flex items-center p-4 mb-4 text-white bg-green-500 rounded-lg shadow-lg">
+    <div id="status-alert" class="flex items-center p-4 mb-4 text-white bg-darkGreen rounded-lg shadow-lg">
         <svg class="w-5 h-5 mr-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
         </svg>

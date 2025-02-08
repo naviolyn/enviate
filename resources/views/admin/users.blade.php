@@ -51,7 +51,7 @@
                                 <td class="px-6 py-3 text-center">{{ $user->province ?? '-' }}</td>
                                 <td class="px-6 py-3 text-center">{{ $user->city ?? '-' }}</td>
                                 <td class="px-6 py-3 text-center">
-                                    <span class="px-3 py-1 text-white rounded-lg {{ $user->status == '1' ? 'bg-green-500' : 'bg-red-500' }}">
+                                    <span class="px-3 py-1 text-white rounded-lg {{ $user->status == '1' ? 'bg-darkGreen' : 'bg-red-500' }}">
                                         {{ $user->status == '1' ? 'Active' : 'Inactive' }}
                                     </span>
                                 </td>
