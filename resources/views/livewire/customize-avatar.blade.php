@@ -15,7 +15,7 @@
         currentIndex: 0,
         selectedStyle: null,
         avatars: {{ Js::from($avatars) }},
-        styles: {{ Js::from($styles) }},
+        styles: [],
         ownedStyles: {{ Js::from($ownedStyles) }},
 
         getCurrentImage() {
@@ -66,10 +66,11 @@
                 <li class="border p-4 rounded-lg cursor-pointer hover:shadow-lg transition"
                     :class="{ 'border-blue-500': selectedStyle && selectedStyle.id === {{ $style->id }} }"
                     @click="Livewire.dispatch('selectStyle', { styleId: {{ $style->id }} })">
-                    
+
                     <h2 class="text-xl font-semibold">{{ $style->name }}</h2>
                     <p class="text-gray-500">Price: {{ $style->leaflet_cost }} Leaflets</p>
-                    
+                    <img src="{{ asset('storage/' . $style->path) }}" alt="{{ $style->name }}" class="w-20 h-20">
+
                     <button type="button"
                         wire:click="buyStyle({{ $style->id }})"
                         class="mt-2 px-4 py-2 rounded-lg transition"
@@ -84,15 +85,6 @@
             @endforeach
         </ul>
 
-        @if ($selectedStyle)
-            <div class="mt-8 p-4 border rounded-lg">
-                <h2 class="text-xl font-bold mb-2">Selected Style</h2>
-                <img src="{{ asset('storage/' . $selectedStyle->path) }}" alt="{{ $selectedStyle->name }}" class="w-48 h-48 object-cover rounded-lg mb-4">
-                <p><strong>Name :</strong> {{ $selectedStyle->name }}</p>
-                <p><strong>Price :</strong> {{ $selectedStyle->leaflet_cost }} Leaflets</p>
-                <p><strong>Status :</strong> {{ in_array($selectedStyle->id, $ownedStyles) ? 'Owned' : 'Not Owned' }}</p>
-            </div>
-        @endif
     </div>
 </div>
 

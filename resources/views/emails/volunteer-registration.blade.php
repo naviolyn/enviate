@@ -33,11 +33,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>Hello, {{ $userName }}!</h2>
-        <p>Thank you for registering as a volunteer for <strong>{{ $volunteerName }}</strong>!</p>
-        <p>We appreciate your commitment to making a difference.</p>
-        <p>Stay tuned for further updates regarding your volunteering schedule.</p>
-        <br>
+        <p>{{ $messageContent }}</p>
         <p class="footer">Best regards,</p>
         <p class="footer"><strong>Enviate Team</strong></p>
     </div>

@@ -9,7 +9,7 @@ use App\Models\VolunteerRegistration; // Pastikan model VolunteerRegistration di
 class Volunteer extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'volunteers';  // Nama tabel
     protected $primaryKey = 'volunteer_id'; // Primary key sesuai migration
 
@@ -19,7 +19,7 @@ class Volunteer extends Model
 
     protected $fillable = [
         'name', 'description', 'email', 'crystal_reward', 'leaflets_reward',
-        'category', 'start_date', 'end_date', 'image', 'created_by'
+        'category', 'start_date', 'end_date', 'image', 'email', 'created_by'
     ];
 
     public function registrations()
@@ -31,7 +31,7 @@ class Volunteer extends Model
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
-    
+
     // Opsional: Override getForeignKey untuk memastikan nama foreign key yang tepat
     public function getForeignKey()
     {

@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -11,24 +10,18 @@ class VolunteerRegistrationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $volunteerName;
-    public $userName;
+    public $messageContent;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct($volunteerName, $userName)
+    public function __construct($messageContent)
     {
-        $this->volunteerName = $volunteerName;
-        $this->userName = $userName;
+        $this->messageContent = $messageContent;
     }
 
-    /**
-     * Build the message.
-     */
     public function build()
     {
-        return $this->subject('Volunteer Registration Successful')
-                    ->view('emails.volunteer-registration');
+        return $this->subject('Volunteer Registration Confirmation')
+            ->view('emails.volunteer-registration')
+            ->with(['messageContent' => $this->messageContent]);
     }
 }
+

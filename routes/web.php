@@ -23,15 +23,15 @@ use App\Livewire\CustomizeAvatar;
 use App\Livewire\EditVolunteer;
 use App\Livewire\RegisterVolunteer;
 use App\Livewire\Profile;
-use App\Livewire\ChangePassword;    
+use App\Livewire\ChangePassword;
 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MitraController;
 use App\Http\Controllers\Admin\TasksController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Livewire\Profile;
-use App\Livewire\EditVolunteer;
+use App\Livewire\Profile as LivewireProfile; // Alias untuk kelas Livewire
+use App\Http\Controllers\Profile as ControllerProfile; // Alias untuk kelas Controller jika diperlukan
 use App\Livewire\VolunteerDetail;
 use App\Livewire\VolunteeList;
 // use App\Livewire\VolunteerDetail;
@@ -109,7 +109,7 @@ Route::middleware(['auth', MitraMiddleware::class])->group(function () {
     Route::get('/mitra/volunteer', \App\Livewire\MitraVolunteer::class);
     Route::get('/mitra-volunteer/{volunteerId}/list', VolunteeList::class)
     ->name('mitra-volunteer.user');
-    
+
     Route::get('/mitra-volunteer', [VolunteerController::class, 'index'])->name('mitra-volunteer');
     Route::post('/mitra-volunteer', [VolunteerController::class, 'store'])->name('mitra-volunteer.store');
     Route::get('/mitra-volunteer/edit/{id}', EditVolunteer::class)->name('mitra-volunteer.edit');

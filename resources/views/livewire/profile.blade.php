@@ -15,17 +15,12 @@
                       </div>
 
                     </div>
-                      
+
 
                       <div class="px-4 h-full w-full max-w-screen-xl lg:py-2 lg:px-4 flex flex-col justify-between items-end">
                         <div class="flex flex-row gap-2">
-                                <div class="flex flex-col text-center text-white bg-green-900 rounded-full border-none py-2 xl:px-4 mb-2 px-4 h-fit w-fit">
-                                  <h3 class="text-sm">100 Task Completed</h3>
-                                  </div>
-                                  <div class="flex flex-col text-center text-white bg-green-900 rounded-full border-none py-2 xl:px-4 mb-2 px-4 h-fit w-fit">
-                                    <h3 class="text-sm">100 Volunteer Completed</h3>
-                                    </div>
-                            
+
+
                             </div>
 
                         <div class="flex flex-row gap-2 w-full items-center justify-end">
@@ -38,7 +33,7 @@
 
                                       <div class="flex flex-row text-center text-amber-400 bg-green-900 rounded-full border-none py-2 xl:px-4 mb-2 px-4 h-fit w-fit justify-end">
                                         <img src="{{ asset('img/nobg-logo.png') }}" alt="" class="w-5 h-6=5 mr-2 object-cover">
-                                        <h3 class="text-sm">{{ Auth::user()->leaflets }}</h3>
+                                        <h3 class="text-sm">{{ Auth::user()->leaflets }} / 100</h3>
                                         </div>
                                     </div>
                                     <div class="overflow-hidden bg-blue-50 h-6 rounded-full w-full">
@@ -49,7 +44,7 @@
                                 {{-- <div class="w-[70%] h-4 mb-4 bg-gray-200 rounded-full ">
                                   <div class="h-4 bg-amber-400 rounded-full " style="width: 45%"></div>
                                 </div> --}}
-                            
+
                             </div>
                         </div>
                   </div>
