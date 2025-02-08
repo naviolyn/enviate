@@ -86,7 +86,7 @@ Route::get('/leaderboard', Leaderboard::class)->name('leaderboard');
 Route::get('/volunteer', Volunteer::class);
 Route::get('/list-volunteer', \App\Livewire\MitraVolunteer::class); // Correctly reference the Livewire component
 
-Route::get('/profile', Profile::class);
+Route::get('/profile', Profile::class)->name('profile');
 Route::get('/edit-profile', EditProfile::class);
 Route::get('/mitra/volunteer/edit', EditVolunteer::class);
 Route::get('/register-volunteer', RegisterVolunteer::class);

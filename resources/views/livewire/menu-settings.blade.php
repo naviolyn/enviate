@@ -11,5 +11,9 @@
             class="flex items-center px-3 py-2.5 font-semibold {{ Request::is('change-password*') ? 'bg-lightGreen  text-darkGreen border rounded-full font-bold' : '' }}">
             Change Password
         </a>
+        <a href="/customize-avatar"
+            class="flex items-center px-3 py-2.5 font-semibold {{ Request::is('change-password*') ? 'bg-lightGreen  text-darkGreen border rounded-full font-bold' : '' }}">
+            Customize Avatar
+        </a>
     </div>
 </aside>

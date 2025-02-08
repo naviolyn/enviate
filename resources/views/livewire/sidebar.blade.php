@@ -59,7 +59,7 @@
                 {{ Auth::user()->username }}
               </span>
               <hr>
-              <a href="{{ route ('customize-avatar') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Customize Avatar</a>
+              <a href="{{ route ('profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
               <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
               <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -171,7 +171,7 @@
                 {{ Auth::user()->username }}
               </span>
               <hr>
-              <a href="{{ route ('customize-avatar') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Customize Avatar</a>
+              <a href="{{ route ('profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
               <a href="/edit-profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
               <form method="POST" action="{{ route('logout') }}">
                 @csrf

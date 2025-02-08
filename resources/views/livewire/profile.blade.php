@@ -32,12 +32,13 @@
                                 <div class="flex items-center py-3 w-full lg:max-w-2xl">
                                   <div class="space-y-3 flex-1 w-full">
                                     <div class="flex items-center">
-                                      <h4 class="font-medium text-md mr-auto text-white flex items-center">
-                                        level 100
-                                      </h4>
+                                    <h4 class="font-medium text-md mr-auto text-white flex items-center">
+    Level {{ Auth::user()->level }}
+</h4>
+
                                       <div class="flex flex-row text-center text-amber-400 bg-green-900 rounded-full border-none py-2 xl:px-4 mb-2 px-4 h-fit w-fit justify-end">
                                         <img src="{{ asset('img/nobg-logo.png') }}" alt="" class="w-5 h-6=5 mr-2 object-cover">
-                                        <h3 class="text-sm">{{ Auth::user()->leaflets }}/jumlah lfts selanjutnyta Leaflets</h3>
+                                        <h3 class="text-sm">{{ Auth::user()->leaflets }}</h3>
                                         </div>
                                     </div>
                                     <div class="overflow-hidden bg-blue-50 h-6 rounded-full w-full">
@@ -57,12 +58,18 @@
             </div>
 
             <div class="grid grid-cols-2 lg:grid-cols-4  gap-8 items-center h-fit lg:h-[50%] text-white w-full pb-24 md:p-0">
-              <div class="bg-darkGreen rounded-2xl h-full flex flex-col justify-center align-middle items-center p-8">
-                <h3 class="mb-2 text-2xl font-extrabold">Badge</h3>
-                <div class="flex justify-center items-baseline">
-                  <span class="mt-4 text-5xl font-extrabold text-amber-400">#1</span>
-                </div>
-              </div>
+            <div class="bg-darkGreen rounded-2xl h-full flex flex-col justify-center align-middle items-center p-8">
+    <h3 class="mb-2 text-2xl font-extrabold">Badge</h3>
+    <div class="flex justify-center items-center flex-col">
+        @if($badge)
+            <img src="{{ asset('storage/' . $badge->image_path) }}" alt="{{ $badge->name }}" class="w-20 h-20 object-cover">
+            <span class="mt-4 text-xl font-bold text-white">{{ $badge->name }}</span>
+        @else
+            <span class="mt-4 text-xl font-bold text-white">No Badge</span>
+        @endif
+    </div>
+</div>
+
                 <div class="bg-darkGreen rounded-2xl h-full flex flex-col justify-center align-middle items-center p-8">
                   <h3 class="mb-2 text-2xl font-extrabold">Country</h3>
                   <div class="flex justify-center items-baseline">

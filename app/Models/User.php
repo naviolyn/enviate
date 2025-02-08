@@ -118,4 +118,18 @@ public function styles(): BelongsToMany
         return $this->belongsToMany(Style::class, 'user_styles', 'user_id', 'style_id')
             ->withTimestamps();
     }
+
+    public function calculateLevel()
+{
+    return floor($this->leaflets / 100) + 1;
+}
+
+public function getLevelAttribute()
+{
+    return $this->calculateLevel();
+}
+    public function badge()
+    {
+        return $this->hasOne(Badge::class, 'required_level', 'level');
+    }
 }
