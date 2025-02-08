@@ -57,6 +57,10 @@ Route::get('/auth/google/callback', function () {
     return redirect('/today-task');  // Sesuaikan dengan rute tujuan setelah login
 });
 
+// Mail::raw('Testing Mailtrap', function ($message) {
+//     $message->to('test-recipient@mailtrap.io') // Gunakan email dari Mailtrap
+//             ->subject('Mailtrap Test');
+// });
 
 // Halaman User
 Route::get('/', function () {

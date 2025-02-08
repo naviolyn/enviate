@@ -36,61 +36,75 @@
                                                             </button>
                                                             <div class="relative h-full items-center">
                                                                 <div class="absolute top-0 align-middle w-full h-full p-16 flex flex-col justify-center">
-                                                                    <template x-for="(avatar, index) in images" :key="index">
-                                                                        <div x-show="currentIndex === index" class="flex flex-col items-center">
-                                                                            <img :src="getCurrentImage(avatar)"
-                                                                                 :alt="avatar.name"
-                                                                                 class="w-max max-h-[100%] aspect-square rounded-sm object-cover mx-auto" />
-                                                                            <div>
-                                                                                <p class="mt-8 text-center text-xl text-black font-bold" x-text="avatar.name"></p>
-                                                                                <p class="mt-2 text-center text-sm">Cost: <span x-text="avatar.leaflet_reward"></span> leaflets</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </template>
+                                                                <template x-for="(avatar, index) in images" :key="index">
+    <div x-show="currentIndex === index" class="flex flex-col items-center">
+        <img :src="getCurrentImage()"
+             :alt="avatar.name"
+             class="w-max max-h-[100%] aspect-square rounded-sm object-cover mx-auto" />
+        <div>
+            <p class="mt-8 text-center text-xl text-black font-bold" x-text="avatar.name"></p>
+            <p class="mt-2 text-center text-sm">
+                Cost: <span x-text="getLeafletCost()"></span> leaflets
+            </p>
+        </div>
+    </div>
+</template>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                         <script>
-                                                            document.addEventListener('alpine:init', () => {
-                                                                Alpine.data('imageSlider', () => ({
-                                                                    currentIndex: 0,
-                                                                    currentStyleIndex: 0,
-                                                                    images: @json($this->getAvatarData()),
+document.addEventListener('alpine:init', () => {
+    Alpine.data('imageSlider', () => ({
+        currentIndex: 0,
+        currentStyleIndex: 0,
+        images: @json($avatars), // Data avatar + styles dari Controller
 
-                                                                    previous() {
-                                                                        if (this.currentIndex > 0) {
-                                                                            this.currentIndex--;
-                                                                            this.currentStyleIndex = 0;
-                                                                            this.updateSelectedAvatar();
-                                                                        }
-                                                                    },
-                                                                    forward() {
-                                                                        if (this.currentIndex < this.images.length - 1) {
-                                                                            this.currentIndex++;
-                                                                            this.currentStyleIndex = 0;
-                                                                            this.updateSelectedAvatar();
-                                                                        }
-                                                                    },
-                                                                    selectStyle(styleIndex) {
-                                                                        this.currentStyleIndex = styleIndex;
-                                                                        const currentAvatar = this.images[this.currentIndex];
-                                                                        if (currentAvatar.styles[styleIndex]) {
-                                                                            $wire.selectStyle(currentAvatar.styles[styleIndex].id);
-                                                                        }
-                                                                    },
-                                                                    getCurrentImage(avatar) {
-                                                                        if (avatar.styles && avatar.styles.length > 0 && this.currentStyleIndex < avatar.styles.length) {
-                                                                            return avatar.styles[this.currentStyleIndex].path;
-                                                                        }
-                                                                        return avatar.path;
-                                                                    },
-                                                                    updateSelectedAvatar() {
-                                                                        $wire.selectAvatar(this.images[this.currentIndex].id);
-                                                                    }
-                                                                }));
-                                                            });
-                                                            </script>
+        init() {
+            console.log("Images Loaded:", this.images);
+        },
+
+        previous() {
+            if (this.currentIndex > 0) {
+                this.currentIndex--;
+                this.currentStyleIndex = 0;
+                console.log("Previous Avatar:", this.currentIndex);
+            }
+        },
+
+        forward() {
+            if (this.currentIndex < this.images.length - 1) {
+                this.currentIndex++;
+                this.currentStyleIndex = 0;
+                console.log("Next Avatar:", this.currentIndex);
+            }
+        },
+
+        selectStyle(styleIndex) {
+            this.currentStyleIndex = styleIndex;
+            console.log("Selected Style:", this.currentStyleIndex);
+        },
+
+        getCurrentImage() {
+            let avatar = this.images[this.currentIndex];
+            if (avatar.styles && avatar.styles.length > 0 && this.currentStyleIndex < avatar.styles.length) {
+                return avatar.styles[this.currentStyleIndex].path;
+            }
+            return avatar.path;
+        },
+
+        getLeafletCost() {
+            let avatar = this.images[this.currentIndex];
+            if (avatar.styles && avatar.styles.length > 0 && this.currentStyleIndex < avatar.styles.length) {
+                return avatar.styles[this.currentStyleIndex].leaflet_cost;
+            }
+            return avatar.leaflet_reward;
+        }
+    }));
+});
+</script>
+
+
                                                     </div>
 
                                                     {{-- Styles Section --}}
@@ -98,11 +112,12 @@
                                                         <div class="flex flex-col h-full">
                                                             <div class="text-center py-2 border-b border-b-1 border-b-fadeGreen rounded-t-xl">Style</div>
                                                             <div class="flex flex-col p-4 gap-2 items-center overflow-scroll no-scrollbar">
-                                                                @foreach($styles as $style)
-                                                                    <div class="aspect-square w-32 rounded-lg p-4 hover:bg-fadeGreen transition-all duration-300 ease-in-out cursor-pointer">
-                                                                        <img src="{{ asset('storage/' . $style->path) }}" alt="{{ $style->name }}">
-                                                                    </div>
-                                                                @endforeach
+                                                            @foreach($styles as $index => $style)
+    <div class="aspect-square w-32 rounded-lg p-4 hover:bg-fadeGreen transition-all duration-300 ease-in-out cursor-pointer"
+         @click="selectStyle({{ $index }})">
+        <img src="{{ asset('storage/' . $style->path) }}" alt="{{ $style->name }}">
+    </div>
+@endforeach
                                                             </div>
                                                         </div>
                                                     </div>
