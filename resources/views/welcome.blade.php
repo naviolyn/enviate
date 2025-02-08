@@ -37,27 +37,23 @@
       </div>
   </Container>
   <section class="" id="feature">
-    <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
-        <img class="w-full dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup.svg" alt="dashboard image">
-        <img class="w-full hidden dark:block" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup-dark.svg" alt="dashboard image">
-        <div class="mt-4 md:mt-0">
+    <div class="gap-8 items-center py-8 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-6 sm:py-16">
+        <img class="w-full rounded-xl col-span-4" src="{{ asset('img/today-task.png') }}" alt="dashboard image">
+        <div class="mt-4 md:mt-0 col-span-2">
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Make every task meaningful and <span class=" text-amber-400">impactful</span> for the environment!</h2>
             <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">Sign up, complete challenges, and earn rewards!</p>
         </div>
     </div>
-</section>
-<section class="">
-  <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
-    <div class="mt-4 md:mt-0">
-      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Unlock exclusive items and special rewards with <span class=" text-amber-400">Leaflets & Crystals!</span></h2>
-      <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">Collect achievement badges and showcase your dedication to sustainability! The more good actions you take, the more rewards you unlock.</p>
-    </div>
-      <img class="w-full dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup.svg" alt="dashboard image">
-      <img class="w-full hidden dark:block" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup-dark.svg" alt="dashboard image">
-      
-  </div>
-</section>
 
+    <div class="gap-8 items-center py-8 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-6 sm:py-16">
+      <div class=" col-span-2 mt-4 md:mt-0">
+        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Unlock exclusive items and special rewards with <span class=" text-amber-400">Leaflets & Crystals!</span></h2>
+        <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">Collect achievement badges and showcase your dedication to sustainability! The more good actions you take, the more rewards you unlock.</p>
+      </div>
+      <img class="w-full rounded-xl col-span-4" src="{{ asset('img/today-task.png') }}" alt="dashboard image">
+  </div>
+  
+  </section>
 
 
   <section class="h-[50vh] flex flex-col justify-center align-middle">

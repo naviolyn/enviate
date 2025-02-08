@@ -121,7 +121,7 @@
                               <input class="hidden" type="checkbox" id="task_A">
                               <label class="flex items-center h-10 rounded cursor-pointer " for="task_A">
                                 <button wire:click.prevent="addToMonthlyTask({{ $task->task_id }})" class="items-center text-sm align-middle mr-3">
-                                  <i class="fa-solid fa-plus align-middle items-center text-sm"></i>
+                                  <i class="fa-solid fa-plus align-middle items-center text-sm hover:text-darkGreen"></i>
                                 </button>
                                   <span class="text-sm">{{ $task->name }}</span>
                               </label>
@@ -149,8 +149,9 @@
                                     </ul>
                                 </div>
                               </div>
+                              @endforeach
                           </div>
-                          @endforeach
+                          
                     </div>
                   </div>
             </div>
