@@ -120,10 +120,15 @@
                             </div>
                         </div>
                         <div class="mx-4 flex flex-col text-center text-white bg-green-900 rounded-lg border-none xl:p-4 mb-2 p-4">
-                            <h3 class="mb-2 text-2xl font-extrabold text-amber-400">Badges</h3>
-                            <div class="flex justify-center items-baseline mt-1">
-                                <span class="mr-2 text-2xl font-extrabold text-white">100</span>
-                            </div>
+                        <h3 class="mb-2 text-2xl font-extrabold">Badge</h3>
+    <div class="flex justify-center items-center flex-col">
+        @if($badge)
+            <img src="{{ asset('storage/' . $badge->image_path) }}" alt="{{ $badge->name }}" class="w-20 h-20 object-cover">
+            <span class="mt-4 text-xl font-bold text-white">{{ $badge->name }}</span>
+        @else
+            <span class="mt-4 text-xl font-bold text-white">No Badge</span>
+        @endif
+    </div>
                         </div>
 
                         </div>

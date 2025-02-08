@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Models\Badge;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -11,10 +12,12 @@ class Leaderboard extends Component
 {
     public $category = 'indonesia';
     public $leaderboard;
+    public $userBadge;
 
     public function mount()
     {
         $this->updateLeaderboard();
+        $this->updateUserBadge();
     }
 
     public function updateLeaderboard()
@@ -39,6 +42,13 @@ class Leaderboard extends Component
         return $query->get();
     }
 
+    public function updateUserBadge()
+    {
+        $currentUser = Auth::user();
+        $this->userBadge = Badge::where('required_level', '<=', $currentUser->level)
+                                ->orderByDesc('required_level')
+                                ->first();
+    }
 
     public function updated($property)
     {
@@ -66,7 +76,8 @@ class Leaderboard extends Component
     public function render()
     {
         return view('livewire.leaderboard', [
-            'users' => $this->getLeaderboard()
+            'users' => $this->getLeaderboard(),
+            'badge' => $this->userBadge
         ]);
     }
 }
