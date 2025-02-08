@@ -1,170 +1,180 @@
-<div class="bg-lightGreen h-full">
-    <div class="flex font-medium w-full h-full flex-col sm:flex-col md:flex-row gap-4 lg:gap-8 lg:px-4 px-2">
-        <div class="flex items-center justify-center h-full text-gray-600 w-full bg-white py-2 rounded-2xl">
-            {{-- Flash Messages --}}
-            @if (session()->has('error'))
-                <div class="absolute top-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                    {{ session('error') }}
-                </div>
-            @endif
-            @if (session()->has('success'))
-                <div class="absolute top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            <div class="w-full h-full pe-0">
-                <div class="h-full overflow-hidden">
-                    <div class="h-full">
-                        <div class="h-full">
-                            <div class="relative sm:rounded-lg h-full">
-                                <div class="flex justify-center min-h-[100%]">
-                                    <ul class="mx-auto flex gap-2 max-w-full w-full px-2">
-                                        <li>
-                                            <input class="peer sr-only" type="radio" value="yes" name="answer" id="yes" checked />
-                                            <label class="flex justify-center cursor-pointer rounded-full border border-gray-300 bg-white py-2 px-8 hover:bg-gray-50 focus:outline-none peer-checked:border-transparent peer-checked:bg-darkGreen transition-all duration-500 ease-in-out peer-checked:text-white w-fit h-10" for="yes">Preview Avatars</label>
-                                            <div class="absolute left-0 px-2 mt-2 rounded-lg w-[99%] mx-auto transition-all duration-500 ease-in-out translate-x-40 opacity-0 invisible peer-checked:opacity-100 peer-checked:visible peer-checked:translate-x-1 h-[calc(100%-3rem)]">
-                                                <div class="flex gap-2 h-full">
-                                                    {{-- Preview Section --}}
-                                                    <div class="w-9/12 bg-lightGreen rounded-xl h-full py-2">
-                                                        <div x-data="imageSlider" class="relative mx-auto max-w-3xl overflow-hidden rounded-md p-2 sm:p-4 h-full">
-                                                            <button @click="previous()" class="absolute left-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-fadeGreen">
-                                                                <i class="fas fa-chevron-left text-2xl font-bold text-white"></i>
-                                                            </button>
-                                                            <button @click="forward()" class="absolute right-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-fadeGreen">
-                                                                <i class="fas fa-chevron-right text-2xl font-bold text-white"></i>
-                                                            </button>
-                                                            <div class="relative h-full items-center">
-                                                                <div class="absolute top-0 align-middle w-full h-full p-16 flex flex-col justify-center">
-                                                                <template x-for="(avatar, index) in images" :key="index">
-    <div x-show="currentIndex === index" class="flex flex-col items-center">
-        <img :src="getCurrentImage()"
-             :alt="avatar.name"
-             class="w-max max-h-[100%] aspect-square rounded-sm object-cover mx-auto" />
-        <div>
-            <p class="mt-8 text-center text-xl text-black font-bold" x-text="avatar.name"></p>
-            <p class="mt-2 text-center text-sm">
-                Cost: <span x-text="getLeafletCost()"></span> leaflets
-            </p>
+<div class="bg-lightGreen h-full p-4">
+    <!-- Flash Messages -->
+    @if (session()->has('error'))
+        <div class="absolute top-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+            {{ session('error') }}
         </div>
-    </div>
-</template>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+    @endif
+    @if (session()->has('success'))
+        <div class="absolute top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+            {{ session('success') }}
+        </div>
+    @endif
 
-                                                        <script>
-document.addEventListener('alpine:init', () => {
-    Alpine.data('imageSlider', () => ({
+    <div x-data="{
         currentIndex: 0,
-        currentStyleIndex: 0,
-        images: @json($avatars), // Data avatar + styles dari Controller
-
-        init() {
-            console.log("Images Loaded:", this.images);
-        },
-
-        previous() {
-            if (this.currentIndex > 0) {
-                this.currentIndex--;
-                this.currentStyleIndex = 0;
-                console.log("Previous Avatar:", this.currentIndex);
-            }
-        },
-
-        forward() {
-            if (this.currentIndex < this.images.length - 1) {
-                this.currentIndex++;
-                this.currentStyleIndex = 0;
-                console.log("Next Avatar:", this.currentIndex);
-            }
-        },
-
-        selectStyle(styleIndex) {
-            this.currentStyleIndex = styleIndex;
-            console.log("Selected Style:", this.currentStyleIndex);
-        },
+        selectedStyle: null,
+        avatars: {{ Js::from($avatars) }},
+        styles: {{ Js::from($styles) }},
+        ownedStyles: {{ Js::from($ownedStyles) }},
 
         getCurrentImage() {
-            let avatar = this.images[this.currentIndex];
-            if (avatar.styles && avatar.styles.length > 0 && this.currentStyleIndex < avatar.styles.length) {
-                return avatar.styles[this.currentStyleIndex].path;
-            }
-            return avatar.path;
+            let avatar = this.avatars[this.currentIndex];
+            return this.selectedStyle ? '/storage/' + this.selectedStyle.path : '/storage/' + avatar.path;
         },
 
-        getLeafletCost() {
-            let avatar = this.images[this.currentIndex];
-            if (avatar.styles && avatar.styles.length > 0 && this.currentStyleIndex < avatar.styles.length) {
-                return avatar.styles[this.currentStyleIndex].leaflet_cost;
-            }
-            return avatar.leaflet_reward;
+        getCurrentPrice() {
+            let avatar = this.avatars[this.currentIndex];
+            return this.selectedStyle ? this.selectedStyle.leaflet_cost : avatar.leaflet_reward;
+        },
+
+        selectStyle(index) {
+            this.selectedStyle = this.styles[index];
+        },
+
+        isOwnedStyle(styleId) {
+            return this.ownedStyles.includes(styleId);
         }
-    }));
-});
-</script>
+    }">
 
-
-                                                    </div>
-
-                                                    {{-- Styles Section --}}
-                                                    <div class="w-3/12 rounded-xl bg-lightGreen h-full">
-                                                        <div class="flex flex-col h-full">
-                                                            <div class="text-center py-2 border-b border-b-1 border-b-fadeGreen rounded-t-xl">Style</div>
-                                                            <div class="flex flex-col p-4 gap-2 items-center overflow-scroll no-scrollbar">
-                                                            @foreach($styles as $index => $style)
-    <div class="aspect-square w-32 rounded-lg p-4 hover:bg-fadeGreen transition-all duration-300 ease-in-out cursor-pointer"
-         @click="selectStyle({{ $index }})">
-        <img src="{{ asset('storage/' . $style->path) }}" alt="{{ $style->name }}">
-    </div>
-@endforeach
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li>
-                                            <input class="peer sr-only" type="radio" value="no" name="answer" id="no" />
-                                            <label class="flex justify-center cursor-pointer rounded-full border border-gray-300 bg-white py-2 px-8 hover:bg-gray-50 focus:outline-none peer-checked:border-transparent peer-checked:bg-darkGreen transition-all duration-500 ease-in-out peer-checked:text-white w-fit" for="no">All Avatars</label>
-                                            <div class="absolute left-0 px-2 mt-2 rounded-lg w-[99%] mx-auto transition-all duration-500 ease-in-out translate-x-40 opacity-0 invisible peer-checked:opacity-100 peer-checked:visible peer-checked:translate-x-1 h-[calc(100%-3rem)]">
-                                                {{-- All Avatars Grid --}}
-                                                <div class="h-full bg-lightGreen rounded-xl">
-                                                    <div class="grid grid-cols-4 items-center gap-4 p-4 bg-lightGreen rounded-xl overflow-scroll h-max no-scrollbar">
-                                                        @foreach($avatars as $avatar)
-                                                            <div class="aspect-square px-8 hover:bg-fadeGreen transition-all duration-300 ease-in-out rounded-lg flex flex-col justify-center items-center cursor-pointer"
-                                                                 wire:click="selectAvatar({{ $avatar->id }})">
-                                                                <img src="{{ asset('storage/' . $avatar->path) }}" alt="{{ $avatar->name }}">
-                                                                <div class="flex flex-col text-center mt-2">
-                                                                    <h3 class="text-sm font-bold">{{ $avatar->name }}</h3>
-                                                                    <p class="text-xs">{{ $avatar->leaflet_reward }} leaflets</p>
-                                                                </div>
-                                                            </div>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        {{-- Buy Button --}}
-                                        <li class="ml-auto pr-3">
-                                            <div class="flex justify-end">
-                                                <button type="button"
-                                                        wire:click="buyAvatar"
-                                                        class="text-white bg-orange focus:ring-4 focus:outline-none focus:ring-lightGreen font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center disabled:opacity-50 disabled:cursor-not-allowed"
-                                                        @if(!$selectedAvatar || $userLeaflets < optional($selectedAvatar)->leaflet_reward) disabled @endif>
-                                                    Save
-                                                </button>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Avatar Preview Section -->
+        <div class="flex flex-col lg:flex-row gap-8">
+            <div class="flex flex-col items-center w-full lg:w-1/2 bg-white p-6 rounded-xl shadow">
+                <template x-for="(avatar, index) in avatars" :key="index">
+                    <div x-show="currentIndex === index" class="flex flex-col items-center">
+                        <img :src="getCurrentImage()" :alt="avatar.name" class="w-40 h-40 rounded-md" />
+                        <p class="text-xl font-bold mt-4" x-text="avatar.name"></p>
+                        <p class="text-sm mt-2">Cost: <span x-text="getCurrentPrice()"></span> leaflets</p>
                     </div>
+                </template>
+
+                <div class="flex gap-4 mt-6">
+                    <button @click="currentIndex = (currentIndex > 0) ? currentIndex - 1 : avatars.length - 1; selectedStyle = null;" class="px-4 py-2 bg-darkGreen text-white rounded-lg shadow hover:bg-green-700">
+                        Previous
+                    </button>
+                    <button @click="currentIndex = (currentIndex + 1) % avatars.length; selectedStyle = null;" class="px-4 py-2 bg-darkGreen text-white rounded-lg shadow hover:bg-green-700">
+                        Next
+                    </button>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-4">Style Selection</h1>
+    <div>
+        <ul class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            @foreach ($styles as $style)
+                <li class="border p-4 rounded-lg cursor-pointer hover:shadow-lg transition"
+                    :class="{ 'border-blue-500': selectedStyle && selectedStyle.id === {{ $style->id }} }"
+                    @click="Livewire.dispatch('selectStyle', { styleId: {{ $style->id }} })">
+                    
+                    <h2 class="text-xl font-semibold">{{ $style->name }}</h2>
+                    <p class="text-gray-500">Price: {{ $style->leaflet_cost }} Leaflets</p>
+                    
+                    <button type="button"
+                        wire:click="buyStyle({{ $style->id }})"
+                        class="mt-2 px-4 py-2 rounded-lg transition"
+                        :class="{
+                            'bg-gray-500 text-white cursor-not-allowed': ownedStyles.includes({{ $style->id }}),
+                            'bg-blue-500 text-white hover:bg-blue-600': !ownedStyles.includes({{ $style->id }})
+                        }"
+                        @if (in_array($style->id, $ownedStyles) || $userLeaflets < $style->leaflet_cost) disabled @endif>
+                        {{ in_array($style->id, $ownedStyles) ? 'Already Owned' : 'Buy' }}
+                    </button>
+                </li>
+            @endforeach
+        </ul>
+
+        @if ($selectedStyle)
+            <div class="mt-8 p-4 border rounded-lg">
+                <h2 class="text-xl font-bold mb-2">Selected Style</h2>
+                <img src="{{ asset('storage/' . $selectedStyle->path) }}" alt="{{ $selectedStyle->name }}" class="w-48 h-48 object-cover rounded-lg mb-4">
+                <p><strong>Name :</strong> {{ $selectedStyle->name }}</p>
+                <p><strong>Price :</strong> {{ $selectedStyle->leaflet_cost }} Leaflets</p>
+                <p><strong>Status :</strong> {{ in_array($selectedStyle->id, $ownedStyles) ? 'Owned' : 'Not Owned' }}</p>
+            </div>
+        @endif
+    </div>
+</div>
+
+<div>
+<!-- Modal Background -->
+<div x-data="{ open: @entangle('showModal') }">
+    <button @click="open = true"
+        class="bg-darkGreen text-white px-4 py-2 rounded-lg shadow hover:bg-green-700 transition-all">
+        Show Owned Avatars & Styles
+    </button>
+
+    <!-- Modal -->
+    <div x-show="open" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" x-cloak>
+        <div class="bg-white p-6 rounded-lg shadow-lg w-1/2 relative">
+
+
+            <button @click="open = false" class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded">
+                ✖
+            </button>
+
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold">Avatars</h3>
+                <div class="grid grid-cols-3 gap-4">
+                    @foreach($avatars as $avatar)
+                        @if(in_array($avatar->id, $ownedAvatars))
+                            <div class="flex flex-col items-center p-2 border rounded-lg">
+                                <img src="{{ asset('storage/' . $avatar->path) }}" alt="{{ $avatar->name }}" class="w-20 h-20">
+                                <p class="mt-2">{{ $avatar->name }}</p>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold">Styles</h3>
+                <div class="grid grid-cols-3 gap-4">
+                    @foreach($styles as $style)
+                        @if(in_array($style->id, $ownedStyles))
+                            <div class="flex flex-col items-center p-2 border rounded-lg">
+                                <img src="{{ asset('storage/' . $style->path) }}" alt="{{ $style->name }}" class="w-20 h-20">
+                                <p class="mt-2">{{ $style->name }}</p>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('imageSlider', () => ({
+        currentIndex: 0,
+        selectedStyle: null,
+        avatars: @json($avatars),
+        styles: @json($styles),
+        ownedStyles: @json($ownedStyles),
+
+        getCurrentImage() {
+            let avatar = this.avatars[this.currentIndex];
+            return this.selectedStyle ? '/storage/' + this.selectedStyle.path : '/storage/' + avatar.path;
+        },
+
+        getCurrentPrice() {
+            let avatar = this.avatars[this.currentIndex];
+            return this.selectedStyle ? this.selectedStyle.leaflet_cost : avatar.leaflet_reward;
+        },
+
+        selectStyle(index) {
+            this.selectedStyle = this.styles[index];
+        },
+
+        isOwnedStyle(styleId) {
+            return this.ownedStyles.includes(styleId);
+        }
+    }));
+
+    Livewire.on('stylePurchased', updatedStyles => {
+        Alpine.store('imageSlider').ownedStyles = updatedStyles;
+    });
+});
+</script>

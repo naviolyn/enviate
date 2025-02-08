@@ -12,9 +12,9 @@ class Avatar extends Model
     protected $fillable = ['name', 'image', 'leaflet_reward', 'path'];
 
     public function users()
-    {
-        return $this->belongsToMany(User::class, 'user_avatar');
-    }
+{
+    return $this->belongsToMany(User::class, 'user_avatars')->withTimestamps();
+}
 
     public function styles()
     {

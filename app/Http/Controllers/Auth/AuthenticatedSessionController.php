@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
         } elseif ($user->role === 'mitra') {
             return redirect()->route('mitra.dashboard');
         } else {
-            return redirect('/today-task');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -49,6 +49,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/today-task');
+        return redirect('/');
     }
 }

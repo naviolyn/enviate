@@ -5,8 +5,8 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Avatar;
 use App\Models\Style;
-use App\Models\UserAvatar;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CustomizeAvatar extends Component
 {
@@ -15,95 +15,103 @@ class CustomizeAvatar extends Component
     public $styles = [];
     public $userLeaflets;
     public $selectedStyle = null;
+    public $ownedAvatars = [];
+    public $ownedStyles = [];
 
     public function mount()
-    {
-        $this->avatars = Avatar::with('styles')->get();
-        $this->userLeaflets = Auth::user()->leaflets;
+{
+    $user = Auth::user();
+    $this->avatars = Avatar::with('styles')->get();
+    $this->userLeaflets = $user->leaflets;
 
-        if ($this->avatars->isNotEmpty()) {
-            $this->selectAvatar($this->avatars->first()->id);
-        }
+    if ($this->avatars->isNotEmpty()) {
+        $this->selectAvatar($this->avatars->first()->id);
     }
 
-    public function getAvatarData()
-    {
-        return $this->avatars->map(function ($avatar) {
-            // Ambil styles berdasarkan avatar_id
-            $avatarStyles = Style::where('avatar_id', $avatar->id)->get();
+    $this->ownedAvatars = $user->avatars()->pluck('avatars.id')->toArray();
+    $this->ownedStyles = DB::table('styles')
+        ->join('user_styles', 'styles.id', '=', 'user_styles.style_id')
+        ->where('user_styles.user_id', $user->id)
+        ->pluck('styles.id')
+        ->toArray();
 
-            return [
-                'id' => $avatar->id,
-                'name' => $avatar->name,
-                'path' => asset('storage/' . $avatar->path),
-                'leaflet_reward' => $avatar->leaflet_reward,
-                'styles' => $avatarStyles->map(function ($style) {
-                    return [
-                        'id' => $style->id,
-                        'name' => $style->name,
-                        'path' => asset('storage/' . $style->path),
-                    ];
-                }),
-            ];
-        });
-    }
+    $this->dispatch('styleSelected', selectedStyle: $this->selectedStyle);
+}
 
     public function selectAvatar($avatarId)
     {
         $this->selectedAvatar = Avatar::find($avatarId);
-        if ($this->selectedAvatar) {
-            // Ambil styles berdasarkan avatar_id
-            $this->styles = Style::where('avatar_id', $avatarId)->get();
 
-            // Pilih style pertama jika tersedia
-            if ($this->styles->isNotEmpty()) {
-                $this->selectStyle($this->styles->first()->id);
-            } else {
-                $this->selectedStyle = null;
-            }
+        if ($this->selectedAvatar) {
+            $this->styles = Style::where('avatar_id', $avatarId)->get();
+            $this->selectedStyle = $this->styles->first() ?? null;
         }
     }
 
     public function selectStyle($styleId)
-    {
-        $this->selectedStyle = Style::find($styleId);
-    }
+{
+    $this->selectedStyle = Style::find($styleId);
+}
 
-    public function buyAvatar()
+
+    public function buyAvatar($avatarId)
     {
-        if (!$this->selectedAvatar) {
-            session()->flash('error', 'Pilih avatar terlebih dahulu.');
+        $user = Auth::user();
+
+        if (in_array($avatarId, $this->ownedAvatars)) {
+            session()->flash('error', 'You already own this avatar!');
             return;
         }
 
-        $cost = $this->selectedAvatar->leaflet_reward;
-        $user = Auth::user();
+        $avatar = Avatar::find($avatarId);
+        if (!$avatar) return;
 
-        if ($user->leaflets >= $cost) {
-            $user->leaflets -= $cost;
-            $user->save();
-
-            $customPath = $this->selectedStyle ? $this->selectedStyle->path : $this->selectedAvatar->path;
-
-            UserAvatar::create([
-                'user_id' => $user->id,
-                'avatar_id' => $this->selectedAvatar->id,
-                'custom_path' => $customPath,
-            ]);
-
-            session()->flash('success', 'Avatar berhasil dibeli!');
-        } else {
-            session()->flash('error', 'Leaflets tidak mencukupi.');
+        if ($user->leaflets < $avatar->leaflet_reward) {
+            session()->flash('error', 'Not enough leaflets.');
+            return;
         }
+
+        $user->avatars()->attach($avatarId);
+        $user->decrement('leaflets', $avatar->leaflet_reward);
+
+        $this->ownedAvatars[] = $avatarId;
+        $this->userLeaflets = $user->leaflets;
+
+        session()->flash('success', 'Avatar purchased successfully!');
+    }
+
+    public function buyStyle($styleId)
+    {
+        $user = Auth::user();
+        $style = Style::find($styleId);
+
+        if (!$style || in_array($styleId, $this->ownedStyles)) {
+            session()->flash('error', 'You already own this style or style not found.');
+            return;
+        }
+
+        if ($user->leaflets < $style->leaflet_cost) {
+            session()->flash('error', 'Insufficient leaflets.');
+            return;
+        }
+
+        $user->styles()->attach($styleId);
+        $user->decrement('leaflets', $style->leaflet_cost);
+
+        $this->ownedStyles[] = $styleId;
+        $this->userLeaflets = $user->leaflets;
+
+        $this->dispatch('stylePurchased', ownedStyles: $this->ownedStyles);
+        session()->flash('success', 'Style purchased successfully!');
+    }
+
+    public function showModal()
+    {
+        $this->dispatch('toggleModal');
     }
 
     public function render()
     {
-        // Pastikan styles selalu sesuai dengan avatar yang dipilih
-        if ($this->selectedAvatar) {
-            $this->styles = Style::where('avatar_id', $this->selectedAvatar->id)->get();
-        }
-
         return view('livewire.customize-avatar', [
             'avatars' => $this->avatars,
             'styles' => $this->styles,

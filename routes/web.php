@@ -89,10 +89,8 @@ Route::get('/profile', Profile::class);
 Route::get('/edit-profile', EditProfile::class);
 Route::get('/mitra/volunteer/edit', EditVolunteer::class);
 Route::get('/register-volunteer', RegisterVolunteer::class);
-Route::get('/customize-avatar', CustomizeAvatar::class);
+Route::get('/customize-avatar', CustomizeAvatar::class)->name('customize-avatar');
 Route::get('/mitra/volunteer/edit', EditVolunteer::class)->name('edit-volunteer');
-
-Route::resource('tasks', TaskController::class);
 
 Route::get('/badges/{id}', function ($id) {
     $badge = Badge::findOrFail($id);

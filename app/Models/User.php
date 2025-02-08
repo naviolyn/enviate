@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -92,5 +93,29 @@ public function monthlyTasks()
         });
 }
 
+// Relasi Many-to-Many dengan Avatar yang telah dibeli
+public function ownedAvatars(): BelongsToMany
+{
+    return $this->belongsToMany(Avatar::class, 'user_avatars', 'user_id', 'avatar_id')
+                ->select('avatars.id', 'avatars.name', 'avatars.path', 'avatars.leaflet_reward')
+                ->withTimestamps();
+}
 
+public function ownedStyles(): BelongsToMany
+{
+    return $this->belongsToMany(Style::class, 'user_styles', 'user_id', 'style_id')
+                ->select('styles.id', 'styles.name', 'styles.path', 'styles.leaflet_cost')
+                ->withTimestamps();
+}
+
+public function avatars()
+{
+    return $this->belongsToMany(Avatar::class, 'user_avatars')->withTimestamps();
+}
+
+public function styles(): BelongsToMany
+    {
+        return $this->belongsToMany(Style::class, 'user_styles', 'user_id', 'style_id')
+            ->withTimestamps();
+    }
 }
