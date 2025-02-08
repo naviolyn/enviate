@@ -20,4 +20,5 @@ class Avatar extends Model
     {
         return $this->hasMany(Style::class);
     }
+    
 }

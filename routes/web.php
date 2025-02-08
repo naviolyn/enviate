@@ -57,10 +57,6 @@ Route::get('/auth/google/callback', function () {
     return redirect('/today-task');  // Sesuaikan dengan rute tujuan setelah login
 });
 
-Mail::raw('Testing Mailtrap', function ($message) {
-    $message->to('test-recipient@mailtrap.io') // Gunakan email dari Mailtrap
-            ->subject('Mailtrap Test');
-});
 
 // Halaman User
 Route::get('/', function () {
@@ -97,7 +93,7 @@ Route::resource('tasks', TaskController::class);
 Route::get('/badges/{id}', function ($id) {
     $badge = Badge::findOrFail($id);
     return response()->json($badge);
-})->middleware('auth', 'checkLevel:id');    
+})->middleware('auth', 'checkLevel:id');
 
 // Middleware Mitra
 Route::middleware(['auth', MitraMiddleware::class])->group(function () {
