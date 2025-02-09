@@ -18,45 +18,96 @@ class CustomizeAvatar extends Component
     public $ownedAvatars = [];
     public $ownedStyles = [];
 
-    protected $listeners = [
-        'selectAvatar' => 'selectAvatar',
-        'selectStyle' => 'selectStyle',
-        'buyStyle' => 'buyStyle'
-    ];
-
     public function mount()
-    {
-        $user = Auth::user();
-        $this->avatars = Avatar::with('styles')->get();
-        $this->userLeaflets = $user->leaflets;
-        $this->ownedStyles = $user->styles()->pluck('styles.id')->toArray();
+{
+    $user = Auth::user();
+    $this->avatars = Avatar::with('styles')->get();
+    $this->userLeaflets = $user->leaflets;
 
-        if ($this->avatars->isNotEmpty()) {
-            $this->selectAvatar($this->avatars->first()->id);
-        }
-
-        $this->ownedAvatars = $user->avatars()->pluck('avatars.id')->toArray();
-
-        $this->dispatch('styleSelected', ['selectedStyle' => $this->selectedStyle]);
+    if ($this->avatars->isNotEmpty()) {
+        $this->selectAvatar($this->avatars->first()->id);
     }
+
+    $this->ownedAvatars = $user->avatars()->pluck('avatars.id')->toArray();
+    $this->ownedStyles = DB::table('styles')
+        ->join('user_styles', 'styles.id', '=', 'user_styles.style_id')
+        ->where('user_styles.user_id', $user->id)
+        ->pluck('styles.id')
+        ->toArray();
+
+    $this->dispatch('styleSelected', selectedStyle: $this->selectedStyle);
+}
 
     public function selectAvatar($avatarId)
     {
-        $this->selectedAvatar = Avatar::with('styles')->find($avatarId);
+        $this->selectedAvatar = Avatar::find($avatarId);
 
         if ($this->selectedAvatar) {
-            $this->styles = $this->selectedAvatar->styles;
+            $this->styles = Style::where('avatar_id', $avatarId)->get();
             $this->selectedStyle = $this->styles->first() ?? null;
-
-            // Kirim styles ke frontend
-            $this->dispatch('updateStyles', ['styles' => $this->styles]);
         }
     }
 
     public function selectStyle($styleId)
+{
+    $this->selectedStyle = Style::find($styleId);
+}
+
+
+    public function buyAvatar($avatarId)
     {
-        $this->selectedStyle = Style::find($styleId);
-        $this->dispatch('styleSelected', ['selectedStyle' => $this->selectedStyle]);
+        $user = Auth::user();
+
+        if (in_array($avatarId, $this->ownedAvatars)) {
+            session()->flash('error', 'You already own this avatar!');
+            return;
+        }
+
+        $avatar = Avatar::find($avatarId);
+        if (!$avatar) return;
+
+        if ($user->leaflets < $avatar->leaflet_reward) {
+            session()->flash('error', 'Not enough leaflets.');
+            return;
+        }
+
+        $user->avatars()->attach($avatarId);
+        $user->decrement('leaflets', $avatar->leaflet_reward);
+
+        $this->ownedAvatars[] = $avatarId;
+        $this->userLeaflets = $user->leaflets;
+
+        session()->flash('success', 'Avatar purchased successfully!');
+    }
+
+    public function buyStyle($styleId)
+    {
+        $user = Auth::user();
+        $style = Style::find($styleId);
+
+        if (!$style || in_array($styleId, $this->ownedStyles)) {
+            session()->flash('error', 'You already own this style or style not found.');
+            return;
+        }
+
+        if ($user->leaflets < $style->leaflet_cost) {
+            session()->flash('error', 'Insufficient leaflets.');
+            return;
+        }
+
+        $user->styles()->attach($styleId);
+        $user->decrement('leaflets', $style->leaflet_cost);
+
+        $this->ownedStyles[] = $styleId;
+        $this->userLeaflets = $user->leaflets;
+
+        $this->dispatch('stylePurchased', ownedStyles: $this->ownedStyles);
+        session()->flash('success', 'Style purchased successfully!');
+    }
+
+    public function showModal()
+    {
+        $this->dispatch('toggleModal');
     }
 
     public function render()

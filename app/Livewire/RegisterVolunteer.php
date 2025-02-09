@@ -9,7 +9,6 @@ use App\Models\Volunteer;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VolunteerRegistrationMail;
 
-
 class RegisterVolunteer extends Component
 {
     public $volunteer_id, $name, $email, $phone, $reason;
@@ -34,7 +33,9 @@ class RegisterVolunteer extends Component
     {
         $this->validate();
 
-        $registration = VolunteerRegistration::create([
+        $volunteer = Volunteer::findOrFail($this->volunteer_id);
+
+        VolunteerRegistration::create([
             'volunteer_id' => $this->volunteer_id,
             'user_id' => Auth::id(),
             'name' => $this->name,
@@ -43,24 +44,19 @@ class RegisterVolunteer extends Component
             'reason' => $this->reason,
         ]);
 
-        // **Perbaikan: Pastikan model Volunteer digunakan dengan find()**
-        $volunteer = Volunteer::find($this->volunteer_id);
+        $emailTemplate = $volunteer->email ??
+            "Halo {name}, terima kasih telah mendaftar sebagai volunteer di {volunteer}.";
 
-        if ($volunteer) {
-            // Kirim email ke user
-            Mail::to($this->email)->send(new VolunteerRegistrationMail($volunteer->name, $this->name));
-        } else {
-            session()->flash('error', 'Volunteer not found!');
-        }
+        $message = str_replace(['{name}', '{volunteer}'], [$this->name, $volunteer->name], $emailTemplate);
+
+        Mail::to($this->email)->send(new VolunteerRegistrationMail($message));
 
         session()->flash('success', 'Registration successful! Please check your email.');
         $this->reset();
     }
-
 
     public function render()
     {
         return view('livewire.register-volunteer');
     }
 }
-

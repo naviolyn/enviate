@@ -25,6 +25,8 @@ use App\Livewire\RegisterVolunteer;
 use App\Livewire\Profile;
 use App\Livewire\ChangePassword;
 
+use App\Http\Controllers\AvatarController;
+use App\Http\Controllers\StyleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MitraController;
 use App\Http\Controllers\Admin\TasksController;

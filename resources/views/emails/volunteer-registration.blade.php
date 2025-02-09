@@ -33,7 +33,8 @@
 </head>
 <body>
     <div class="container">
-        <p>{{ $messageContent }}</p>
+        <p>{{ $messageContent }}</p></p>
+        <br>
         <p class="footer">Best regards,</p>
         <p class="footer"><strong>Enviate Team</strong></p>
     </div>

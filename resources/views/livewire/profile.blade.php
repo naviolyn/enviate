@@ -13,74 +13,75 @@
                         <h1 class="font-semibold ml-3 text-3xl pt-3 text-left">{{ Auth::user()->username }}</h1>
                         <h1 class="font-semibold ml-3 text-xl pt-3 text-left text-white/85">{{ Auth::user()->email }} </h1>
                       </div>
-
                     </div>
+                    <div class="px-4 h-full w-full max-w-screen-xl lg:py-2 lg:px-4">
+                        <div class="w-full lg:max-w-2xl ml-auto">
+                            <div class="space-y-3">
+                                <!-- Task and Volunteer counters -->
+                                <div class="flex flex-row gap-3 justify-end">
+                                    <div class="flex flex-row text-center text-amber-400 bg-green-900 rounded-full py-2 px-4 h-fit">
+                                        <h3 class="text-sm">{{ $completedTasksCount }} Task Complete</h3>
+                                    </div>
+                                    <div class="flex flex-row text-center text-amber-400 bg-green-900 rounded-full py-2 px-4 h-fit">
+                                        <h3 class="text-sm">{{ $completedVolunteersCount }} Volunteer Complete</h3>
+                                    </div>
+                                </div>
 
-
-                      <div class="px-4 h-full w-full max-w-screen-xl lg:py-2 lg:px-4 flex flex-col justify-between items-end">
-                        <div class="flex flex-row gap-2">
-
-
-                            </div>
-
-                        <div class="flex flex-row gap-2 w-full items-center justify-end">
-                                <div class="flex items-center py-3 w-full lg:max-w-2xl">
-                                  <div class="space-y-3 flex-1 w-full">
-                                    <div class="flex items-center">
-                                    <h4 class="font-medium text-md mr-auto text-white flex items-center">
-    Level {{ Auth::user()->level }}
-</h4>
-
-                                      <div class="flex flex-row text-center text-amber-400 bg-green-900 rounded-full border-none py-2 xl:px-4 mb-2 px-4 h-fit w-fit justify-end">
-                                        <img src="{{ asset('img/nobg-logo.png') }}" alt="" class="w-5 h-6=5 mr-2 object-cover">
-                                        <h3 class="text-sm">{{ Auth::user()->leaflets }} / 100</h3>
+                                <!-- Level and Leaflets section -->
+                                <div class="flex flex-col space-y-2 w-full max-w-lg pt-14">
+                                    <!-- Bagian atas: Level dan Leaflets -->
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-white text-lg font-semibold">Level {{ Auth::user()->level }}</span>
+                                        <div class="flex items-center bg-green-900 text-amber-400 px-4 py-1 rounded-full">
+                                            <svg class="w-4 h-4 mr-1 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M10 0C6.14 0 3 3.14 3 7c0 5.25 6.5 13 7 13 .5 0 7-7.75 7-13 0-3.86-3.14-7-7-7zm0 10.5C8.62 10.5 7.5 9.38 7.5 8S8.62 5.5 10 5.5 12.5 6.62 12.5 8 11.38 10.5 10 10.5z"/>
+                                            </svg>
+                                            <span>{{ Auth::user()->leaflets }} / {{ Auth::user()->level * 100 }}</span>
                                         </div>
                                     </div>
-                                    <div class="overflow-hidden bg-blue-50 h-6 rounded-full w-full">
-                                      <span class="h-full bg-amber-400 w-full block rounded-full" style="width: 62%"></span>
-                                    </div>
-                                  </div>
-                                </div>
-                                {{-- <div class="w-[70%] h-4 mb-4 bg-gray-200 rounded-full ">
-                                  <div class="h-4 bg-amber-400 rounded-full " style="width: 45%"></div>
-                                </div> --}}
 
+                                    <!-- Progress Bar -->
+                                    <div class="relative w-full h-4 bg-gray-300 rounded-full overflow-hidden pt-6">
+                                        <div class="absolute top-0 left-0 h-full bg-amber-400 rounded-full transition-all duration-500"
+                                            style="width: {{ (Auth::user()->leaflets % 100) }}%;">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div>
                   </div>
 
                     </div>
             </div>
-
             <div class="grid grid-cols-2 lg:grid-cols-4  gap-8 items-center h-fit lg:h-[50%] text-white w-full pb-24 md:p-0">
             <div class="bg-darkGreen rounded-2xl h-full flex flex-col justify-center align-middle items-center p-8">
-    <h3 class="mb-2 text-2xl font-extrabold">Badge</h3>
-    <div class="flex justify-center items-center flex-col">
-        @if($badge)
-            <img src="{{ asset('storage/' . $badge->image_path) }}" alt="{{ $badge->name }}" class="w-20 h-20 object-cover">
-            <span class="mt-4 text-xl font-bold text-white">{{ $badge->name }}</span>
-        @else
-            <span class="mt-4 text-xl font-bold text-white">No Badge</span>
-        @endif
-    </div>
-</div>
-
+                <h3 class="mb-2 text-2xl font-extrabold">Badge</h3>
+                    <div class="flex justify-center items-center flex-col">
+                        @if($badge)
+                            <img src="{{ asset('storage/' . $badge->image_path) }}" alt="{{ $badge->name }}" class="w-20 h-20 object-cover">
+                            <span class="mt-4 text-xl font-bold text-white">{{ $badge->name }}</span>
+                        @else
+                            <span class="mt-4 text-xl font-bold text-white">No Badge</span>
+                        @endif
+                    </div>
+            </div>
                 <div class="bg-darkGreen rounded-2xl h-full flex flex-col justify-center align-middle items-center p-8">
                   <h3 class="mb-2 text-2xl font-extrabold">Country</h3>
                   <div class="flex justify-center items-baseline">
-                    <span class="mt-4 text-5xl font-extrabold text-amber-400">#1</span>
+                    <span class="mt-4 text-5xl font-extrabold text-amber-400">#{{ $this->getUserRank('indonesia') }}</span>
                   </div>
                 </div>
                 <div class="bg-darkGreen rounded-2xl h-full flex flex-col justify-center align-middle items-center p-8">
                   <h3 class="mb-2 text-2xl font-extrabold">Province</h3>
                   <div class="flex justify-center items-baseline">
-                    <span class="mt-4 text-5xl font-extrabold text-amber-400">#1</span>
+                    <span class="mt-4 text-5xl font-extrabold text-amber-400">#{{ $this->getUserRank('province') }}</span>
                   </div>
                 </div>
                 <div class="bg-darkGreen rounded-2xl h-full flex flex-col justify-center align-middle items-center p-8">
                   <h3 class="mb-2 text-2xl font-extrabold">City</h3>
                   <div class="flex justify-center items-baseline">
-                    <span class="mt-4 text-5xl font-extrabold text-amber-400">#1</span>
+                    <span class="mt-4 text-5xl font-extrabold text-amber-400">#{{ $this->getUserRank('city') }}</span>
                   </div>
                 </div>
             </div>

@@ -14,9 +14,9 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $guarded = [];
-    protected $primaryKey = 'id'; // Sesuaikan primary key
-    public $incrementing = true; // Jika primary key auto-increment
-    protected $keyType = 'int'; // Tipe data primary key
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+    protected $keyType = 'int';
 
     /**
      * The attributes that are mass assignable.
@@ -62,7 +62,7 @@ class User extends Authenticatable
 
     public function isUser()
     {
-        return $this->role === 'user'; // misalnya role 'user'
+        return $this->role === 'user';
     }
 
     public function todayTasks()
@@ -93,7 +93,6 @@ public function monthlyTasks()
         });
 }
 
-// Relasi Many-to-Many dengan Avatar yang telah dibeli
 public function ownedAvatars(): BelongsToMany
 {
     return $this->belongsToMany(Avatar::class, 'user_avatars', 'user_id', 'avatar_id')
@@ -128,8 +127,11 @@ public function getLevelAttribute()
 {
     return $this->calculateLevel();
 }
-    public function badge()
-    {
-        return $this->hasOne(Badge::class, 'required_level', 'level');
-    }
+
+
+public function badge()
+{
+    return $this->hasOne(Badge::class, 'required_level', 'level');
+}
+
 }

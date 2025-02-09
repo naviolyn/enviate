@@ -12,9 +12,9 @@ class VolunteerRegistrationMail extends Mailable
 
     public $messageContent;
 
-    public function __construct($messageContent)
+    public function __construct($message)
     {
-        $this->messageContent = $messageContent;
+        $this->messageContent = $message;
     }
 
     public function build()
@@ -24,4 +24,3 @@ class VolunteerRegistrationMail extends Mailable
             ->with(['messageContent' => $this->messageContent]);
     }
 }
-
