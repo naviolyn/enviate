@@ -32,9 +32,9 @@ class AuthenticatedSessionController extends Controller
         if ($user->role === 'admin') {
             return redirect()->route('admin.dashboard');
         } elseif ($user->role === 'mitra') {
-            return redirect()->route('mitra.dashboard');
+            return redirect()->route('mitra.volunteer');
         } else {
-            return redirect()->route('dashboard');
+            return redirect('/today-task');
         }
     }
 

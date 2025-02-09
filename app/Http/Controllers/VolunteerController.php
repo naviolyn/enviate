@@ -20,7 +20,7 @@ class VolunteerController extends Controller
             'category' => 'required|string',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'email' => 'nullable|string|max:255', 
+            'email' => 'nullable|string|max:255',
         ]);
 
         // Handle image upload
@@ -43,13 +43,13 @@ class VolunteerController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'image' => $imagePath,
-            'email' => $request->email, // ✅ Tambah email ke database
+            'email' => $request->email,
         ]);
 
         return redirect()->back()->with('success', 'Volunteer berhasil ditambahkan.');
     }
 
-   
+
 
     // Method to show volunteer details
     public function show($id)
@@ -71,10 +71,9 @@ class VolunteerController extends Controller
 
     return redirect()->back()->with('success', 'Volunteer berhasil dihapus.');
 }
-    
+
     public function index()
     {
-        $volunteers = Volunteer::withCount('registrations')->get();
-        return view('mitra-volunteer', compact('volunteers'));
+        return redirect()->route('mitra.volunteer');
     }
 }

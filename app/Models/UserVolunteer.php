@@ -18,6 +18,7 @@ class UserVolunteer extends Model
         'status',
         'confirmed_at',
     ];
+    public $timestamps = false;
 
     public function user()
     {

@@ -108,7 +108,7 @@ Route::middleware(['auth', MitraMiddleware::class])->group(function () {
         return view('mitra/volunteer');
     })->name('mitra-volunteer');
 
-    Route::get('/mitra/volunteer', \App\Livewire\MitraVolunteer::class);
+    Route::get('/mitra/volunteer', \App\Livewire\MitraVolunteer::class)->name('mitra.volunteer');
     Route::get('/mitra-volunteer/{volunteerId}/list', VolunteeList::class)
     ->name('mitra-volunteer.user');
 
